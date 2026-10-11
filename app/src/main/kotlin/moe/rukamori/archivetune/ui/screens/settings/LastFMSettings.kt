@@ -57,6 +57,7 @@ import androidx.navigation.NavController
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.LastFmProvider
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.InfoLabel
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
@@ -439,6 +440,7 @@ private fun LastFmLoginDialog(
             }
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(
                 onClick = onLogin,
                 enabled =
@@ -554,6 +556,7 @@ private fun LastFmServiceEditorDialog(
             }
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(
                 onClick = onSave,
                 enabled = !editor.isSaving,
@@ -643,6 +646,7 @@ private fun LastFmTimingEditorDialog(
             }
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(onClick = onSave, shapes = ButtonDefaults.shapes()) {
                 Text(stringResource(android.R.string.ok))
             }

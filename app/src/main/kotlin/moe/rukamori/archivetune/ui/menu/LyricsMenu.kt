@@ -101,6 +101,7 @@ import moe.rukamori.archivetune.constants.TranslatorTargetLangKey
 import moe.rukamori.archivetune.db.entities.LyricsEntity
 import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.ui.component.DefaultDialog
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.ui.component.NewAction
 import moe.rukamori.archivetune.ui.component.NewActionGrid
@@ -464,6 +465,7 @@ fun LyricsMenu(
                     .navigationBarsPadding()
                     .imePadding(),
         ) {
+            GlassWindowBlur()
             Surface(
                 shape = AlertDialogDefaults.shape,
                 color = AlertDialogDefaults.containerColor,
@@ -785,6 +787,7 @@ private fun LyricsSearchResultDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier
@@ -1338,6 +1341,7 @@ private fun SearchLyricsInputDialog(
                 .fillMaxWidth(),
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         Surface(
             shape = AlertDialogDefaults.shape,
             color = AlertDialogDefaults.containerColor,

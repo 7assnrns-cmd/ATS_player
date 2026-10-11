@@ -60,6 +60,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.media3.common.PlaybackException
 import moe.rukamori.archivetune.BuildConfig
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @Composable
 fun PlaybackErrorDialog(
@@ -174,6 +175,7 @@ fun PlaybackErrorDialog(
                 usePlatformDefaultWidth = false,
             ),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier

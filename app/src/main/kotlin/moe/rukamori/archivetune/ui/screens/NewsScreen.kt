@@ -100,6 +100,7 @@ import coil3.request.crossfade
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.models.NewsItem
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.NewsUiState
 import moe.rukamori.archivetune.viewmodels.NewsViewModel
@@ -648,6 +649,7 @@ private fun FullImageViewerDialog(
                 dismissOnClickOutside = true,
             ),
     ) {
+        GlassWindowBlur()
         val context = LocalContext.current
         val model =
             remember(context, imageUrl) {

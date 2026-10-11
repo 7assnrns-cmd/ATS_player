@@ -99,6 +99,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_DEFAULT
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_RANGE
 import kotlin.math.roundToInt
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 val LocalPreferenceInGroup = compositionLocalOf { false }
 
@@ -512,6 +513,7 @@ private fun <T : Any> MultiSelectPreferenceBottomSheet(
             )
         },
     ) {
+        GlassWindowBlur()
         Column(
             modifier =
                 Modifier
@@ -673,6 +675,7 @@ private fun <T> PreferenceSelectionBottomSheet(
             )
         },
     ) {
+        GlassWindowBlur()
         Column(
             modifier =
                 Modifier

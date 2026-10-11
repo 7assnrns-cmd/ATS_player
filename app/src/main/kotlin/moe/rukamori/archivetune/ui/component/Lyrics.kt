@@ -157,6 +157,7 @@ import moe.rukamori.archivetune.lyrics.LyricsUtils.parseLyrics
 import moe.rukamori.archivetune.lyrics.LyricsUtils.parseTtml
 import moe.rukamori.archivetune.lyrics.LyricsUtils.romanizeLyricsLine
 import moe.rukamori.archivetune.lyrics.LyricsUtils.shouldRomanizeLyricsLine
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.ui.screens.settings.DarkMode
@@ -2553,6 +2554,7 @@ fun Lyrics(
         if (showShareDialog && shareDialogData != null) {
             val (lyricsText, songTitle, artists) = shareDialogData!!
             BasicAlertDialog(onDismissRequest = { showShareDialog = false }) {
+                GlassWindowBlur()
                 Card(
                     shape = MaterialTheme.shapes.medium,
                     elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),

@@ -70,6 +70,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @Composable
 fun DefaultDialog(
@@ -87,6 +88,7 @@ fun DefaultDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier
@@ -184,6 +186,7 @@ fun ActionPromptDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier
@@ -268,6 +271,7 @@ fun ListDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier

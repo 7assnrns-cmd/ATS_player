@@ -101,6 +101,7 @@ import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.playback.CanvasArtworkRefetchResult
 import moe.rukamori.archivetune.playback.ExoDownloadService
 import moe.rukamori.archivetune.ui.component.BottomSheetState
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.ListDialog
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.ui.component.NewAction
@@ -1166,6 +1167,7 @@ fun TempoPitchDialog(onDismiss: () -> Unit) {
             }
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(
                 onClick = onDismiss,
                 shapes = ButtonDefaults.shapes(),

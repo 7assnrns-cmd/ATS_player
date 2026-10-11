@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 val LocalMenuState = compositionLocalOf { MenuState() }
 
@@ -96,6 +97,7 @@ fun BottomSheetMenu(
             },
             modifier = modifier.fillMaxHeight(),
         ) {
+            GlassWindowBlur()
             Column(
                 modifier =
                     Modifier

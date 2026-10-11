@@ -280,6 +280,7 @@ import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar
 import moe.rukamori.archivetune.ui.component.FpsOverlay
 import moe.rukamori.archivetune.ui.component.GlassEasing
 import moe.rukamori.archivetune.ui.component.GlassIntroSheet
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.LocalBottomSheetPageState
 import moe.rukamori.archivetune.ui.component.LocalGlassSource
@@ -2742,6 +2743,7 @@ class MainActivity : ComponentActivity() {
                                     onDismissRequest = { sharedSong = null },
                                     properties = DialogProperties(usePlatformDefaultWidth = false),
                                 ) {
+                                    GlassWindowBlur()
                                     Surface(
                                         modifier = Modifier.padding(24.dp),
                                         shape = RoundedCornerShape(16.dp),
@@ -3217,6 +3219,7 @@ class MainActivity : ComponentActivity() {
                 }
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(
                     onClick = {
                         val uri = pendingBackupRestoreUri ?: return@TextButton

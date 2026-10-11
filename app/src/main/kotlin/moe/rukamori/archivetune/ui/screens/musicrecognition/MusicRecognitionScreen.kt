@@ -104,6 +104,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.allowHardware
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.SwitchPreference
 import moe.rukamori.archivetune.ui.screens.search.onlineSearchResultRoute
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
@@ -959,6 +960,7 @@ private fun MusicRecognitionSettingsBottomSheet(
         sheetState = sheetState,
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
+        GlassWindowBlur()
         Column(
             modifier =
                 Modifier
@@ -1028,6 +1030,7 @@ private fun RecognitionHistoryBottomSheet(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.surface,
     ) {
+        GlassWindowBlur()
         Box(
             modifier =
                 Modifier

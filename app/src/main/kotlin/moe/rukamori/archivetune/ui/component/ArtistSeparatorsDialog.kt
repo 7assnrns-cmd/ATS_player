@@ -52,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -86,6 +87,7 @@ fun ArtistSeparatorsDialog(
                 )
             },
             confirmButton = {
+            GlassWindowBlur()
                 Button(
                     onClick = {
                         if (newSymbolInput.isNotEmpty() && !separatorsList.contains(newSymbolInput)) {
@@ -115,6 +117,7 @@ fun ArtistSeparatorsDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         Surface(
             modifier =
                 Modifier

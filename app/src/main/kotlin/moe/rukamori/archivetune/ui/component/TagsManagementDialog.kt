@@ -71,6 +71,7 @@ import androidx.core.graphics.toColorInt
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.viewmodels.PlaylistTagColorPickerState
 import moe.rukamori.archivetune.viewmodels.PlaylistTagEditorState
 import moe.rukamori.archivetune.viewmodels.PlaylistTagUiModel
@@ -672,6 +673,7 @@ private fun PlaylistTagsDialogScaffold(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier

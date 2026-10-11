@@ -105,6 +105,7 @@ import moe.rukamori.archivetune.models.toMediaMetadata
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.YouTubeQueue
 import moe.rukamori.archivetune.ui.component.ChoiceChipsRow
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.ItemThumbnail
 import moe.rukamori.archivetune.ui.component.LocalAlbumsGrid
@@ -945,6 +946,7 @@ private fun StatsYearPickerDialog(
             }
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(onClick = onDismiss) {
                 Text(text = stringResource(R.string.dismiss))
             }

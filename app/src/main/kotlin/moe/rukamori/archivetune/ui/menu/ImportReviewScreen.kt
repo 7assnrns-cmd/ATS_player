@@ -72,6 +72,7 @@ import moe.rukamori.archivetune.models.ImportSource
 import moe.rukamori.archivetune.models.ImportedSongResult
 import moe.rukamori.archivetune.playlistimport.ImportReplacementSearcher
 import moe.rukamori.archivetune.playlistimport.buildImportSongQuery
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @Composable
 fun ImportReviewScreen(
@@ -170,6 +171,7 @@ fun ImportReviewScreen(
         onDismissRequest = onCancel,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         Surface(modifier = Modifier.fillMaxSize()) {
             Scaffold(
                 topBar = {

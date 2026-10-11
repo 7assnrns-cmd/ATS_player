@@ -100,6 +100,7 @@ import moe.rukamori.archivetune.downloads.DownloadSectionUiModel
 import moe.rukamori.archivetune.extensions.toMediaItem
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.ui.component.EmptyPlaceholder
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.ui.utils.formatFileSize
 import moe.rukamori.archivetune.utils.makeTimeString
@@ -378,6 +379,7 @@ private fun DownloadLibraryScreenContent(
             title = { Text(stringResource(R.string.remove_download)) },
             text = { Text(stringResource(pendingRemoval.confirmationMessageRes())) },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(onClick = onConfirmRemove) {
                     Text(stringResource(R.string.delete))
                 }

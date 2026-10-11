@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @Composable
 fun LoadingScreen(
@@ -46,6 +47,7 @@ fun LoadingScreen(
         val cancelAction = onCancel
         val resolvedCancelLabel = cancelLabel?.takeIf(String::isNotBlank)
         Dialog(onDismissRequest = {}) {
+            GlassWindowBlur()
             Card(
                 modifier =
                     Modifier

@@ -81,6 +81,7 @@ import moe.rukamori.archivetune.storage.StorageFolderKind
 import moe.rukamori.archivetune.storage.StorageLocationKind
 import moe.rukamori.archivetune.storage.StorageLocationRepository
 import moe.rukamori.archivetune.ui.component.ActionPromptDialog
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.ListPreference
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
@@ -572,6 +573,7 @@ private fun StorageMigrationProgressDialog(migration: StorageMigrationUiModel) {
         onDismissRequest = {},
         modifier = Modifier.padding(24.dp),
     ) {
+        GlassWindowBlur()
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -622,6 +624,7 @@ private fun StorageCacheClearProgressDialog(cacheClear: StorageCacheClearUiModel
         onDismissRequest = {},
         modifier = Modifier.padding(24.dp),
     ) {
+        GlassWindowBlur()
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -676,6 +679,7 @@ private fun StorageLocationPickerSheet(
         shape = MaterialTheme.shapes.extraLarge,
         tonalElevation = 2.dp,
     ) {
+        GlassWindowBlur()
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier =

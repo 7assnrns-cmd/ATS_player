@@ -33,6 +33,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.ThumbnailCornerRadiusKey
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.utils.rememberPreference
 import kotlin.math.roundToInt
 
@@ -110,6 +111,7 @@ fun ThumbnailCornerRadiusModal(
                 usePlatformDefaultWidth = false,
             ),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints {
             val screenWidth = maxWidth
             val dialogWidth =

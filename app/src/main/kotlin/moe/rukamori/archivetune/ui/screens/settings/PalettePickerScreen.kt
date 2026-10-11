@@ -108,6 +108,7 @@ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.CustomThemeColorKey
 import moe.rukamori.archivetune.constants.DynamicThemeKey
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.svg.DynamicSVGImage
 import moe.rukamori.archivetune.ui.svg.PALETTE
@@ -1172,6 +1173,7 @@ fun ThemeCreatorScreen(navController: NavController) {
         AlertDialog(
             onDismissRequest = { showImportErrorDialog = false },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(onClick = { showImportErrorDialog = false }, shapes = ButtonDefaults.shapes()) {
                     Text(text = stringResource(android.R.string.ok))
                 }

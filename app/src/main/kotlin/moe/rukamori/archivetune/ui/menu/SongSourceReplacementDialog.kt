@@ -59,6 +59,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.db.entities.Song
 import moe.rukamori.archivetune.playlistimport.ImportReplacementSearcher
 import moe.rukamori.archivetune.playlistimport.buildImportSongQuery
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @Composable
 fun SongSourceReplacementDialog(
@@ -130,6 +131,7 @@ fun SongSourceReplacementDialog(
         },
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         Surface(modifier = Modifier.fillMaxSize()) {
             Scaffold(
                 topBar = {

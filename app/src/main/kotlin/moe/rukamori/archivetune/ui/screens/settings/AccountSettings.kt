@@ -106,6 +106,7 @@ import moe.rukamori.archivetune.constants.VisitorDataKey
 import moe.rukamori.archivetune.constants.YtmSyncKey
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.innertube.utils.hasYouTubeLoginCookie
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.InfoLabel
 import moe.rukamori.archivetune.ui.component.TextFieldDialog
@@ -524,6 +525,7 @@ fun AccountSettings(
                 Text(text = stringResource(R.string.unsaved_account_dialog_text))
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(
                     onClick = {
                         showUnsavedAccountDialog = false
@@ -753,6 +755,7 @@ private fun AccountSwitcherSheet(
             .orEmpty()
 
     ModalBottomSheet(onDismissRequest = onDismiss) {
+        GlassWindowBlur()
         Text(
             text = stringResource(R.string.saved_accounts),
             style = MaterialTheme.typography.headlineSmall,

@@ -87,6 +87,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.models.MediaMetadata
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.utils.ComposeToImage
 
 @Immutable
@@ -279,6 +280,7 @@ private fun LyricsShareStudioDialog(
                 usePlatformDefaultWidth = false,
             ),
     ) {
+        GlassWindowBlur()
         BoxWithConstraints(
             modifier =
                 Modifier
@@ -329,6 +331,7 @@ private fun LyricsShareLoadingDialog() {
         onDismissRequest = {},
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = MaterialTheme.colorScheme.surfaceColorAtElevation(8.dp),

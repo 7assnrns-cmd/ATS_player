@@ -124,6 +124,7 @@ import moe.rukamori.archivetune.constants.AutoDownloadUpdatesKey
 import moe.rukamori.archivetune.constants.UpdatesAutoInstallKey
 import moe.rukamori.archivetune.constants.UpdatesDownloadedApkVersionKey
 import moe.rukamori.archivetune.constants.UpdatesWifiOnlyKey
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.bouncyPress
 import moe.rukamori.archivetune.ui.component.rememberBouncyPressScale
 import moe.rukamori.archivetune.updates.ApkAsset
@@ -428,7 +429,8 @@ fun UpdateScreen(
                     }
                 }
             },
-            confirmButton = {},
+            confirmButton = {
+            GlassWindowBlur()},
             dismissButton = {
                 TextButton(onClick = {
                     showAbiPickerDialog = false
@@ -514,6 +516,7 @@ fun UpdateScreen(
                 }
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(
                     onClick = {
                         showEnableUpdateNotificationConfirmDialog = false
@@ -766,7 +769,8 @@ fun UpdateScreen(
                     style = MaterialTheme.typography.headlineSmall,
                 )
             },
-            confirmButton = {},
+            confirmButton = {
+            GlassWindowBlur()},
         )
     }
 
@@ -843,6 +847,7 @@ fun UpdateScreen(
                 }
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(
                     onClick = {
                         updateDownloadJob?.cancel()
@@ -894,6 +899,7 @@ fun UpdateScreen(
                 )
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(onClick = { showUpdateUpToDateDialog = false }) {
                     Text(stringResource(android.R.string.ok))
                 }
@@ -926,6 +932,7 @@ fun UpdateScreen(
                 )
             },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(onClick = { showUpdateErrorDialog = false }) {
                     Text(stringResource(android.R.string.ok))
                 }

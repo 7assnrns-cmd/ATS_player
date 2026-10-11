@@ -54,6 +54,7 @@ import moe.rukamori.archivetune.discord.DiscordAuthCoordinator
 import moe.rukamori.archivetune.discord.DiscordOAuthRepository
 import moe.rukamori.archivetune.ui.component.EditTextPreference
 import moe.rukamori.archivetune.ui.component.EnumListPreference
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.ListPreference
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
@@ -688,6 +689,7 @@ fun DiscordSettings(navController: NavController) {
                 title = { Text(stringResource(R.string.logout_confirm_title)) },
                 text = { Text(stringResource(R.string.logout_confirm_message)) },
                 confirmButton = {
+                GlassWindowBlur()
                     TextButton(
                         onClick = {
                             coroutineScope.launch {
@@ -1158,6 +1160,7 @@ fun EditablePreference(
         AlertDialog(
             onDismissRequest = { showDialog = false },
             confirmButton = {
+            GlassWindowBlur()
                 TextButton(onClick = {
                     onValueChange(if (text.isBlank()) "" else text)
                     showDialog = false

@@ -93,6 +93,7 @@ import moe.rukamori.archivetune.ai.AiModelOption
 import moe.rukamori.archivetune.constants.AiApiValidationStatus
 import moe.rukamori.archivetune.constants.AiProvider
 import moe.rukamori.archivetune.ui.component.DefaultDialog
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.ListPreference
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
@@ -629,6 +630,7 @@ private fun ModelPickerPreference(
             shape = RoundedCornerShape(topStart = 36.dp, topEnd = 36.dp),
             containerColor = MaterialTheme.colorScheme.surface,
         ) {
+            GlassWindowBlur()
             Text(
                 text = stringResource(R.string.ai_model),
                 style = MaterialTheme.typography.headlineMedium,

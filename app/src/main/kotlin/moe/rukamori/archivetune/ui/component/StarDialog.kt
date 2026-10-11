@@ -33,6 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,6 +49,7 @@ fun StarDialog(
         onDismissRequest = onDismissRequest,
         sheetState = sheetState,
     ) {
+        GlassWindowBlur()
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier =

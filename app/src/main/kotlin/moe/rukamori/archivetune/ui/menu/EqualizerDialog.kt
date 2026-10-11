@@ -92,6 +92,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.equalizer.EqualizerControlMode
 import moe.rukamori.archivetune.equalizer.EqualizerTone
+import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.viewmodels.EqualizerBandUiModel
 import moe.rukamori.archivetune.viewmodels.EqualizerEffect
 import moe.rukamori.archivetune.viewmodels.EqualizerProfileUiModel
@@ -144,6 +145,7 @@ fun EqualizerDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false),
     ) {
+        GlassWindowBlur()
         EqualizerScreen(
             state = state,
             snackbarHostState = snackbarHostState,
@@ -854,6 +856,7 @@ private fun SaveProfileDialog(
             )
         },
         confirmButton = {
+        GlassWindowBlur()
             TextButton(onClick = onSave, enabled = name.isNotBlank()) { Text(text = stringResource(R.string.save)) }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
@@ -878,7 +881,8 @@ private fun ManageProfilesDialog(
                 }
             }
         },
-        confirmButton = { TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
+        confirmButton = {
+        GlassWindowBlur() TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
     )
 }
 
