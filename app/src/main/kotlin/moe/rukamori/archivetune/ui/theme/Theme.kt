@@ -32,6 +32,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.SaverScope
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
@@ -269,7 +270,37 @@ dynamicThemeAnimationDurationMs: Int = 800,
         }
     val glassActive = glassEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val glassBackdrop = if (glassActive) glassLayer else null
-    val glassSource = if (glassActive) Modifier.layerBackdrop(glassLayer) else Modifier
+    val glowPrimary = animatedColorScheme.primary
+    val glowTertiary = animatedColorScheme.tertiary
+    val glowDark = animatedColorScheme.surface.luminance() < 0.5f
+    val glassSource =
+        if (glassActive) {
+            Modifier
+                .layerBackdrop(glassLayer)
+                .drawWithContent {
+                    drawContent()
+                    // Ambient glow so the glass always has colour behind it.
+                    val glowAlpha = if (glowDark) 0.16f else 0.10f
+                    drawRect(
+                        brush =
+                            Brush.radialGradient(
+                                colors = listOf(glowPrimary.copy(alpha = glowAlpha), Color.Transparent),
+                                center = Offset(size.width * 0.10f, size.height * 0.04f),
+                                radius = size.width * 0.95f,
+                            ),
+                    )
+                    drawRect(
+                        brush =
+                            Brush.radialGradient(
+                                colors = listOf(glowTertiary.copy(alpha = glowAlpha), Color.Transparent),
+                                center = Offset(size.width * 0.96f, size.height * 0.96f),
+                                radius = size.width * 0.85f,
+                            ),
+                    )
+                }
+        } else {
+            Modifier
+        }
 
     CompositionLocalProvider(
         LocalArchiveTuneFontPreference provides fontPreference,
