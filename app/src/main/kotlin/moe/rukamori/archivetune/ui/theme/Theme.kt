@@ -71,6 +71,7 @@ import androidx.compose.runtime.setValue
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
 import moe.rukamori.archivetune.ui.component.LocalGlassSource
+import moe.rukamori.archivetune.ui.component.ProvideBouncyIndication
 import moe.rukamori.archivetune.utils.rememberPreference
 
 val DefaultThemeColor = Color(0xFFED5564)
@@ -313,7 +314,9 @@ dynamicThemeAnimationDurationMs: Int = 800,
             motionScheme = motionScheme,
             typography = typography,
             shapes = expressiveShapes,
-            content = content,
+            content = {
+                ProvideBouncyIndication(enabled = !disableAnimations, content = content)
+            },
         )
     }
 }
