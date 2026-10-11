@@ -34,6 +34,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.spring
@@ -2606,6 +2607,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
 
+                                val navSlideSpec =
+                                    spring<IntOffset>(
+                                        dampingRatio = 0.9f,
+                                        stiffness = Spring.StiffnessMediumLow,
+                                        visibilityThreshold = IntOffset.VisibilityThreshold,
+                                    )
+
                                 NavHost(
                                     navController = navController,
                                     startDestination =
@@ -2624,9 +2632,9 @@ class MainActivity : ComponentActivity() {
                                         } else if (initialState.destination.route in topLevelScreens &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeIn(tween(250))
+                                            fadeIn(tween(250)) + scaleIn(initialScale = 0.96f, animationSpec = tween(250))
                                         } else {
-                                            fadeIn(tween(250)) + slideInHorizontally { it / 2 }
+                                            fadeIn(tween(250)) + slideInHorizontally(navSlideSpec) { it / 2 }
                                         }
                                     },
                                     exitTransition = {
@@ -2635,9 +2643,9 @@ class MainActivity : ComponentActivity() {
                                         } else if (initialState.destination.route in topLevelScreens &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeOut(tween(200))
+                                            fadeOut(tween(200)) + scaleOut(targetScale = 0.98f, animationSpec = tween(200))
                                         } else {
-                                            fadeOut(tween(200)) + slideOutHorizontally { -it / 2 }
+                                            fadeOut(tween(200)) + slideOutHorizontally(navSlideSpec) { -it / 2 }
                                         }
                                     },
                                     popEnterTransition = {
@@ -2649,9 +2657,9 @@ class MainActivity : ComponentActivity() {
                                             ) &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeIn(tween(250))
+                                            fadeIn(tween(250)) + scaleIn(initialScale = 0.96f, animationSpec = tween(250))
                                         } else {
-                                            fadeIn(tween(250)) + slideInHorizontally { -it / 2 }
+                                            fadeIn(tween(250)) + slideInHorizontally(navSlideSpec) { -it / 2 }
                                         }
                                     },
                                     popExitTransition = {
@@ -2663,9 +2671,9 @@ class MainActivity : ComponentActivity() {
                                             ) &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeOut(tween(200))
+                                            fadeOut(tween(200)) + scaleOut(targetScale = 0.98f, animationSpec = tween(200))
                                         } else {
-                                            fadeOut(tween(200)) + slideOutHorizontally { it / 2 }
+                                            fadeOut(tween(200)) + slideOutHorizontally(navSlideSpec) { it / 2 }
                                         }
                                     },
                                     modifier =
