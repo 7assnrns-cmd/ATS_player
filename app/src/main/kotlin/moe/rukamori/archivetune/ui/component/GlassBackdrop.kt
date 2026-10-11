@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -84,22 +83,18 @@ fun Modifier.glassSheen(
     shape: Shape,
     alpha: Float = 0.12f,
 ): Modifier =
-    drawWithContent {
-        val outline = shape.createOutline(size, layoutDirection, this)
-        drawOutline(
-            outline = outline,
-            brush =
-                Brush.verticalGradient(
-                    colorStops =
-                        arrayOf(
-                            0f to Color.White.copy(alpha = alpha),
-                            0.5f to Color.Transparent,
-                            1f to Color.Transparent,
-                        ),
-                ),
-        )
-        drawContent()
-    }
+    background(
+        brush =
+            Brush.verticalGradient(
+                colorStops =
+                    arrayOf(
+                        0f to Color.White.copy(alpha = alpha),
+                        0.5f to Color.Transparent,
+                        1f to Color.Transparent,
+                    ),
+            ),
+        shape = shape,
+    )
 
 /**
  * App-styled glass: the panel colour is the theme surface mixed with the
