@@ -83,6 +83,7 @@ import moe.rukamori.archivetune.constants.PlayerCustomBlurKey
 import moe.rukamori.archivetune.constants.PlayerCustomBrightnessKey
 import moe.rukamori.archivetune.constants.PlayerCustomContrastKey
 import moe.rukamori.archivetune.constants.PlayerCustomImageUriKey
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.utils.rememberPreference
 import kotlin.math.roundToInt
 
@@ -339,6 +340,7 @@ private fun BackgroundPreviewSection(
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
             ),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
@@ -529,6 +531,7 @@ private fun BackgroundAdjustmentSection(
                 CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer,
                 ),
+            border = glassCardBorder(),
         ) {
             BackgroundAdjustmentSlider(
                 label = stringResource(R.string.blur),

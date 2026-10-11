@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 
 /**
  * A Material 3 Expressive style settings group component
@@ -58,6 +59,7 @@ fun Material3SettingsGroup(
                     containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
                 ),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+            border = glassCardBorder(),
         ) {
             Column {
                 items.forEachIndexed { index, item ->

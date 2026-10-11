@@ -31,6 +31,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 
 @Composable
 fun LoadingScreen(
@@ -56,6 +57,7 @@ fun LoadingScreen(
                 shape = MaterialTheme.shapes.extraLarge,
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = glassCardBorder(),
             ) {
                 Column(
                     modifier = Modifier.padding(horizontal = 24.dp, vertical = 22.dp),

@@ -81,6 +81,7 @@ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.AboutContributorUiCollection
@@ -788,6 +789,7 @@ private fun AboutIdentityCard(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
             if (maxWidth >= AboutDimensions.HorizontalHeroBreakpoint) {
@@ -1222,6 +1224,7 @@ private fun ContributorStatusContent(
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier =

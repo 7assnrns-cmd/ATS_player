@@ -93,6 +93,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.equalizer.EqualizerControlMode
 import moe.rukamori.archivetune.equalizer.EqualizerTone
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.viewmodels.EqualizerBandUiModel
 import moe.rukamori.archivetune.viewmodels.EqualizerEffect
@@ -430,6 +431,7 @@ private fun EqualizerHero(
                 containerColor = containerColor,
                 contentColor = contentColor,
             ),
+        border = glassCardBorder(),
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -472,6 +474,7 @@ private fun ModeSelector(
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+        border = glassCardBorder(),
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Text(
@@ -691,6 +694,7 @@ private fun EqualizerSection(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.extraLarge,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
+        border = glassCardBorder(),
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Row(verticalAlignment = Alignment.Top) {

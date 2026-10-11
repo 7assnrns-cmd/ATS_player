@@ -158,6 +158,7 @@ import moe.rukamori.archivetune.lyrics.LyricsUtils.parseTtml
 import moe.rukamori.archivetune.lyrics.LyricsUtils.romanizeLyricsLine
 import moe.rukamori.archivetune.lyrics.LyricsUtils.shouldRomanizeLyricsLine
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.ui.screens.settings.DarkMode
@@ -2566,6 +2567,7 @@ fun Lyrics(
                         Modifier
                             .padding(16.dp)
                             .fillMaxWidth(0.85f),
+                    border = glassCardBorder(),
                 ) {
                     Column(modifier = Modifier.padding(20.dp)) {
                         Text(

@@ -98,6 +98,7 @@ import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.TextFieldDialog
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.MusicTogetherActivityLogItemUiModel
@@ -486,6 +487,7 @@ private fun StatusCard(
         shape = MaterialTheme.shapes.extraLarge,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(MusicTogetherSpacing.sm),
@@ -619,6 +621,7 @@ private fun PlaybackCard(playback: MusicTogetherPlaybackUiModel) {
         shape = MaterialTheme.shapes.extraLarge,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(MusicTogetherSpacing.sm),
@@ -1093,6 +1096,7 @@ private fun SectionCard(
         shape = MaterialTheme.shapes.extraLarge,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(MusicTogetherSpacing.sm),

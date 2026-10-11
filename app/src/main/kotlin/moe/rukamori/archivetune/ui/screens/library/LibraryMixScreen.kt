@@ -91,6 +91,7 @@ import moe.rukamori.archivetune.spotify.SpotifyLibraryViewModel
 import moe.rukamori.archivetune.spotify.SpotifyMapper
 import moe.rukamori.archivetune.spotify.models.SpotifyPlaylist
 import moe.rukamori.archivetune.ui.component.ExpressivePullToRefreshBox
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.LibraryMixViewModel
 import moe.rukamori.archivetune.viewmodels.LibraryRefreshState
@@ -947,6 +948,7 @@ private fun TopMixesEmptySection(
                     containerColor = MaterialTheme.colorScheme.surfaceContainer,
                     contentColor = MaterialTheme.colorScheme.onSurface,
                 ),
+            border = glassCardBorder(),
         ) {
             Column(
                 modifier =
@@ -1069,6 +1071,7 @@ private fun LibraryTopMixCard(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
             ),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier =

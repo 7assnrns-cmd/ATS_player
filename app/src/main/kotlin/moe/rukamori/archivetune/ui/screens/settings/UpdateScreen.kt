@@ -126,6 +126,7 @@ import moe.rukamori.archivetune.constants.UpdatesDownloadedApkVersionKey
 import moe.rukamori.archivetune.constants.UpdatesWifiOnlyKey
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.bouncyPress
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.component.rememberBouncyPressScale
 import moe.rukamori.archivetune.updates.ApkAsset
@@ -1138,6 +1139,7 @@ private fun UpdateStatusPanel(
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             ),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -1266,6 +1268,7 @@ private fun UpdateDownloadPanel(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -1412,6 +1415,7 @@ private fun UpdatePreferencesPanel(
                 CardDefaults.cardColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
                 ),
+            border = glassCardBorder(),
         ) {
             Column(
                 modifier = Modifier.padding(20.dp),

@@ -83,6 +83,7 @@ import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.NavigationTitle
 import moe.rukamori.archivetune.ui.component.YouTubeGridItem
 import moe.rukamori.archivetune.ui.component.YouTubeListItem
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.ui.menu.YouTubeAlbumMenu
@@ -547,6 +548,7 @@ private fun SuggestedSongsSection(
                                     }
                                 },
                             ),
+                    border = glassCardBorder(),
                 ) {
                     YouTubeListItem(
                         item = song,

@@ -114,6 +114,7 @@ import moe.rukamori.archivetune.lyrics.WordTimestamp
 import moe.rukamori.archivetune.lyrics.toLyricsEntries
 import moe.rukamori.archivetune.lyrics.LyricsVisibilityOverride
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.ui.theme.rememberArchiveTuneLyricsFontFamily
@@ -968,6 +969,7 @@ fun LyricsV2(
                     Modifier
                         .padding(16.dp)
                         .fillMaxWidth(0.85f),
+                border = glassCardBorder(),
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Text(

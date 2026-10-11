@@ -135,6 +135,7 @@ import moe.rukamori.archivetune.ui.component.PreferenceEntry
 import moe.rukamori.archivetune.ui.component.PreferenceGroup
 import moe.rukamori.archivetune.ui.component.SwitchPreference
 import moe.rukamori.archivetune.ui.component.TextFieldDialog
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
@@ -1431,6 +1432,7 @@ private fun PaxsenixStatsContent(stats: PaxsenixStats) {
                                             MaterialTheme.colorScheme.errorContainer
                                         },
                                 ),
+                            border = glassCardBorder(),
                         ) {
                             Row(
                                 modifier =
@@ -1499,6 +1501,7 @@ private fun PaxsenixStatusBar(successRate: Float) {
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             ),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =

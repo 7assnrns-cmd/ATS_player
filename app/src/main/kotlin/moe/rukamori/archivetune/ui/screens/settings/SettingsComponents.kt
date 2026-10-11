@@ -63,6 +63,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 
 @Composable
 fun SettingsProfileHeader(
@@ -95,6 +96,7 @@ fun SettingsProfileHeader(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =
@@ -183,6 +185,7 @@ fun SettingsPermissionBanner(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =
@@ -284,6 +287,7 @@ fun SettingsUpdateBanner(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =
@@ -366,6 +370,7 @@ fun SettingsGroupCard(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
                 ),
             elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+            border = glassCardBorder(),
         ) {
             Column {
                 group.items.forEachIndexed { index, item ->
@@ -588,6 +593,7 @@ fun SettingsSegmentedItem(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =

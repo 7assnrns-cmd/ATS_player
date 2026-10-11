@@ -60,6 +60,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.innertube.models.BrowseEndpoint
 import moe.rukamori.archivetune.ui.component.NavigationTitle
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.viewmodels.MoodAndGenresViewModel
@@ -208,6 +209,7 @@ fun MoodAndGenresButton(
         modifier =
             modifier
                 .height(MoodAndGenresButtonHeight),
+        border = glassCardBorder(),
     ) {
         Box(
             modifier =

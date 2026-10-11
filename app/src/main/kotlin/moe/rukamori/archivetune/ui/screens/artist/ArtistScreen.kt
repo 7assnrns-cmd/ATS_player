@@ -131,6 +131,7 @@ import moe.rukamori.archivetune.ui.component.NavigationTitle
 import moe.rukamori.archivetune.ui.component.SongListItem
 import moe.rukamori.archivetune.ui.component.YouTubeGridItem
 import moe.rukamori.archivetune.ui.component.YouTubeListItem
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ButtonPlaceholder
 import moe.rukamori.archivetune.ui.component.shimmer.ListItemPlaceHolder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
@@ -1247,6 +1248,7 @@ private fun ArtistNewReleaseSection(
                 Modifier
                     .fillMaxWidth()
                     .widthIn(max = ArtistContentMaxWidth),
+            border = glassCardBorder(),
         ) {
             Row(
                 modifier =

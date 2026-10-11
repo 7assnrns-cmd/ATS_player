@@ -28,6 +28,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.UpdateChannel
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.MarkdownText
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.ReleaseInfo
 import moe.rukamori.archivetune.utils.Updater
@@ -193,6 +194,7 @@ private fun ReleaseCard(release: ReleaseInfo) {
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
             ),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

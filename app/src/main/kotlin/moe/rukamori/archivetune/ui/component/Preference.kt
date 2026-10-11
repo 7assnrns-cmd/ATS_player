@@ -100,6 +100,7 @@ import moe.rukamori.archivetune.constants.HISTORY_DURATION_DEFAULT
 import moe.rukamori.archivetune.constants.HISTORY_DURATION_RANGE
 import kotlin.math.roundToInt
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 
 val LocalPreferenceInGroup = compositionLocalOf { false }
 
@@ -272,6 +273,7 @@ fun PreferenceEntry(
                     scaleX = scale
                     scaleY = scale
                 },
+        border = glassCardBorder(),
     ) {
         rowContent()
     }

@@ -128,6 +128,7 @@ import moe.rukamori.archivetune.lyrics.LyricsUtils.providedTranslationTextForEnt
 import moe.rukamori.archivetune.lyrics.WordTimestamp
 import moe.rukamori.archivetune.lyrics.toLyricsEntries
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerHost
 import moe.rukamori.archivetune.ui.component.shimmer.TextPlaceholder
 import moe.rukamori.archivetune.ui.theme.rememberArchiveTuneLyricsFontFamily
@@ -671,6 +672,7 @@ fun LyricsEnhanced(
                     Modifier
                         .padding(16.dp)
                         .fillMaxWidth(0.85f),
+                border = glassCardBorder(),
             ) {
                 Column(modifier = Modifier.padding(20.dp)) {
                     Text(
@@ -999,6 +1001,7 @@ private fun LyricsSelectionLineItem(
             Modifier
                 .fillMaxWidth()
                 .heightIn(min = 72.dp),
+        border = glassCardBorder(),
     ) {
         Box(
             modifier =

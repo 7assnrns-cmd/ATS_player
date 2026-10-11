@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.utils.Updater
 
 @Composable
@@ -51,6 +52,7 @@ fun ReleaseNotesCard() {
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(6.dp),
             ),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

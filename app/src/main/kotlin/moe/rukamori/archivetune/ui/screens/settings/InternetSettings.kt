@@ -57,6 +57,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.*
 import moe.rukamori.archivetune.innertube.YouTube
 import moe.rukamori.archivetune.ui.component.*
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.ProxyUtils
 import moe.rukamori.archivetune.utils.rememberEnumPreference
@@ -79,6 +80,7 @@ fun InternetWarningBox(modifier: Modifier = Modifier) {
                 containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.7f),
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier =

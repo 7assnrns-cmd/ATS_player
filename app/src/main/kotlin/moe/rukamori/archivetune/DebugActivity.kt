@@ -64,6 +64,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.theme.ArchiveTuneTheme
 import java.io.File
 import java.text.SimpleDateFormat
@@ -254,6 +255,7 @@ private fun CrashReportScaffold(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                 shape = RoundedCornerShape(18.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = glassCardBorder(),
             ) {
                 Column(
                     modifier =
@@ -300,6 +302,7 @@ private fun CrashReportScaffold(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                 shape = RoundedCornerShape(18.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = glassCardBorder(),
             ) {
                 Column(
                     modifier =
@@ -329,6 +332,7 @@ private fun CrashReportScaffold(
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainer),
                 shape = RoundedCornerShape(18.dp),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                border = glassCardBorder(),
             ) {
                 Column(
                     modifier =

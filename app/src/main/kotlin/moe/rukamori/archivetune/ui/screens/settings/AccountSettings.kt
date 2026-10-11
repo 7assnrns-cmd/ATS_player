@@ -110,6 +110,7 @@ import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.InfoLabel
 import moe.rukamori.archivetune.ui.component.TextFieldDialog
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.component.glassSheetContainer
 import moe.rukamori.archivetune.ui.screens.buildLoginRoute
@@ -574,6 +575,7 @@ private fun AccountSummaryCard(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.extraLarge,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -1029,6 +1031,7 @@ private fun UpdateBannerStrip(
             CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             ),
+        border = glassCardBorder(),
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 20.dp, vertical = 16.dp),

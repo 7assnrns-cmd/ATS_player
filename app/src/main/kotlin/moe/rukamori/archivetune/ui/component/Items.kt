@@ -131,6 +131,7 @@ import moe.rukamori.archivetune.innertube.models.SongItem
 import moe.rukamori.archivetune.innertube.models.YTItem
 import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.playback.queues.LocalAlbumRadio
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.theme.PlayerColorExtractor
 import moe.rukamori.archivetune.ui.theme.extractThemeColor
 import moe.rukamori.archivetune.ui.utils.YtimgResizePolicy
@@ -925,6 +926,7 @@ fun LibraryPinnedCollectionTile(
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = modifier,
+        border = glassCardBorder(),
     ) {
         Box(
             modifier =
@@ -1027,6 +1029,7 @@ fun LibraryPlaylistFeatureCard(
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         shape = shape,
         modifier = modifier,
+        border = glassCardBorder(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -1144,6 +1147,7 @@ fun LibraryAlbumSpotlightCard(
                     },
             ),
         modifier = modifier,
+        border = glassCardBorder(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -1249,6 +1253,7 @@ fun LibraryArtistSpotlightCard(
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
         modifier = modifier,
+        border = glassCardBorder(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

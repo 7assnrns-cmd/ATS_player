@@ -82,6 +82,7 @@ import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
 import moe.rukamori.archivetune.ui.component.PreferenceGroup
 import moe.rukamori.archivetune.ui.component.SwitchPreference
+import moe.rukamori.archivetune.ui.component.glassCardBorder
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.makeTimeString
 import moe.rukamori.archivetune.constants.DeveloperFpsOverlayKey
@@ -285,6 +286,7 @@ private fun DiscordDebugSection() {
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier =
@@ -473,6 +475,7 @@ private fun NerdStatsSection(playerConnection: moe.rukamori.archivetune.playback
                 containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
             ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier =
