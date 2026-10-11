@@ -949,6 +949,9 @@ val UpdatesAutoInstallKey = booleanPreferencesKey("updatesAutoInstall")
 val LastUpdateCheckKey = longPreferencesKey("lastUpdateCheck")
 val LastNotifiedVersionKey = stringPreferencesKey("lastNotifiedVersion")
 
+// Appearance: glass effect
+val GlassEffectEnabledKey = booleanPreferencesKey("glassEffectEnabled")
+
 val GitHubContributorsEtagKey = stringPreferencesKey("github_contributors_etag")
 val GitHubContributorsJsonKey = stringPreferencesKey("github_contributors_json")
 val GitHubContributorsLastCheckedAtKey = longPreferencesKey("github_contributors_last_checked_at")

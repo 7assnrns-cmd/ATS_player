@@ -13,6 +13,7 @@ import moe.rukamori.archivetune.constants.DynamicThemeSyncWithCrossfadeKey
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItem
+import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.ui.component.ListDialog
 import moe.rukamori.archivetune.ui.theme.DynamicThemeAnimationStyle
 import moe.rukamori.archivetune.constants.DynamicThemeAnimationStyleKey
@@ -245,6 +246,7 @@ fun AppearanceSettings(navController: NavController) {
             defaultValue = MiniPlayerBackgroundStyle.THEME,
         )
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
+    val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = true)
     val (disableBlur, onDisableBlurChange) = rememberPreference(DisableBlurKey, defaultValue = false)
     val (disableAnimations, onDisableAnimationsChange) =
         rememberPreference(
@@ -803,6 +805,16 @@ fun AppearanceSettings(navController: NavController) {
                         icon = { Icon(painterResource(R.drawable.contrast), null) },
                         checked = pureBlack,
                         onCheckedChange = onPureBlackChange,
+                    )
+                }
+
+                item(visible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.glass_effect)) },
+                        description = stringResource(R.string.glass_effect_desc),
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
+                        checked = glassEffect,
+                        onCheckedChange = onGlassEffectChange,
                     )
                 }
 

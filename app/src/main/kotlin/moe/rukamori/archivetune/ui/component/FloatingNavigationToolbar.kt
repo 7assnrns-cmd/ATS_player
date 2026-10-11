@@ -76,6 +76,7 @@ fun FloatingNavigationToolbar(
         )
     val navigationContainerColor =
         if (pureBlack) Color.Black else MaterialTheme.colorScheme.surfaceContainer
+    val glassActive = LocalGlassBackdrop.current != null
     val motionScheme = MaterialTheme.motionScheme
     Box(
         modifier =
@@ -89,11 +90,12 @@ fun FloatingNavigationToolbar(
                 Modifier
                     .widthIn(max = NavigationBarMaxWidth)
                     .fillMaxWidth()
-                    .height(NavigationBarHeight),
+                    .height(NavigationBarHeight)
+                    .glassSurface(navigationShape),
             shape = navigationShape,
-            color = navigationContainerColor,
-            tonalElevation = NavigationBarDefaults.Elevation,
-            shadowElevation = NavigationBarDefaults.Elevation,
+            color = if (glassActive) Color.Transparent else navigationContainerColor,
+            tonalElevation = if (glassActive) 0.dp else NavigationBarDefaults.Elevation,
+            shadowElevation = if (glassActive) 0.dp else NavigationBarDefaults.Elevation,
         ) {
             ShortNavigationBar(
                 modifier = Modifier.fillMaxSize(),
