@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.SaverScope
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -38,6 +39,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.palette.graphics.Palette
+import com.kyant.backdrop.backdrops.layerBackdrop
+import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import com.materialkolor.PaletteStyle
 import com.materialkolor.dynamicColorScheme
 import com.materialkolor.ktx.toHct
@@ -64,6 +67,10 @@ import androidx.compose.ui.graphics.Brush
 import kotlin.math.hypot
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
+import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
+import moe.rukamori.archivetune.ui.component.LocalGlassSource
+import moe.rukamori.archivetune.utils.rememberPreference
 
 val DefaultThemeColor = Color(0xFFED5564)
 val LocalArchiveTuneFontPreference = staticCompositionLocalOf { AppFontPreference.DEFAULT }
@@ -253,9 +260,22 @@ dynamicThemeAnimationDurationMs: Int = 800,
             )
         }
 
+    val glassEnabled by rememberPreference(GlassEffectEnabledKey, defaultValue = true)
+    val glassSurfaceColor by rememberUpdatedState(animatedColorScheme.surface)
+    val glassLayer =
+        rememberLayerBackdrop {
+            drawRect(glassSurfaceColor)
+            drawContent()
+        }
+    val glassActive = glassEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    val glassBackdrop = if (glassActive) glassLayer else null
+    val glassSource = if (glassActive) Modifier.layerBackdrop(glassLayer) else Modifier
+
     CompositionLocalProvider(
         LocalArchiveTuneFontPreference provides fontPreference,
         LocalArchiveTuneFontFamily provides resolvedFontFamily,
+        LocalGlassBackdrop provides glassBackdrop,
+        LocalGlassSource provides glassSource,
     ) {
         MaterialExpressiveTheme(
             colorScheme = animatedColorScheme,

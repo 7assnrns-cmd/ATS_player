@@ -25,6 +25,12 @@ import com.kyant.backdrop.effects.vibrancy
 val LocalGlassBackdrop = compositionLocalOf<Backdrop?> { null }
 
 /**
+ * Modifier that marks a layout as the source of the glass backdrop.
+ * Provided by the theme; an empty Modifier means glass is disabled.
+ */
+val LocalGlassSource = compositionLocalOf<Modifier> { Modifier }
+
+/**
  * Low-level frosted panel: blurs and saturates whatever [backdrop] shows
  * behind this element, then paints [fill] on top. Returns the receiver
  * unchanged when [backdrop] is null.
