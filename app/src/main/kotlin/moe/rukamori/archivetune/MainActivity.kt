@@ -291,6 +291,7 @@ import moe.rukamori.archivetune.ui.component.StarDialog
 import moe.rukamori.archivetune.ui.component.TopSearch
 import moe.rukamori.archivetune.ui.component.TvNavigationRail
 import moe.rukamori.archivetune.ui.component.glassDialogContainer
+import moe.rukamori.archivetune.ui.component.glassHeaderScrim
 import moe.rukamori.archivetune.ui.component.rememberBottomSheetState
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerTheme
 import moe.rukamori.archivetune.ui.menu.YouTubeSongMenu
@@ -1995,17 +1996,17 @@ class MainActivity : ComponentActivity() {
                                                                     with(LocalDensity.current) {
                                                                         WindowInsets.systemBars.getTop(LocalDensity.current).toDp()
                                                                     },
-                                                            ).background(
-                                                                Brush.verticalGradient(
-                                                                    colors =
-                                                                        listOf(
-                                                                            surfaceColor.copy(alpha = 0.95f),
-                                                                            surfaceColor.copy(alpha = 0.85f),
-                                                                            surfaceColor.copy(alpha = 0.6f),
-                                                                            Color.Transparent,
-                                                                        ),
-                                                                ),
+                                                            ).glassHeaderScrim(
+                                                    Brush.verticalGradient(
+                                                        colors =
+                                                            listOf(
+                                                                surfaceColor.copy(alpha = 0.95f),
+                                                                surfaceColor.copy(alpha = 0.85f),
+                                                                surfaceColor.copy(alpha = 0.6f),
+                                                                Color.Transparent,
                                                             ),
+                                                    ),
+                                                ),
                                                 )
                                             }
 
