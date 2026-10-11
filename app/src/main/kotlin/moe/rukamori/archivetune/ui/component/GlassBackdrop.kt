@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.kyant.backdrop.Backdrop
 import com.kyant.backdrop.drawBackdrop
 import com.kyant.backdrop.effects.blur
+import com.kyant.backdrop.effects.lens
 import com.kyant.backdrop.effects.vibrancy
 
 /**
@@ -32,8 +34,10 @@ val LocalGlassSource = compositionLocalOf<Modifier> { Modifier }
 
 /**
  * Low-level frosted panel: blurs and saturates whatever [backdrop] shows
- * behind this element, then paints [fill] on top. Returns the receiver
- * unchanged when [backdrop] is null.
+ * behind this element, then paints [fill] on top. Optional [lensHeight] and
+ * [lensAmount] add edge refraction; a specified [hueTint] shifts the hue of
+ * the backdrop toward that colour. Returns the receiver unchanged when
+ * [backdrop] is null.
  */
 fun Modifier.glassPanel(
     backdrop: Backdrop?,
@@ -43,6 +47,9 @@ fun Modifier.glassPanel(
             listOf(Color.White.copy(alpha = 0.30f), Color.White.copy(alpha = 0.16f)),
         ),
     blurRadius: Dp = 20.dp,
+    lensHeight: Dp = 0.dp,
+    lensAmount: Dp = 0.dp,
+    hueTint: Color = Color.Unspecified,
 ): Modifier =
     if (backdrop == null) {
         this
@@ -53,8 +60,12 @@ fun Modifier.glassPanel(
             effects = {
                 vibrancy()
                 blur(blurRadius.toPx())
+                if (lensHeight > 0.dp) lens(lensHeight.toPx(), lensAmount.toPx())
             },
-            onDrawSurface = { drawRect(fill) },
+            onDrawSurface = {
+                if (hueTint != Color.Unspecified) drawRect(hueTint, blendMode = BlendMode.Hue)
+                drawRect(fill)
+            },
         )
     }
 
@@ -62,34 +73,42 @@ fun Modifier.glassPanel(
  * App-styled glass: the panel colour is the theme surface mixed with the
  * current primary (so it follows the playing track's cover), denser at the
  * top and lighter at the bottom, with a 1dp edge that catches light from the
- * top-left. No-op while [LocalGlassBackdrop] is null.
+ * top-left. With [liquid] set, the panel also refracts light at its edges and
+ * shifts the backdrop hue toward the primary colour. No-op while
+ * [LocalGlassBackdrop] is null.
  */
 @Composable
 fun Modifier.glassSurface(
     shape: Shape,
     accentMix: Float = 0.12f,
     blurRadius: Dp = 20.dp,
+    liquid: Boolean = false,
 ): Modifier {
     val backdrop = LocalGlassBackdrop.current ?: return this
     val scheme = MaterialTheme.colorScheme
     val dark = scheme.surface.luminance() < 0.5f
-    val body = lerp(scheme.surface, scheme.primary, accentMix)
-    val fill =
-        Brush.verticalGradient(
-            listOf(
-                body.copy(alpha = if (dark) 0.46f else 0.58f),
-                body.copy(alpha = if (dark) 0.30f else 0.40f),
-            ),
-        )
+    val body = lerp(scheme.surface, scheme.primary, if (liquid) accentMix + 0.08f else accentMix)
+    val topAlpha = if (liquid) (if (dark) 0.34f else 0.46f) else (if (dark) 0.46f else 0.58f)
+    val bottomAlpha = if (liquid) (if (dark) 0.20f else 0.30f) else (if (dark) 0.30f else 0.40f)
+    val fill = Brush.verticalGradient(listOf(body.copy(alpha = topAlpha), body.copy(alpha = bottomAlpha)))
+    val rimStart = if (liquid) (if (dark) 0.55f else 0.85f) else (if (dark) 0.34f else 0.70f)
+    val rimEnd = if (liquid) (if (dark) 0.22f else 0.40f) else (if (dark) 0.14f else 0.30f)
     val edge =
         Brush.linearGradient(
             listOf(
-                Color.White.copy(alpha = if (dark) 0.34f else 0.70f),
+                Color.White.copy(alpha = rimStart),
                 Color.White.copy(alpha = 0.06f),
-                Color.White.copy(alpha = if (dark) 0.14f else 0.30f),
+                Color.White.copy(alpha = rimEnd),
             ),
         )
     return this
-        .glassPanel(backdrop = backdrop, shape = shape, fill = fill, blurRadius = blurRadius)
-        .border(width = 1.dp, brush = edge, shape = shape)
+        .glassPanel(
+            backdrop = backdrop,
+            shape = shape,
+            fill = fill,
+            blurRadius = if (liquid) minOf(blurRadius, 8.dp) else blurRadius,
+            lensHeight = if (liquid) 14.dp else 0.dp,
+            lensAmount = if (liquid) 28.dp else 0.dp,
+            hueTint = if (liquid) scheme.primary else Color.Unspecified,
+        ).border(width = 1.dp, brush = edge, shape = shape)
 }

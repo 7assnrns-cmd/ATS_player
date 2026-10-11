@@ -91,7 +91,7 @@ fun FloatingNavigationToolbar(
                     .widthIn(max = NavigationBarMaxWidth)
                     .fillMaxWidth()
                     .height(NavigationBarHeight)
-                    .glassSurface(navigationShape),
+                    .glassSurface(navigationShape, liquid = true),
             shape = navigationShape,
             color = if (glassActive) Color.Transparent else navigationContainerColor,
             tonalElevation = if (glassActive) 0.dp else NavigationBarDefaults.Elevation,
