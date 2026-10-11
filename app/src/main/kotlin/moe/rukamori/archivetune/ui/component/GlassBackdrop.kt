@@ -83,6 +83,7 @@ fun Modifier.glassSurface(
     accentMix: Float = 0.12f,
     blurRadius: Dp = 20.dp,
     liquid: Boolean = false,
+    density: Float = 1f,
 ): Modifier {
     val backdrop = LocalGlassBackdrop.current ?: return this
     val scheme = MaterialTheme.colorScheme
@@ -90,7 +91,13 @@ fun Modifier.glassSurface(
     val body = lerp(scheme.surface, scheme.primary, if (liquid) accentMix + 0.08f else accentMix)
     val topAlpha = if (liquid) (if (dark) 0.34f else 0.46f) else (if (dark) 0.46f else 0.58f)
     val bottomAlpha = if (liquid) (if (dark) 0.20f else 0.30f) else (if (dark) 0.30f else 0.40f)
-    val fill = Brush.verticalGradient(listOf(body.copy(alpha = topAlpha), body.copy(alpha = bottomAlpha)))
+    val fill =
+        Brush.verticalGradient(
+            listOf(
+                body.copy(alpha = (topAlpha * density).coerceAtMost(0.96f)),
+                body.copy(alpha = (bottomAlpha * density).coerceAtMost(0.96f)),
+            ),
+        )
     val rimStart = if (liquid) (if (dark) 0.55f else 0.85f) else (if (dark) 0.34f else 0.70f)
     val rimEnd = if (liquid) (if (dark) 0.22f else 0.40f) else (if (dark) 0.14f else 0.30f)
     val edge =

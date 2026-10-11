@@ -130,7 +130,13 @@ fun BottomSheetPage(
                     .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal))
                     .padding(top = 100.dp) // Give enough space from top
                     .clip(ShapeDefaults.Large.top())
-                    .background(background)
+                    .then(
+                        if (LocalGlassBackdrop.current != null) {
+                            Modifier.glassSurface(ShapeDefaults.Large.top(), density = 1.7f)
+                        } else {
+                            Modifier.background(background)
+                        },
+                    )
                     .pointerInput(Unit) {
                         detectVerticalDragGestures(
                             onDragEnd = {
