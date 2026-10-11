@@ -882,7 +882,8 @@ private fun ManageProfilesDialog(
             }
         },
         confirmButton = {
-        GlassWindowBlur() TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
+        GlassWindowBlur()
+        TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
     )
 }
 
