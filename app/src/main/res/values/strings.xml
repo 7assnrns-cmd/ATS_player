@@ -470,6 +470,7 @@
     <string name="pure_black">Pure black</string>
     <string name="glass_effect">Glass effect</string>
     <string name="glass_effect_desc">Frosted glass with a live blur on the navigation bar, mini player and sheets</string>
+    <string name="glass_intro_eyebrow">New</string>
     <string name="glass_intro_title">Meet the glass look</string>
     <string name="glass_intro_body">Surfaces blur whatever is behind them and pick up the color of the song you are playing.</string>
     <string name="glass_intro_where_label">Where it shows</string>
