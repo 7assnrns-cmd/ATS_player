@@ -7,21 +7,28 @@ import androidx.compose.foundation.IndicationNodeFactory
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.node.CompositionLocalConsumerModifierNode
 import androidx.compose.ui.node.DelegatableNode
 import androidx.compose.ui.node.DelegatingNode
 import androidx.compose.ui.node.DrawModifierNode
+import androidx.compose.ui.node.currentValueOf
 import kotlinx.coroutines.launch
 
 /**
  * Wraps the current indication (the Material ripple) so that every pressable
  * element also compresses slightly while pressed and springs back with a small
  * overshoot on release. Does nothing when [enabled] is false or when the
- * current indication is not a node-based one.
+ * current indication is not a node-based one. On the glass top bar it also draws
+ * a soft contrast halo behind small pressable icons.
  */
 @Composable
 fun ProvideBouncyIndication(
@@ -52,7 +59,8 @@ private class BouncyIndicationNode(
     private val interactionSource: InteractionSource,
     baseNode: DelegatableNode,
 ) : DelegatingNode(),
-    DrawModifierNode {
+    DrawModifierNode,
+    CompositionLocalConsumerModifierNode {
     // 0 = at rest, 1 = fully pressed; goes slightly below 0 on release for the bounce.
     private val pressProgress = Animatable(0f)
 
@@ -84,6 +92,7 @@ private class BouncyIndicationNode(
     }
 
     override fun ContentDrawScope.draw() {
+        drawContrastHalo()
         val progress = pressProgress.value
         if (progress == 0f) {
             drawContent()
@@ -101,5 +110,26 @@ private class BouncyIndicationNode(
         withTransform({ scale(factor, factor, center) }) {
             this@draw.drawContent()
         }
+    }
+
+    // Soft radial halo behind small icons on the glass top bar. Its colour opposes the
+    // icon colour so the icon stays readable over any blurred content.
+    private fun ContentDrawScope.drawContrastHalo() {
+        if (currentValueOf(LocalGlassBackdrop) == null) return
+        if (!currentValueOf(LocalGlassBarHalo)) return
+        if (size.minDimension / density >= 64f) return
+        val iconIsLight = currentValueOf(LocalContentColor).luminance() > 0.5f
+        val halo = if (iconIsLight) Color.Black else Color.White
+        val radius = size.minDimension * 0.78f
+        drawCircle(
+            brush =
+                Brush.radialGradient(
+                    colors = listOf(halo.copy(alpha = 0.18f), Color.Transparent),
+                    center = center,
+                    radius = radius,
+                ),
+            radius = radius,
+            center = center,
+        )
     }
 }

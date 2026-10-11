@@ -1,5 +1,6 @@
 package moe.rukamori.archivetune.ui.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -9,12 +10,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.graphics.luminance
@@ -186,4 +193,53 @@ fun GlassBezel(
             content = content,
         )
     }
+}
+
+
+/** True inside the main top bar; pressable icons there get a soft contrast halo while glass is on. */
+val LocalGlassBarHalo = staticCompositionLocalOf { false }
+
+/** Marks its content as part of a glass top bar. */
+@Composable
+fun GlassBarHaloScope(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalGlassBarHalo provides true, content = content)
+}
+
+/** Hairline rim that makes a card read as a glass pane. Null while glass is off. */
+@Composable
+fun glassCardBorder(): BorderStroke? {
+    if (LocalGlassBackdrop.current == null) return null
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val rim =
+        if (dark) {
+            listOf(Color.White.copy(alpha = 0.28f), Color.White.copy(alpha = 0.04f), Color.White.copy(alpha = 0.12f))
+        } else {
+            listOf(Color.White.copy(alpha = 0.95f), Color.Black.copy(alpha = 0.06f), Color.White.copy(alpha = 0.50f))
+        }
+    return BorderStroke(width = 1.dp, brush = Brush.linearGradient(rim))
+}
+
+/**
+ * Header scrim for the main top bar: frosted glass while glass is on, the old
+ * fade-out gradient ([fallback]) otherwise.
+ */
+@Composable
+fun Modifier.glassHeaderScrim(fallback: Brush): Modifier {
+    val backdrop = LocalGlassBackdrop.current ?: return this.background(fallback)
+    val surface = MaterialTheme.colorScheme.surface
+    return this
+        .glassPanel(
+            backdrop = backdrop,
+            shape = RectangleShape,
+            fill = Brush.verticalGradient(listOf(surface.copy(alpha = 0.62f), surface.copy(alpha = 0.34f))),
+            blurRadius = 18.dp,
+        ).glassSheen(shape = RectangleShape, alpha = 0.10f)
+        .drawBehind {
+            val line = 1.dp.toPx()
+            drawRect(
+                color = Color.White.copy(alpha = 0.12f),
+                topLeft = Offset(0f, size.height - line),
+                size = Size(size.width, line),
+            )
+        }
 }
