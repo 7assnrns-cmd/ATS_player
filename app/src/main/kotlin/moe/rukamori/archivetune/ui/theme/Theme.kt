@@ -260,7 +260,7 @@ dynamicThemeAnimationDurationMs: Int = 800,
             )
         }
 
-    val glassEnabled by rememberPreference(GlassEffectEnabledKey, defaultValue = true)
+    val glassEnabled by rememberPreference(GlassEffectEnabledKey, defaultValue = false)
     val glassSurfaceColor by rememberUpdatedState(animatedColorScheme.surface)
     val glassLayer =
         rememberLayerBackdrop {

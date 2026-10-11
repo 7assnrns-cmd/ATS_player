@@ -200,6 +200,8 @@ import moe.rukamori.archivetune.constants.DynamicThemeSyncWithCrossfadeKey
 import moe.rukamori.archivetune.constants.AppBarHeight
 import moe.rukamori.archivetune.constants.AppFontPreference
 import moe.rukamori.archivetune.constants.AppLanguageKey
+import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
+import moe.rukamori.archivetune.constants.GlassIntroSeenKey
 import moe.rukamori.archivetune.constants.UseSystemLanguageKey
 import moe.rukamori.archivetune.constants.CustomFontUriKey
 import moe.rukamori.archivetune.constants.CustomThemeColorKey
@@ -274,6 +276,7 @@ import moe.rukamori.archivetune.ui.component.DISMISSED_ANCHOR
 import moe.rukamori.archivetune.ui.component.EXPANDED_ANCHOR
 import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar
 import moe.rukamori.archivetune.ui.component.FpsOverlay
+import moe.rukamori.archivetune.ui.component.GlassIntroSheet
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.LocalBottomSheetPageState
 import moe.rukamori.archivetune.ui.component.LocalGlassSource
@@ -1148,6 +1151,10 @@ class MainActivity : ComponentActivity() {
                             MiniPlayerLastAnchorKey,
                             defaultValue = COLLAPSED_ANCHOR,
                         )
+                    val (glassIntroSeen, setGlassIntroSeen) =
+                        rememberPreference(GlassIntroSeenKey, defaultValue = false)
+                    val (_, setGlassEnabled) =
+                        rememberPreference(GlassEffectEnabledKey, defaultValue = false)
                     val defaultOpenTab by rememberEnumPreference(DefaultOpenTabKey, NavigationTab.HOME)
                     val pauseSearchHistory by rememberPreference(PauseSearchHistoryKey, defaultValue = false)
                     val tabOpenedFromShortcut =
@@ -2705,6 +2712,19 @@ class MainActivity : ComponentActivity() {
                             state = LocalBottomSheetPageState.current,
                             modifier = Modifier.align(Alignment.BottomCenter),
                         )
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !isTvDevice && !glassIntroSeen) {
+                            GlassIntroSheet(
+                                onEnable = {
+                                    setGlassEnabled(true)
+                                    setGlassIntroSeen(true)
+                                },
+                                onSkip = {
+                                    setGlassEnabled(false)
+                                    setGlassIntroSeen(true)
+                                },
+                            )
+                        }
 
                         sharedSong?.let { song ->
                             playerConnection?.let {

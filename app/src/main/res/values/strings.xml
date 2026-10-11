@@ -470,6 +470,14 @@
     <string name="pure_black">Pure black</string>
     <string name="glass_effect">Glass effect</string>
     <string name="glass_effect_desc">Frosted glass with a live blur on the navigation bar, mini player and sheets</string>
+    <string name="glass_intro_title">Meet the glass look</string>
+    <string name="glass_intro_body">Surfaces blur whatever is behind them and pick up the color of the song you are playing.</string>
+    <string name="glass_intro_where_label">Where it shows</string>
+    <string name="glass_intro_where_value">Navigation bar</string>
+    <string name="glass_intro_off_label">Turn it off in</string>
+    <string name="glass_intro_off_value">Settings → Appearance → Glass effect</string>
+    <string name="glass_intro_enable">Turn on glass</string>
+    <string name="glass_intro_skip">Keep classic look</string>
     <string name="disable_blur">Disable blur effects</string>
     <string name="disable_blur_desc">Disable blur effects throughout the app</string>
     <string name="disable_animations">Disable animations</string>

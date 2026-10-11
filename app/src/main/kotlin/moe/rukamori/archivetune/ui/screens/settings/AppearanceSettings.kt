@@ -246,7 +246,7 @@ fun AppearanceSettings(navController: NavController) {
             defaultValue = MiniPlayerBackgroundStyle.THEME,
         )
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
-    val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = true)
+    val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = false)
     val (disableBlur, onDisableBlurChange) = rememberPreference(DisableBlurKey, defaultValue = false)
     val (disableAnimations, onDisableAnimationsChange) =
         rememberPreference(
