@@ -278,6 +278,7 @@ import moe.rukamori.archivetune.ui.component.DISMISSED_ANCHOR
 import moe.rukamori.archivetune.ui.component.EXPANDED_ANCHOR
 import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar
 import moe.rukamori.archivetune.ui.component.FpsOverlay
+import moe.rukamori.archivetune.ui.component.GlassEasing
 import moe.rukamori.archivetune.ui.component.GlassIntroSheet
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.LocalBottomSheetPageState
@@ -2633,9 +2634,9 @@ class MainActivity : ComponentActivity() {
                                         } else if (initialState.destination.route in topLevelScreens &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeIn(tween(250)) + scaleIn(initialScale = 0.96f, animationSpec = tween(250))
+                                            fadeIn(tween(420, easing = GlassEasing)) + scaleIn(initialScale = 0.96f, animationSpec = tween(420, easing = GlassEasing))
                                         } else {
-                                            fadeIn(tween(250)) + slideInHorizontally(navSlideSpec) { it / 2 }
+                                            fadeIn(tween(420, easing = GlassEasing)) + slideInHorizontally(navSlideSpec) { it / 2 }
                                         }
                                     },
                                     exitTransition = {
@@ -2644,9 +2645,9 @@ class MainActivity : ComponentActivity() {
                                         } else if (initialState.destination.route in topLevelScreens &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeOut(tween(200)) + scaleOut(targetScale = 0.98f, animationSpec = tween(200))
+                                            fadeOut(tween(320, easing = GlassEasing)) + scaleOut(targetScale = 0.98f, animationSpec = tween(320, easing = GlassEasing))
                                         } else {
-                                            fadeOut(tween(200)) + slideOutHorizontally(navSlideSpec) { -it / 2 }
+                                            fadeOut(tween(320, easing = GlassEasing)) + slideOutHorizontally(navSlideSpec) { -it / 2 }
                                         }
                                     },
                                     popEnterTransition = {
@@ -2658,9 +2659,9 @@ class MainActivity : ComponentActivity() {
                                             ) &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeIn(tween(250)) + scaleIn(initialScale = 0.96f, animationSpec = tween(250))
+                                            fadeIn(tween(420, easing = GlassEasing)) + scaleIn(initialScale = 0.96f, animationSpec = tween(420, easing = GlassEasing))
                                         } else {
-                                            fadeIn(tween(250)) + slideInHorizontally(navSlideSpec) { -it / 2 }
+                                            fadeIn(tween(420, easing = GlassEasing)) + slideInHorizontally(navSlideSpec) { -it / 2 }
                                         }
                                     },
                                     popExitTransition = {
@@ -2672,9 +2673,9 @@ class MainActivity : ComponentActivity() {
                                             ) &&
                                             targetState.destination.route in topLevelScreens
                                         ) {
-                                            fadeOut(tween(200)) + scaleOut(targetScale = 0.98f, animationSpec = tween(200))
+                                            fadeOut(tween(320, easing = GlassEasing)) + scaleOut(targetScale = 0.98f, animationSpec = tween(320, easing = GlassEasing))
                                         } else {
-                                            fadeOut(tween(200)) + slideOutHorizontally(navSlideSpec) { it / 2 }
+                                            fadeOut(tween(320, easing = GlassEasing)) + slideOutHorizontally(navSlideSpec) { it / 2 }
                                         }
                                     },
                                     modifier =

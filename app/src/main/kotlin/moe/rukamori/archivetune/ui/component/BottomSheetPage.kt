@@ -113,12 +113,12 @@ fun BottomSheetPage(
         enter =
             slideInVertically(
                 initialOffsetY = { it },
-                animationSpec = tween(300),
+                animationSpec = tween(400, easing = GlassEasing),
             ),
         exit =
             slideOutVertically(
                 targetOffsetY = { it },
-                animationSpec = tween(300),
+                animationSpec = tween(400, easing = GlassEasing),
             ),
         modifier = modifier,
     ) {

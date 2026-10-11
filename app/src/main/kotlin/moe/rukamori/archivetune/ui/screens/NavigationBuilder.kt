@@ -28,6 +28,7 @@ import moe.rukamori.archivetune.constants.UpdateChannel
 import moe.rukamori.archivetune.defaultUpdateChannel
 import moe.rukamori.archivetune.musicrecognition.MusicRecognitionRoute
 import moe.rukamori.archivetune.musicrecognition.MusicRecognitionDetailsRoute
+import moe.rukamori.archivetune.ui.component.GlassEasing
 import moe.rukamori.archivetune.ui.screens.BrowseScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistAlbumsScreen
 import moe.rukamori.archivetune.ui.screens.artist.ArtistItemsScreen
@@ -201,32 +202,32 @@ fun NavGraphBuilder.navigationBuilder(
             if (disableAnimations) {
                 fadeIn(tween(0))
             } else {
-                fadeIn(tween(250))
+                fadeIn(tween(420, easing = GlassEasing))
             }
         },
         exitTransition = {
             if (disableAnimations) {
                 fadeOut(tween(0))
             } else if (targetState.destination.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
-                fadeOut(tween(200))
+                fadeOut(tween(320, easing = GlassEasing))
             } else {
-                fadeOut(tween(200)) + slideOutHorizontally { -it / 2 }
+                fadeOut(tween(320, easing = GlassEasing)) + slideOutHorizontally { -it / 2 }
             }
         },
         popEnterTransition = {
             if (disableAnimations) {
                 fadeIn(tween(0))
             } else if (initialState.destination.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
-                fadeIn(tween(250))
+                fadeIn(tween(420, easing = GlassEasing))
             } else {
-                fadeIn(tween(250)) + slideInHorizontally { -it / 2 }
+                fadeIn(tween(420, easing = GlassEasing)) + slideInHorizontally { -it / 2 }
             }
         },
         popExitTransition = {
             if (disableAnimations) {
                 fadeOut(tween(0))
             } else {
-                fadeOut(tween(200))
+                fadeOut(tween(320, easing = GlassEasing))
             }
         },
     ) {
