@@ -1,11 +1,18 @@
 package moe.rukamori.archivetune.ui.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -70,11 +77,38 @@ fun Modifier.glassPanel(
     }
 
 /**
+ * Soft light catching the top of a glass surface. Drawn behind the content,
+ * so it never lowers the contrast of text or icons placed on the glass.
+ */
+fun Modifier.glassSheen(
+    shape: Shape,
+    alpha: Float = 0.12f,
+): Modifier =
+    drawWithContent {
+        val outline = shape.createOutline(size, layoutDirection, this)
+        drawOutline(
+            outline = outline,
+            brush =
+                Brush.verticalGradient(
+                    colorStops =
+                        arrayOf(
+                            0f to Color.White.copy(alpha = alpha),
+                            0.5f to Color.Transparent,
+                            1f to Color.Transparent,
+                        ),
+                ),
+        )
+        drawContent()
+    }
+
+/**
  * App-styled glass: the panel colour is the theme surface mixed with the
  * current primary (so it follows the playing track's cover), denser at the
- * top and lighter at the bottom, with a 1dp edge that catches light from the
- * top-left. With [liquid] set, the panel also refracts light at its edges and
- * shifts the backdrop hue toward the primary colour. No-op while
+ * top and lighter at the bottom, with a soft sheen along the top and, when
+ * [rim] is set, a 1dp edge that catches light from the top-left. With
+ * [liquid] set, the panel also refracts light at its edges and shifts the
+ * backdrop hue toward the primary colour. [density] scales the panel opacity
+ * (use above 1 where text must stay readable). No-op while
  * [LocalGlassBackdrop] is null.
  */
 @Composable
@@ -84,6 +118,7 @@ fun Modifier.glassSurface(
     blurRadius: Dp = 20.dp,
     liquid: Boolean = false,
     density: Float = 1f,
+    rim: Boolean = true,
 ): Modifier {
     val backdrop = LocalGlassBackdrop.current ?: return this
     val scheme = MaterialTheme.colorScheme
@@ -117,5 +152,43 @@ fun Modifier.glassSurface(
             lensHeight = if (liquid) 14.dp else 0.dp,
             lensAmount = if (liquid) 28.dp else 0.dp,
             hueTint = if (liquid) scheme.primary else Color.Unspecified,
-        ).border(width = 1.dp, brush = edge, shape = shape)
+        ).glassSheen(shape = shape, alpha = if (liquid) 0.16f else 0.12f)
+        .then(if (rim) Modifier.border(width = 1.dp, brush = edge, shape = shape) else Modifier)
+}
+
+/**
+ * Double-bezel container: an outer shell with a hairline border holds an inner
+ * core whose corner radius is the outer radius minus [inset], so both curves
+ * stay concentric. The core fills the shell width and carries a top sheen.
+ */
+@Composable
+fun GlassBezel(
+    modifier: Modifier = Modifier,
+    outerRadius: Dp = 28.dp,
+    inset: Dp = 5.dp,
+    innerFill: Brush? = null,
+    content: @Composable BoxScope.() -> Unit,
+) {
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val ink = if (dark) Color.White else Color.Black
+    val outer = RoundedCornerShape(outerRadius)
+    val inner = RoundedCornerShape((outerRadius - inset).coerceAtLeast(0.dp))
+    Box(
+        modifier =
+            modifier
+                .clip(outer)
+                .background(ink.copy(alpha = 0.06f))
+                .border(width = 1.dp, color = ink.copy(alpha = 0.10f), shape = outer)
+                .padding(inset),
+    ) {
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .clip(inner)
+                    .then(if (innerFill != null) Modifier.background(innerFill) else Modifier)
+                    .glassSheen(shape = inner, alpha = 0.14f),
+            content = content,
+        )
+    }
 }
