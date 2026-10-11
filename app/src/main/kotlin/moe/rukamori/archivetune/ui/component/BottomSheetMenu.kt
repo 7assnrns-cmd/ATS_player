@@ -83,7 +83,7 @@ fun BottomSheetMenu(
                 focusManager.clearFocus()
                 state.isVisible = false
             },
-            containerColor = background,
+            containerColor = if (LocalGlassBackdrop.current != null) background.copy(alpha = 0.80f) else background,
             contentColor = MaterialTheme.colorScheme.onSurface,
             dragHandle = {
                 Box(

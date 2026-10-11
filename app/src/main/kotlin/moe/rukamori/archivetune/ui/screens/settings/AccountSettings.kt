@@ -110,6 +110,8 @@ import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.InfoLabel
 import moe.rukamori.archivetune.ui.component.TextFieldDialog
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
+import moe.rukamori.archivetune.ui.component.glassSheetContainer
 import moe.rukamori.archivetune.ui.screens.buildLoginRoute
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
 import moe.rukamori.archivetune.ui.utils.backToMain
@@ -551,6 +553,7 @@ fun AccountSettings(
                     }
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 }
@@ -754,7 +757,8 @@ private fun AccountSwitcherSheet(
             .takeIf { it.size > 1 }
             .orEmpty()
 
-    ModalBottomSheet(onDismissRequest = onDismiss) {
+    ModalBottomSheet(onDismissRequest = onDismiss,
+        containerColor = glassSheetContainer(),) {
         GlassWindowBlur()
         Text(
             text = stringResource(R.string.saved_accounts),

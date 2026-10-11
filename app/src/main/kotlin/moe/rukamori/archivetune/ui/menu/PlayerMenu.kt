@@ -106,6 +106,7 @@ import moe.rukamori.archivetune.ui.component.ListDialog
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.ui.component.NewAction
 import moe.rukamori.archivetune.ui.component.NewActionGrid
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.player.rememberDeviceMusicVolumeController
 import moe.rukamori.archivetune.utils.ExternalDownloaderLaunchResult
 import moe.rukamori.archivetune.utils.SpeedDialPin
@@ -1445,6 +1446,7 @@ fun TempoPitchDialog(onDismiss: () -> Unit) {
                 }
             }
         },
+        containerColor = glassDialogContainer(),
     )
 }
 

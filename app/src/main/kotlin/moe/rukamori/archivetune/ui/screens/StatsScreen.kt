@@ -111,6 +111,7 @@ import moe.rukamori.archivetune.ui.component.ItemThumbnail
 import moe.rukamori.archivetune.ui.component.LocalAlbumsGrid
 import moe.rukamori.archivetune.ui.component.LocalArtistsGrid
 import moe.rukamori.archivetune.ui.component.LocalMenuState
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.menu.AlbumMenu
 import moe.rukamori.archivetune.ui.menu.ArtistMenu
 import moe.rukamori.archivetune.ui.menu.SongMenu
@@ -951,6 +952,7 @@ private fun StatsYearPickerDialog(
                 Text(text = stringResource(R.string.dismiss))
             }
         },
+        containerColor = glassDialogContainer(),
     )
 }
 

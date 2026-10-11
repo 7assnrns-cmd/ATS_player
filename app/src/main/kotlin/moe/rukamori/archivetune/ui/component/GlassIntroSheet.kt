@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassSheetContainer
 
 /**
  * One-time introduction to the glass look. Pressing either button, or
@@ -75,6 +76,7 @@ fun GlassIntroSheet(
     ModalBottomSheet(
         onDismissRequest = { answer(onSkip) },
         sheetState = sheetState,
+        containerColor = glassSheetContainer(),
     ) {
         GlassWindowBlur()
         Column(

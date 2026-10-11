@@ -60,6 +60,7 @@ import moe.rukamori.archivetune.ui.component.ListPreference
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
 import moe.rukamori.archivetune.ui.component.PreferenceGroup
 import moe.rukamori.archivetune.ui.component.SwitchPreference
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.theme.PlayerColorExtractor
 import moe.rukamori.archivetune.ui.theme.extractThemeColor
 import moe.rukamori.archivetune.ui.utils.appBarScrollBehavior
@@ -717,6 +718,7 @@ fun DiscordSettings(navController: NavController) {
                         Text(stringResource(R.string.logout_confirm_no))
                     }
                 },
+                containerColor = glassDialogContainer(),
             )
         }
     }
@@ -1179,6 +1181,7 @@ fun EditablePreference(
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
             },
+            containerColor = glassDialogContainer(),
         )
     }
 }

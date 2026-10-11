@@ -63,6 +63,7 @@ import moe.rukamori.archivetune.ui.component.InfoLabel
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
 import moe.rukamori.archivetune.ui.component.PreferenceGroup
 import moe.rukamori.archivetune.ui.component.SwitchPreference
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.viewmodels.LastFmLoginDialogUiModel
 import moe.rukamori.archivetune.viewmodels.LastFmServiceEditorUiModel
@@ -462,6 +463,7 @@ private fun LastFmLoginDialog(
                 Text(stringResource(R.string.cancel))
             }
         },
+        containerColor = glassDialogContainer(),
     )
 }
 
@@ -574,6 +576,7 @@ private fun LastFmServiceEditorDialog(
                 Text(stringResource(android.R.string.cancel))
             }
         },
+        containerColor = glassDialogContainer(),
     )
 }
 
@@ -656,6 +659,7 @@ private fun LastFmTimingEditorDialog(
                 Text(stringResource(android.R.string.cancel))
             }
         },
+        containerColor = glassDialogContainer(),
     )
 }
 

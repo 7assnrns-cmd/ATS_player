@@ -126,6 +126,7 @@ import moe.rukamori.archivetune.constants.UpdatesDownloadedApkVersionKey
 import moe.rukamori.archivetune.constants.UpdatesWifiOnlyKey
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.bouncyPress
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.component.rememberBouncyPressScale
 import moe.rukamori.archivetune.updates.ApkAsset
 import moe.rukamori.archivetune.updates.UpdateApkStorage
@@ -439,6 +440,7 @@ fun UpdateScreen(
                     Text(stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 
@@ -535,6 +537,7 @@ fun UpdateScreen(
                     Text(stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 
@@ -771,6 +774,7 @@ fun UpdateScreen(
             },
             confirmButton = {
             GlassWindowBlur()},
+            containerColor = glassDialogContainer(),
         )
     }
 
@@ -859,6 +863,7 @@ fun UpdateScreen(
                     Text(text = stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 
@@ -904,6 +909,7 @@ fun UpdateScreen(
                     Text(stringResource(android.R.string.ok))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 
@@ -937,6 +943,7 @@ fun UpdateScreen(
                     Text(stringResource(android.R.string.ok))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 }

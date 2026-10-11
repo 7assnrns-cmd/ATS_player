@@ -53,6 +53,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -110,6 +111,7 @@ fun ArtistSeparatorsDialog(
                     Text(stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 

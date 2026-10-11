@@ -290,6 +290,7 @@ import moe.rukamori.archivetune.ui.component.NetworkStatusBanner
 import moe.rukamori.archivetune.ui.component.StarDialog
 import moe.rukamori.archivetune.ui.component.TopSearch
 import moe.rukamori.archivetune.ui.component.TvNavigationRail
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.component.rememberBottomSheetState
 import moe.rukamori.archivetune.ui.component.shimmer.ShimmerTheme
 import moe.rukamori.archivetune.ui.menu.YouTubeSongMenu
@@ -3240,6 +3241,7 @@ class MainActivity : ComponentActivity() {
                     Text(stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 

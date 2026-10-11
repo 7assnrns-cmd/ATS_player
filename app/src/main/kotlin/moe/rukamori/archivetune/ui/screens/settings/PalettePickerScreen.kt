@@ -110,6 +110,7 @@ import moe.rukamori.archivetune.constants.CustomThemeColorKey
 import moe.rukamori.archivetune.constants.DynamicThemeKey
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
 import moe.rukamori.archivetune.ui.component.IconButton
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.svg.DynamicSVGImage
 import moe.rukamori.archivetune.ui.svg.PALETTE
 import moe.rukamori.archivetune.ui.svg.SVGString
@@ -1185,6 +1186,7 @@ fun ThemeCreatorScreen(navController: NavController) {
                     style = MaterialTheme.typography.bodySmall,
                 )
             },
+            containerColor = glassDialogContainer(),
         )
     }
 

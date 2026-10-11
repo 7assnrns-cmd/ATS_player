@@ -3,8 +3,11 @@ package moe.rukamori.archivetune.ui.component
 import android.app.Activity
 import android.os.Build
 import android.view.WindowManager
+import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
@@ -50,3 +53,21 @@ fun GlassWindowBlur(radius: Dp = 28.dp) {
         }
     }
 }
+
+/** Dialog container: translucent while glass is on, so the blurred window behind shows through. */
+@Composable
+fun glassDialogContainer(): Color =
+    if (LocalGlassBackdrop.current != null) {
+        MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.78f)
+    } else {
+        AlertDialogDefaults.containerColor
+    }
+
+/** Modal sheet container: translucent while glass is on. */
+@Composable
+fun glassSheetContainer(): Color =
+    if (LocalGlassBackdrop.current != null) {
+        MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.80f)
+    } else {
+        MaterialTheme.colorScheme.surfaceContainerLow
+    }

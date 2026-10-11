@@ -93,6 +93,7 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.equalizer.EqualizerControlMode
 import moe.rukamori.archivetune.equalizer.EqualizerTone
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.viewmodels.EqualizerBandUiModel
 import moe.rukamori.archivetune.viewmodels.EqualizerEffect
 import moe.rukamori.archivetune.viewmodels.EqualizerProfileUiModel
@@ -860,6 +861,7 @@ private fun SaveProfileDialog(
             TextButton(onClick = onSave, enabled = name.isNotBlank()) { Text(text = stringResource(R.string.save)) }
         },
         dismissButton = { TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
+        containerColor = glassDialogContainer(),
     )
 }
 
@@ -884,6 +886,7 @@ private fun ManageProfilesDialog(
         confirmButton = {
         GlassWindowBlur()
         TextButton(onClick = onDismiss) { Text(text = stringResource(R.string.eq_close)) } },
+        containerColor = glassDialogContainer(),
     )
 }
 

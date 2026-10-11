@@ -101,6 +101,7 @@ import moe.rukamori.archivetune.extensions.toMediaItem
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.ui.component.EmptyPlaceholder
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
+import moe.rukamori.archivetune.ui.component.glassDialogContainer
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.ui.utils.formatFileSize
 import moe.rukamori.archivetune.utils.makeTimeString
@@ -389,6 +390,7 @@ private fun DownloadLibraryScreenContent(
                     Text(stringResource(android.R.string.cancel))
                 }
             },
+            containerColor = glassDialogContainer(),
         )
     }
 }
