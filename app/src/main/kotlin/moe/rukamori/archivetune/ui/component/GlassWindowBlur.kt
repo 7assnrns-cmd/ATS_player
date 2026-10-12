@@ -21,7 +21,10 @@ import androidx.compose.ui.window.DialogWindowProvider
  * a no-op while the glass effect is off.
  */
 @Composable
-fun GlassWindowBlur(radius: Dp = 28.dp) {
+fun GlassWindowBlur(
+    radius: Dp = 8.dp,
+    dimAmount: Float = 0.18f,
+) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
     if (LocalGlassBackdrop.current == null) return
     val view = LocalView.current
@@ -31,6 +34,8 @@ fun GlassWindowBlur(radius: Dp = 28.dp) {
         if (provider != null) {
             val window = provider.window
             window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
+            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+            window.setDimAmount(dimAmount)
             val attrs = window.attributes
             if (attrs.blurBehindRadius != radiusPx) {
                 attrs.blurBehindRadius = radiusPx
