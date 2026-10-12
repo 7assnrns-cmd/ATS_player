@@ -28,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
@@ -102,6 +103,7 @@ fun BottomSheetMenu(
                 modifier =
                     Modifier
                         .fillMaxWidth()
+                        .then(if (LocalGlassBackdrop.current != null) Modifier.glassSheen(RectangleShape, 0.10f) else Modifier)
                         .padding(horizontal = 20.dp),
             ) {
                 state.content(this)
