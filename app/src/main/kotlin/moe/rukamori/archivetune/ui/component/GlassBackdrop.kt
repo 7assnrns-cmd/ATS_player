@@ -243,3 +243,20 @@ fun Modifier.glassHeaderScrim(fallback: Brush): Modifier {
             )
         }
 }
+
+
+/** Glass edge that follows [shape]; no-op while glass is off. */
+@Composable
+fun Modifier.glassRim(shape: Shape): Modifier {
+    if (LocalGlassBackdrop.current == null) return this
+    val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val edge =
+        Brush.linearGradient(
+            listOf(
+                Color.White.copy(alpha = if (dark) 0.34f else 0.70f),
+                Color.White.copy(alpha = 0.06f),
+                Color.White.copy(alpha = if (dark) 0.14f else 0.30f),
+            ),
+        )
+    return this.border(width = 1.dp, brush = edge, shape = shape)
+}

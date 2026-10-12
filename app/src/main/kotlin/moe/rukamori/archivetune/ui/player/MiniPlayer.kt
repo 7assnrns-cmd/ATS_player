@@ -55,6 +55,7 @@ import moe.rukamori.archivetune.constants.MiniPlayerHeight
 import moe.rukamori.archivetune.constants.NavigationBarMaxWidth
 import moe.rukamori.archivetune.constants.SwipeSensitivityKey
 import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
+import moe.rukamori.archivetune.ui.component.glassRim
 import moe.rukamori.archivetune.ui.component.glassSurface
 import moe.rukamori.archivetune.ui.theme.PlayerColorExtractor
 import moe.rukamori.archivetune.utils.rememberEnumPreference
@@ -215,7 +216,8 @@ private fun NewMiniPlayer(
                     .fillMaxWidth()
                     .height(MiniPlayerHeight)
                     .offset { IntOffset(offsetX.roundToInt(), 0) }
-                    .clip(miniPlayerShape),
+                    .clip(miniPlayerShape)
+                    .glassRim(miniPlayerShape),
         ) {
             MiniPlayerBackground(
                 style = effectiveBackgroundStyle,
