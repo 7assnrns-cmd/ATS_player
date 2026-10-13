@@ -67,8 +67,8 @@ android {
     applicationId = "moe.rukamori.archivetune.s"
         minSdk = 26
         targetSdk = 37
-        versionCode = 30
-        versionName = "2.1.0"
+        versionCode = 31
+        versionName = "2.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -422,6 +422,11 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.turbine)
     implementation(libs.translator)
+    // Miuix — HyperOS-inspired Compose Multiplatform UI library.
+    // Used opt-in via Settings → Appearance → Miuix theme.
+    implementation("top.yukonga.miuix.kmp:miuix-ui-android:0.9.4")
+    implementation("top.yukonga.miuix.kmp:miuix-preference-android:0.9.4")
+    implementation("top.yukonga.miuix.kmp:miuix-icons-android:0.9.4")
     implementation("androidx.lifecycle:lifecycle-process:2.11.0")
     implementation("androidx.compose.material3.adaptive:adaptive:1.3.0-rc01")
     implementation(libs.accompanist.lyrics.ui)

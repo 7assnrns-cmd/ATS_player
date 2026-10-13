@@ -202,6 +202,9 @@ import moe.rukamori.archivetune.constants.DynamicThemeSyncWithCrossfadeKey
 import moe.rukamori.archivetune.constants.AppBarHeight
 import moe.rukamori.archivetune.constants.AppFontPreference
 import moe.rukamori.archivetune.constants.AppLanguageKey
+import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
+import moe.rukamori.archivetune.constants.MiuixIntroShownVersionKey
+import moe.rukamori.archivetune.ui.component.MiuixIntroSheet
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.constants.GlassIntroSeenKey
 import moe.rukamori.archivetune.constants.LastDynamicThemeColorKey
@@ -1747,6 +1750,29 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    var showMiuixIntro by remember { mutableStateOf(false) }
+
+                    LaunchedEffect(Unit) {
+                        // Give the star dialog logic a moment to start first.
+                        kotlinx.coroutines.delay(2000)
+                        val shownVersion =
+                            withContext(Dispatchers.IO) {
+                                dataStore[MiuixIntroShownVersionKey]
+                            }
+                        if (shownVersion != BuildConfig.VERSION_NAME) {
+                            // Wait for the bottom sheet page to be free
+                            // (same pattern as the star dialog below).
+                            var waited = 0L
+                            val waitStep = 500L
+                            val maxWait = 30_000L
+                            while (bottomSheetPageState.isVisible && waited < maxWait) {
+                                delay(waitStep)
+                                waited += waitStep
+                            }
+                            showMiuixIntro = true
+                        }
+                    }
+
                     var showStarDialog by remember { mutableStateOf(false) }
 
                     LaunchedEffect(Unit) {
@@ -1777,6 +1803,42 @@ class MainActivity : ComponentActivity() {
                             }
                             showStarDialog = true
                         }
+                    }
+
+                    if (showMiuixIntro) {
+                        MiuixIntroSheet(
+                            onEnable = {
+                                coroutineScope.launch {
+                                    try {
+                                        withContext(Dispatchers.IO) {
+                                            dataStore.edit { prefs ->
+                                                prefs[MiuixThemeEnabledKey] = true
+                                                prefs[MiuixIntroShownVersionKey] = BuildConfig.VERSION_NAME
+                                            }
+                                        }
+                                    } catch (e: Exception) {
+                                        reportException(e)
+                                    } finally {
+                                        showMiuixIntro = false
+                                    }
+                                }
+                            },
+                            onSkip = {
+                                coroutineScope.launch {
+                                    try {
+                                        withContext(Dispatchers.IO) {
+                                            dataStore.edit { prefs ->
+                                                prefs[MiuixIntroShownVersionKey] = BuildConfig.VERSION_NAME
+                                            }
+                                        }
+                                    } catch (e: Exception) {
+                                        reportException(e)
+                                    } finally {
+                                        showMiuixIntro = false
+                                    }
+                                }
+                            },
+                        )
                     }
 
                     if (showStarDialog) {

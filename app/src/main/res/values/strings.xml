@@ -1204,4 +1204,11 @@
     <string name="update_detail_updated_apps">Updated apps</string>
     <string name="update_detail_retry">Retry</string>
     <string name="update_detail_error">Could not check for updates</string>
+    <string name="miuix_theme">Miuix theme</string>
+    <string name="miuix_theme_desc">HyperOS-inspired look for the interface. Replaces the glass effect while enabled.</string>
+    <string name="miuix_for_settings">Miuix for settings</string>
+    <string name="miuix_for_top_bar">Miuix for top bar</string>
+    <string name="miuix_for_navigation_bar">Miuix for navigation bar</string>
+    <string name="miuix_for_dialogs">Miuix for dialogs</string>
+    <string name="miuix_for_sheets">Miuix for sheets</string>
 </resources>

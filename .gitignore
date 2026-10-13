@@ -131,3 +131,4 @@ _backups/
 # Local backup folders created during development
 .archiveTune_*/
 .archiveTune_*
+install.sh

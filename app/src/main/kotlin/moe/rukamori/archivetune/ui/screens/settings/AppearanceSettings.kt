@@ -14,6 +14,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItem
 import moe.rukamori.archivetune.constants.GlassBlurStrengthKey
+import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
+import moe.rukamori.archivetune.constants.MiuixForSettingsKey
+import moe.rukamori.archivetune.constants.MiuixForTopBarKey
+import moe.rukamori.archivetune.constants.MiuixForNavigationBarKey
+import moe.rukamori.archivetune.constants.MiuixForDialogsKey
+import moe.rukamori.archivetune.constants.MiuixForSheetsKey
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.constants.RestoreLastTabKey
 import moe.rukamori.archivetune.ui.component.GlassBlurStrength
@@ -250,6 +256,18 @@ fun AppearanceSettings(navController: NavController) {
         )
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
     val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = false)
+    val (miuixThemeEnabled, onMiuixThemeEnabledChange) =
+        rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
+    val (miuixForSettings, onMiuixForSettingsChange) =
+        rememberPreference(MiuixForSettingsKey, defaultValue = true)
+    val (miuixForTopBar, onMiuixForTopBarChange) =
+        rememberPreference(MiuixForTopBarKey, defaultValue = true)
+    val (miuixForNavigationBar, onMiuixForNavigationBarChange) =
+        rememberPreference(MiuixForNavigationBarKey, defaultValue = true)
+    val (miuixForDialogs, onMiuixForDialogsChange) =
+        rememberPreference(MiuixForDialogsKey, defaultValue = true)
+    val (miuixForSheets, onMiuixForSheetsChange) =
+        rememberPreference(MiuixForSheetsKey, defaultValue = true)
     val (glassBlurStrength, onGlassBlurStrengthChange) =
         rememberEnumPreference(GlassBlurStrengthKey, defaultValue = GlassBlurStrength.LIGHT)
     val (disableBlur, onDisableBlurChange) = rememberPreference(DisableBlurKey, defaultValue = false)
@@ -837,6 +855,61 @@ fun AppearanceSettings(navController: NavController) {
                                 GlassBlurStrength.STRONG -> stringResource(R.string.glass_blur_strong)
                             }
                         },
+                    )
+                }
+
+                item {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_theme)) },
+                        description = stringResource(R.string.miuix_theme_desc),
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
+                        checked = miuixThemeEnabled,
+                        onCheckedChange = onMiuixThemeEnabledChange,
+                    )
+                }
+
+                item(visible = miuixThemeEnabled) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_for_settings)) },
+                        icon = { Icon(painterResource(R.drawable.settings), null) },
+                        checked = miuixForSettings,
+                        onCheckedChange = onMiuixForSettingsChange,
+                    )
+                }
+
+                item(visible = miuixThemeEnabled) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_for_top_bar)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
+                        checked = miuixForTopBar,
+                        onCheckedChange = onMiuixForTopBarChange,
+                    )
+                }
+
+                item(visible = miuixThemeEnabled) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_for_navigation_bar)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
+                        checked = miuixForNavigationBar,
+                        onCheckedChange = onMiuixForNavigationBarChange,
+                    )
+                }
+
+                item(visible = miuixThemeEnabled) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_for_dialogs)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
+                        checked = miuixForDialogs,
+                        onCheckedChange = onMiuixForDialogsChange,
+                    )
+                }
+
+                item(visible = miuixThemeEnabled) {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.miuix_for_sheets)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
+                        checked = miuixForSheets,
+                        onCheckedChange = onMiuixForSheetsChange,
                     )
                 }
 

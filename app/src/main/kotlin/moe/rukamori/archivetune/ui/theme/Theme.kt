@@ -69,6 +69,7 @@ import kotlin.math.hypot
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
+import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
 import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
 import moe.rukamori.archivetune.ui.component.LocalGlassSource
 import moe.rukamori.archivetune.ui.component.ProvideBouncyIndication
@@ -263,13 +264,20 @@ dynamicThemeAnimationDurationMs: Int = 800,
         }
 
     val glassEnabled by rememberPreference(GlassEffectEnabledKey, defaultValue = false)
+    val miuixEnabled by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
     val glassSurfaceColor by rememberUpdatedState(animatedColorScheme.surface)
     val glassLayer =
         rememberLayerBackdrop {
             drawRect(glassSurfaceColor)
             drawContent()
         }
-    val glassActive = glassEnabled && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+    // Miuix replaces the legacy glass effect. When Miuix is on, glassActive
+    // is forced to false so LocalGlassBackdrop provides null and every
+    // component that depends on it gracefully falls back to flat surfaces.
+    val glassActive =
+        glassEnabled &&
+            !miuixEnabled &&
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val glassBackdrop = if (glassActive) glassLayer else null
     val glowPrimary = animatedColorScheme.primary
     val glowTertiary = animatedColorScheme.tertiary
