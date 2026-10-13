@@ -163,8 +163,8 @@ fun SearchScreen(
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
                                         bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
                                         top = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateTopPadding(),
-                                        start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateStartPadding(androidx.compose.ui.unit.LayoutDirection.Ltr),
-                                        end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateEndPadding(androidx.compose.ui.unit.LayoutDirection.Ltr)
+                                        start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateLeftPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
+                                        end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateRightPadding(androidx.compose.ui.platform.LocalLayoutDirection.current)
                                     ),
             modifier = Modifier.fillMaxSize(),
         ) {
