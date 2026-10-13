@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
@@ -125,7 +124,8 @@ fun ArtistItemsScreen(
             state = lazyListState,
             contentPadding = LocalPlayerAwareWindowInsets.current.asPaddingValues(),
         ) {
-            staggeredItems(items = itemsPage?.items.orEmpty().distinctBy { it.id },
+            items(
+                items = itemsPage?.items.orEmpty().distinctBy { it.id },
                 key = { "artist_items_${it.contentKey}" },
                 contentType = { it.contentType },
             ) { item ->
@@ -243,7 +243,8 @@ fun ArtistItemsScreen(
             columns = GridCells.Adaptive(minSize = GridThumbnailHeight + 24.dp),
             contentPadding = LocalPlayerAwareWindowInsets.current.asPaddingValues(),
         ) {
-            staggeredItems(items = itemsPage?.items.orEmpty().distinctBy { it.id },
+            items(
+                items = itemsPage?.items.orEmpty().distinctBy { it.id },
                 key = { "artist_items_${it.contentKey}" },
                 contentType = { it.contentType },
             ) { item ->

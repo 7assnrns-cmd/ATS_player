@@ -59,7 +59,6 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
@@ -406,7 +405,8 @@ fun OnlineSearchResult(
                     }
                 }
             } else {
-                staggeredItems(items = viewModel.sortedItems(itemsPage?.items.orEmpty().distinctBy { it.id }, searchSort),
+                items(
+                    items = viewModel.sortedItems(itemsPage?.items.orEmpty().distinctBy { it.id }, searchSort),
                     key = { "filtered_${it.id}" },
                     contentType = { "search_result" },
                     itemContent = ytItemContent,
