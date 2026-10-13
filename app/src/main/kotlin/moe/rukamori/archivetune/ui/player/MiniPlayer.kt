@@ -217,7 +217,7 @@ private fun NewMiniPlayer(
                     .height(MiniPlayerHeight)
                     .offset { IntOffset(offsetX.roundToInt(), 0) }
                     .clip(miniPlayerShape)
-                    .glassRim(miniPlayerShape),
+                    .glassRim(miniPlayerShape, fadeBottom = proximity),
         ) {
             MiniPlayerBackground(
                 style = effectiveBackgroundStyle,
