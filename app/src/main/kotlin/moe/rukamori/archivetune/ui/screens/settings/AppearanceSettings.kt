@@ -13,7 +13,9 @@ import moe.rukamori.archivetune.constants.DynamicThemeSyncWithCrossfadeKey
 import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItem
+import moe.rukamori.archivetune.constants.GlassBlurStrengthKey
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
+import moe.rukamori.archivetune.ui.component.GlassBlurStrength
 import moe.rukamori.archivetune.ui.component.ListDialog
 import moe.rukamori.archivetune.ui.theme.DynamicThemeAnimationStyle
 import moe.rukamori.archivetune.constants.DynamicThemeAnimationStyleKey
@@ -247,6 +249,8 @@ fun AppearanceSettings(navController: NavController) {
         )
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
     val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = false)
+    val (glassBlurStrength, onGlassBlurStrengthChange) =
+        rememberEnumPreference(GlassBlurStrengthKey, defaultValue = GlassBlurStrength.LIGHT)
     val (disableBlur, onDisableBlurChange) = rememberPreference(DisableBlurKey, defaultValue = false)
     val (disableAnimations, onDisableAnimationsChange) =
         rememberPreference(
@@ -815,6 +819,22 @@ fun AppearanceSettings(navController: NavController) {
                         icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         checked = glassEffect,
                         onCheckedChange = onGlassEffectChange,
+                    )
+                }
+
+                item(visible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && glassEffect) {
+                    EnumListPreference(
+                        title = { Text(stringResource(R.string.glass_blur_strength)) },
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
+                        selectedValue = glassBlurStrength,
+                        onValueSelected = onGlassBlurStrengthChange,
+                        valueText = {
+                            when (it) {
+                                GlassBlurStrength.LIGHT -> stringResource(R.string.glass_blur_light)
+                                GlassBlurStrength.MEDIUM -> stringResource(R.string.glass_blur_medium)
+                                GlassBlurStrength.STRONG -> stringResource(R.string.glass_blur_strong)
+                            }
+                        },
                     )
                 }
 

@@ -7,12 +7,15 @@ import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogWindowProvider
+import moe.rukamori.archivetune.constants.GlassBlurStrengthKey
+import moe.rukamori.archivetune.utils.rememberEnumPreference
 
 /**
  * Blurs everything behind the window this composable is hosted in (a dialog or
@@ -22,20 +25,22 @@ import androidx.compose.ui.window.DialogWindowProvider
  */
 @Composable
 fun GlassWindowBlur(
-    radius: Dp = 8.dp,
-    dimAmount: Float = 0.18f,
+    radius: Dp? = null,
+    dimAmount: Float? = null,
 ) {
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return
     if (LocalGlassBackdrop.current == null) return
     val view = LocalView.current
-    val radiusPx = with(LocalDensity.current) { radius.roundToPx() }
+    val strength by rememberEnumPreference(GlassBlurStrengthKey, defaultValue = GlassBlurStrength.LIGHT)
+    val effectiveDim = dimAmount ?: strength.dim
+    val radiusPx = with(LocalDensity.current) { (radius ?: strength.radiusDp.dp).roundToPx() }
     SideEffect {
         val provider = view.parent as? DialogWindowProvider
         if (provider != null) {
             val window = provider.window
             window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
             window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-            window.setDimAmount(dimAmount)
+            window.setDimAmount(effectiveDim)
             val attrs = window.attributes
             if (attrs.blurBehindRadius != radiusPx) {
                 attrs.blurBehindRadius = radiusPx
@@ -76,3 +81,14 @@ fun glassSheetContainer(): Color =
     } else {
         MaterialTheme.colorScheme.surfaceContainerLow
     }
+
+
+/** How strongly the app behind a dialog or sheet is blurred and dimmed. */
+enum class GlassBlurStrength(
+    val radiusDp: Int,
+    val dim: Float,
+) {
+    LIGHT(6, 0.12f),
+    MEDIUM(14, 0.18f),
+    STRONG(28, 0.24f),
+}
