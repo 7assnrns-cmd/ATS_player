@@ -49,7 +49,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
 import top.yukonga.miuix.kmp.theme.MiuixTheme
-import top.yukonga.miuix.kmp.blur.LayerBackdrop
 import top.yukonga.miuix.kmp.theme.darkColorScheme
 import top.yukonga.miuix.kmp.theme.lightColorScheme
 import moe.rukamori.archivetune.constants.FloatingBarJunctionCornerRadius
@@ -74,7 +73,6 @@ fun FloatingNavigationToolbar(
     isSelected: (Screens) -> Boolean,
     onItemClick: (Screens, Boolean) -> Unit,
     onSearchItemDoubleClick: (() -> Unit)? = null,
-    appBackdrop: LayerBackdrop? = null,
 ) {
     // Miuix branch: opt-in via Settings → Appearance → Miuix theme.
     // When enabled for the navigation bar area, delegate to the Miuix
@@ -95,7 +93,6 @@ fun FloatingNavigationToolbar(
                 isSelected = isSelected,
                 onItemClick = onItemClick,
                 onSearchItemDoubleClick = onSearchItemDoubleClick,
-                appBackdrop = appBackdrop,
             )
         }
         return

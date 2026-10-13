@@ -204,6 +204,7 @@ import moe.rukamori.archivetune.constants.AppFontPreference
 import moe.rukamori.archivetune.constants.AppLanguageKey
 import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
 import moe.rukamori.archivetune.constants.MiuixIntroShownVersionKey
+import moe.rukamori.archivetune.ui.component.MiuixTopBar
 import moe.rukamori.archivetune.ui.component.MiuixIntroSheet
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.constants.GlassIntroSeenKey
@@ -350,9 +351,6 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
-import top.yukonga.miuix.kmp.blur.LayerBackdrop
-import top.yukonga.miuix.kmp.blur.layerBackdrop
-import top.yukonga.miuix.kmp.blur.rememberLayerBackdrop
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @AndroidEntryPoint
@@ -2002,8 +2000,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
-                            val navigationBackdrop = rememberLayerBackdrop()
-
                             Scaffold(
                                 topBar = { GlassBarHaloScope {
                                     if (shouldShowTopBar) {
@@ -2106,37 +2102,8 @@ class MainActivity : ComponentActivity() {
                                                 )
                                             }
 
-                                            TopAppBar(
-                                                windowInsets =
-                                                    WindowInsets.safeDrawing.only(
-                                                        (
-                                                            if (useRail) {
-                                                                WindowInsetsSides.Right
-                                                            } else {
-                                                                WindowInsetsSides.Horizontal
-                                                            }
-                                                        ) + WindowInsetsSides.Top,
-                                                    ),
-                                                title = {
-                                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                                        // app icon
-                                                        Icon(
-                                                            painter = painterResource(R.drawable.about_appbar),
-                                                            contentDescription = null,
-                                                            modifier =
-                                                                Modifier
-                                                                    .size(35.dp)
-                                                                    .padding(end = 3.dp),
-                                                        )
-                                                        Text(
-                                                            text = stringResource(R.string.app_name),
-                                                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                                                            maxLines = 1,
-                                                            overflow = TextOverflow.Ellipsis,
-                                                        )
-                                                    }
-                                                },
-                                                actions = {
+                                            val topBarActions: @Composable RowScope.() -> Unit = {
+
                                                     TranslucentTopAppBarIconButton(
                                                         onClick = { navController.navigate("history") },
                                                     ) {
@@ -2231,7 +2198,83 @@ class MainActivity : ComponentActivity() {
                                                             )
                                                         }
                                                     }
+                                                
+                                            }
+                                            // Miuix mode uses a simple surface-based top bar with the same
+                                            // title and action slots. The Material 3 bar is kept for the
+                                            // default look so scroll behavior, scrim and insets are unchanged.
+                                            val miuixTopBarEnabled by rememberPreference(
+                                                moe.rukamori.archivetune.constants.MiuixThemeEnabledKey,
+                                                defaultValue = false,
+                                            )
+                                            val miuixTopBarArea by rememberPreference(
+                                                moe.rukamori.archivetune.constants.MiuixForTopBarKey,
+                                                defaultValue = true,
+                                            )
+                                            if (miuixTopBarEnabled && miuixTopBarArea) {
+                                                top.yukonga.miuix.kmp.theme.MiuixTheme(
+                                                    colors =
+                                                        if (androidx.compose.foundation.isSystemInDarkTheme())
+                                                            top.yukonga.miuix.kmp.theme.darkColorScheme()
+                                                        else top.yukonga.miuix.kmp.theme.lightColorScheme(),
+                                                ) {
+                                                    MiuixTopBar(
+                                                        title = {
+                                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                                Icon(
+                                                                    painter = painterResource(R.drawable.about_appbar),
+                                                                    contentDescription = null,
+                                                                    modifier = Modifier.size(35.dp).padding(end = 3.dp),
+                                                                )
+                                                                Text(
+                                                                    text = stringResource(R.string.app_name),
+                                                                    style =
+                                                                        MaterialTheme.typography.titleLarge.copy(
+                                                                            fontWeight = FontWeight.Bold,
+                                                                        ),
+                                                                    maxLines = 1,
+                                                                    overflow = TextOverflow.Ellipsis,
+                                                                )
+                                                            }
+                                                        },
+                                                        actions = topBarActions,
+                                                        containerColor =
+                                                            if (shouldUseFloatingTopBar) Color.Transparent
+                                                            else top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.surface,
+                                                    )
+                                                }
+                                            } else {
+                                            TopAppBar(
+                                                windowInsets =
+                                                    WindowInsets.safeDrawing.only(
+                                                        (
+                                                            if (useRail) {
+                                                                WindowInsetsSides.Right
+                                                            } else {
+                                                                WindowInsetsSides.Horizontal
+                                                            }
+                                                        ) + WindowInsetsSides.Top,
+                                                    ),
+                                                title = {
+                                                    Row(verticalAlignment = Alignment.CenterVertically) {
+                                                        // app icon
+                                                        Icon(
+                                                            painter = painterResource(R.drawable.about_appbar),
+                                                            contentDescription = null,
+                                                            modifier =
+                                                                Modifier
+                                                                    .size(35.dp)
+                                                                    .padding(end = 3.dp),
+                                                        )
+                                                        Text(
+                                                            text = stringResource(R.string.app_name),
+                                                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                                                            maxLines = 1,
+                                                            overflow = TextOverflow.Ellipsis,
+                                                        )
+                                                    }
                                                 },
+                                                actions = topBarActions,
                                                 scrollBehavior =
                                                     if (shouldUseFloatingTopBar) {
                                                         null
@@ -2260,7 +2303,8 @@ class MainActivity : ComponentActivity() {
                                                         actionIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                                         navigationIconContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
                                                     ),
-                                            )
+                                            )                                            }
+
                                         }
                                     }
                                     AnimatedVisibility(
@@ -2533,7 +2577,6 @@ class MainActivity : ComponentActivity() {
                                             FloatingNavigationToolbar(
                                                 items = navigationItems,
                                                 pureBlack = pureBlack,
-                                                appBackdrop = navigationBackdrop,
                                                 miniPlayerProximityProvider = navigationProximityProvider,
                                                 modifier =
                                                     Modifier
@@ -2792,7 +2835,7 @@ class MainActivity : ComponentActivity() {
                                                 },
                                             ).nestedScroll(
                                                 topAppBarScrollBehavior.nestedScrollConnection,
-                                            ).then(LocalGlassSource.current).layerBackdrop(navigationBackdrop),
+                                            ).then(LocalGlassSource.current),
                                 ) {
                                     navigationBuilder(
                                         navController,
