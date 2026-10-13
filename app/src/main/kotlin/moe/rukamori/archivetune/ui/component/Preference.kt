@@ -60,6 +60,8 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -844,15 +846,12 @@ fun SwitchPreference(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
                 enabled = isEnabled,
-                colors =
-                    SwitchDefaults.colors(
-                        checkedThumbColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.onPrimary,
-                        checkedTrackColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.primary,
-                        uncheckedThumbColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.onSurface,
-                        uncheckedTrackColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.surfaceVariant,
-                    ),
-            )
-        },
+                thumbContent = {
+                    AnimatedContent(
+                        targetState = checked,
+                        transitionSpec = {
+                            fadeIn(tween(100)) togetherWith fadeOut(tween(100))
+                        },
                         label = "switchThumbIcon",
                     ) { isChecked ->
                         Icon(

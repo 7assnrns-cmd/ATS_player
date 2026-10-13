@@ -67,7 +67,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import moe.rukamori.archivetune.ui.component.MiuixTopBar
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -150,9 +150,6 @@ import moe.rukamori.archivetune.ui.component.PlaylistTagOrderDialog
 import moe.rukamori.archivetune.ui.component.PreferenceEntry
 import moe.rukamori.archivetune.ui.component.PreferenceGroup
 import moe.rukamori.archivetune.ui.component.SwitchPreference
-import top.yukonga.miuix.kmp.theme.MiuixTheme
-import top.yukonga.miuix.kmp.basic.SmallTitle
-import top.yukonga.miuix.kmp.basic.Card
 import moe.rukamori.archivetune.ui.component.TagsManagementDialog
 import moe.rukamori.archivetune.ui.component.ThumbnailCornerRadiusSelectorButton
 import moe.rukamori.archivetune.ui.player.StyledPlaybackSlider
@@ -569,8 +566,8 @@ fun AppearanceSettings(navController: NavController) {
 
     Scaffold(
         topBar = {
-            MiuixTopBar(
-                title = stringResource(R.string.\1),
+            TopAppBar(
+                title = { Text(stringResource(R.string.appearance)) },
                 navigationIcon = {
                     IconButton(
                         onClick = navController::navigateUp,
@@ -598,7 +595,8 @@ fun AppearanceSettings(navController: NavController) {
             PreferenceGroup(title = stringResource(R.string.theme)) {
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.enable_dynamic_theme)) },
+                        icon = { Icon(painterResource(R.drawable.palette), null) },
                         checked = dynamicTheme,
                         onCheckedChange = onDynamicThemeChange,
                     )
@@ -731,7 +729,7 @@ fun AppearanceSettings(navController: NavController) {
                     }
 
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.dynamic_theme_animation_style_title)) },
                         description =
                             stringResource(
                                 when (dynamicThemeAnimationStyle) {
@@ -743,19 +741,22 @@ fun AppearanceSettings(navController: NavController) {
                                         R.string.dynamic_theme_style_instant
                                 },
                             ),
+                        icon = { Icon(painterResource(R.drawable.palette), null) },
                         onClick = { showAnimationStyleDialog = true },
                     )
 
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.dynamic_theme_sync_with_crossfade_description),
+                        title = { Text(stringResource(R.string.dynamic_theme_sync_with_crossfade_title)) },
+                        description = stringResource(R.string.dynamic_theme_sync_with_crossfade_description),
+                        icon = { Icon(painterResource(R.drawable.graphic_eq), null) },
                         checked = dynamicThemeSyncWithCrossfade,
                         onCheckedChange = onDynamicThemeSyncWithCrossfadeChange,
                     )
 
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.dynamic_theme_animation_duration_title)) },
                         description = displayText,
+                        icon = { Icon(painterResource(R.drawable.graphic_eq), null) },
                         onClick = {
                             sliderValueMs = dynamicThemeAnimationDurationMs.toFloat().coerceIn(0f, 3000f)
                             showDurationDialog = true
@@ -765,8 +766,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = dynamicTheme && Build.VERSION.SDK_INT < Build.VERSION_CODES.S && wallpaperExtractionFailed) {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.wallpaper_permission_desc),
+                        title = { Text(stringResource(R.string.wallpaper_permission)) },
+                        description = stringResource(R.string.wallpaper_permission_desc),
+                        icon = { Icon(painterResource(R.drawable.storage), null) },
                         onClick = {
                             val intent =
                                 android.content.Intent(
@@ -780,8 +782,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = !dynamicTheme) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.random_theme_on_startup_desc),
+                        title = { Text(stringResource(R.string.random_theme_on_startup)) },
+                        description = stringResource(R.string.random_theme_on_startup_desc),
+                        icon = { Icon(painterResource(R.drawable.shuffle), null) },
                         checked = randomThemeOnStartup,
                         onCheckedChange = onRandomThemeOnStartupChange,
                     )
@@ -789,23 +792,26 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = !dynamicTheme || Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.customize_theme_colors),
+                        title = { Text(stringResource(R.string.color_palette)) },
+                        description = stringResource(R.string.customize_theme_colors),
+                        icon = { Icon(painterResource(R.drawable.format_paint), null) },
                         onClick = { navController.navigate("settings/appearance/palette_picker") },
                     )
                 }
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.app_icon_description),
+                        title = { Text(stringResource(R.string.app_icon)) },
+                        description = stringResource(R.string.app_icon_description),
+                        icon = { Icon(painterResource(R.drawable.app_icon_small), null) },
                         onClick = { navController.navigate("settings/appearance/icon") },
                     )
                 }
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.dark_theme)) },
+                        icon = { Icon(painterResource(R.drawable.dark_mode), null) },
                         selectedValue = darkMode,
                         onValueSelected = onDarkModeChange,
                         valueText = {
@@ -820,7 +826,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = useDarkTheme) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.pure_black)) },
+                        icon = { Icon(painterResource(R.drawable.contrast), null) },
                         checked = pureBlack,
                         onCheckedChange = onPureBlackChange,
                     )
@@ -828,8 +835,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.glass_effect_desc),
+                        title = { Text(stringResource(R.string.glass_effect)) },
+                        description = stringResource(R.string.glass_effect_desc),
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         checked = glassEffect,
                         onCheckedChange = onGlassEffectChange,
                     )
@@ -837,7 +845,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && glassEffect) {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.glass_blur_strength)) },
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         selectedValue = glassBlurStrength,
                         onValueSelected = onGlassBlurStrengthChange,
                         valueText = {
@@ -852,8 +861,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.miuix_theme_desc),
+                        title = { Text(stringResource(R.string.miuix_theme)) },
+                        description = stringResource(R.string.miuix_theme_desc),
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         checked = miuixThemeEnabled,
                         onCheckedChange = onMiuixThemeEnabledChange,
                     )
@@ -861,7 +871,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = miuixThemeEnabled) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.miuix_for_settings)) },
+                        icon = { Icon(painterResource(R.drawable.settings), null) },
                         checked = miuixForSettings,
                         onCheckedChange = onMiuixForSettingsChange,
                     )
@@ -869,7 +880,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = miuixThemeEnabled) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.miuix_for_top_bar)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         checked = miuixForTopBar,
                         onCheckedChange = onMiuixForTopBarChange,
                     )
@@ -877,7 +889,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = miuixThemeEnabled) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.miuix_for_navigation_bar)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         checked = miuixForNavigationBar,
                         onCheckedChange = onMiuixForNavigationBarChange,
                     )
@@ -885,7 +898,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = miuixThemeEnabled) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.miuix_for_dialogs)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         checked = miuixForDialogs,
                         onCheckedChange = onMiuixForDialogsChange,
                     )
@@ -893,7 +907,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = miuixThemeEnabled) {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.miuix_for_sheets)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         checked = miuixForSheets,
                         onCheckedChange = onMiuixForSheetsChange,
                     )
@@ -901,8 +916,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.disable_blur_desc),
+                        title = { Text(stringResource(R.string.disable_blur)) },
+                        description = stringResource(R.string.disable_blur_desc),
+                        icon = { Icon(painterResource(R.drawable.blur_off), null) },
                         checked = disableBlur,
                         onCheckedChange = onDisableBlurChange,
                     )
@@ -910,8 +926,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.disable_animations_desc),
+                        title = { Text(stringResource(R.string.disable_animations)) },
+                        description = stringResource(R.string.disable_animations_desc),
+                        icon = { Icon(painterResource(R.drawable.animation), null) },
                         checked = disableAnimations,
                         onCheckedChange = onDisableAnimationsChange,
                     )
@@ -919,12 +936,13 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.force_high_refresh_rate)) },
                         description =
                             stringResource(
                                 R.string.max_supported_refresh_rate,
                                 supportedHighestFps.roundToInt(),
                             ),
+                        icon = { Icon(painterResource(R.drawable.speed), null) },
                         checked = forceHighRefreshRate,
                         onCheckedChange = onForceHighRefreshRateChange,
                         isEnabled = isHighRefreshRateSupported,
@@ -933,8 +951,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.blur_intensity)) },
                         description = stringResource(R.string.blur_intensity_value, blurRadius.roundToInt()),
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         isEnabled = !disableBlur,
                         content = {
                             Spacer(modifier = Modifier.height(10.dp))
@@ -952,8 +971,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.album_backdrop_desc),
+                        title = { Text(stringResource(R.string.album_backdrop)) },
+                        description = stringResource(R.string.album_backdrop_desc),
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         checked = backdropEnabled,
                         onCheckedChange = onBackdropEnabledChange,
                     )
@@ -961,8 +981,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.backdrop_blur_amount)) },
                         description = stringResource(R.string.backdrop_blur_amount_value, backdropBlurAmount),
+                        icon = { Icon(painterResource(R.drawable.blur_on), null) },
                         isEnabled = backdropEnabled,
                         content = {
                             Spacer(modifier = Modifier.height(10.dp))
@@ -980,8 +1001,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.font_preference_desc),
+                        title = { Text(stringResource(R.string.font_preference)) },
+                        description = stringResource(R.string.font_preference_desc),
+                        icon = { Icon(painterResource(R.drawable.text_fields), null) },
                         selectedValue = fontPreference,
                         onValueSelected = onFontPreferenceSelected,
                         valueText = {
@@ -1004,8 +1026,9 @@ fun AppearanceSettings(navController: NavController) {
                             customFontUri
                         }
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.custom_font)) },
                         description = customFontDescription,
+                        icon = { Icon(painterResource(R.drawable.text_fields), null) },
                         onClick = pickCustomFont,
                     )
                 }
@@ -1014,7 +1037,8 @@ fun AppearanceSettings(navController: NavController) {
             PreferenceGroup(title = stringResource(R.string.player)) {
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.player_design_style)) },
+                        icon = { Icon(painterResource(R.drawable.palette), null) },
                         selectedValue = playerDesignStyle,
                         onValueSelected = onPlayerDesignStyleChange,
                         valueText = {
@@ -1036,13 +1060,14 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.show_player_volume_bar)) },
                         description =
                             if (isVolumeBarSupported) {
                                 null
                             } else {
                                 stringResource(R.string.player_volume_bar_v7_v8_only)
                             },
+                        icon = { Icon(painterResource(R.drawable.volume_up), null) },
                         checked = showPlayerVolumeBar,
                         onCheckedChange = onShowPlayerVolumeBarChange,
                         isEnabled = isVolumeBarSupported,
@@ -1051,13 +1076,14 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.player_background_style)) },
                         description =
                             if (isPlayerStyleCustomizationEnabled) {
                                 null
                             } else {
                                 stringResource(R.string.player_background_style_v8_v9_desc)
                             },
+                        icon = { Icon(painterResource(R.drawable.gradient), null) },
                         selectedValue = playerBackground,
                         onValueSelected = { selectedBackground ->
                             onPlayerBackgroundChange(selectedBackground)
@@ -1089,7 +1115,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     ListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.lyrics_background_style)) },
+                        icon = { Icon(painterResource(R.drawable.lyrics), null) },
                         selectedValue = lyricsBackground,
                         values = availableLyricsBackgroundStyles,
                         onValueSelected = onLyricsBackgroundChange,
@@ -1107,14 +1134,16 @@ fun AppearanceSettings(navController: NavController) {
 
                 item(visible = playerBackground == PlayerBackgroundStyle.CUSTOM) {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.customized_background)) },
+                        icon = { Icon(painterResource(R.drawable.image), null) },
                         onClick = { navController.navigate("customize_background") },
                     )
                 }
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.mini_player_background_style)) },
+                        icon = { Icon(painterResource(R.drawable.gradient), null) },
                         selectedValue = miniPlayerBackground,
                         onValueSelected = onMiniPlayerBackgroundChange,
                         valueText = {
@@ -1129,8 +1158,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.hide_player_thumbnail_desc),
+                        title = { Text(stringResource(R.string.hide_player_thumbnail)) },
+                        description = stringResource(R.string.hide_player_thumbnail_desc),
+                        icon = { Icon(painterResource(R.drawable.hide_image), null) },
                         checked = hidePlayerThumbnail,
                         onCheckedChange = onHidePlayerThumbnailChange,
                     )
@@ -1144,8 +1174,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.crop_thumbnail_to_square_desc),
+                        title = { Text(stringResource(R.string.crop_thumbnail_to_square)) },
+                        description = stringResource(R.string.crop_thumbnail_to_square_desc),
+                        icon = { Icon(painterResource(R.drawable.image), null) },
                         checked = cropThumbnailToSquare,
                         onCheckedChange = onCropThumbnailToSquareChange,
                     )
@@ -1153,21 +1184,23 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.aod_customize_entry_desc),
+                        title = { Text(stringResource(R.string.aod_customize_title)) },
+                        description = stringResource(R.string.aod_customize_entry_desc),
+                        icon = { Icon(painterResource(R.drawable.bedtime), null) },
                         onClick = { navController.navigate("settings/appearance/aod_customized") },
                     )
                 }
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.player_buttons_style)) },
                         description =
                             if (isPlayerStyleCustomizationEnabled) {
                                 null
                             } else {
                                 stringResource(R.string.player_background_style_v8_v9_desc)
                             },
+                        icon = { Icon(painterResource(R.drawable.palette), null) },
                         selectedValue = playerButtonsStyle,
                         onValueSelected = onPlayerButtonsStyleChange,
                         isEnabled = isPlayerStyleCustomizationEnabled,
@@ -1182,8 +1215,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.player_slider_style)) },
                         description = sliderStyleLabel(sliderStyle),
+                        icon = { Icon(painterResource(R.drawable.sliders), null) },
                         onClick = {
                             showSliderOptionDialog = true
                         },
@@ -1193,7 +1227,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.enable_swipe_thumbnail)) },
+                        icon = { Icon(painterResource(R.drawable.swipe), null) },
                         checked = swipeThumbnail,
                         onCheckedChange = onSwipeThumbnailChange,
                     )
@@ -1269,8 +1304,9 @@ fun AppearanceSettings(navController: NavController) {
                     }
 
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.swipe_sensitivity)) },
                         description = stringResource(R.string.sensitivity_percentage, (swipeSensitivity * 100).roundToInt()),
+                        icon = { Icon(painterResource(R.drawable.tune), null) },
                         onClick = { showSensitivityDialog = true },
                     )
                 }
@@ -1279,7 +1315,8 @@ fun AppearanceSettings(navController: NavController) {
             PreferenceGroup(title = stringResource(R.string.misc)) {
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.quick_picks_display_mode)) },
+                        icon = { Icon(painterResource(R.drawable.grid_view), null) },
                         selectedValue = quickPicksDisplayMode,
                         onValueSelected = onQuickPicksDisplayModeChange,
                         valueText = {
@@ -1293,7 +1330,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     EnumListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.default_open_tab)) },
+                        icon = { Icon(painterResource(R.drawable.nav_bar), null) },
                         selectedValue = defaultOpenTab,
                         onValueSelected = onDefaultOpenTabChange,
                         valueText = {
@@ -1308,8 +1346,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.restore_last_tab_desc),
+                        title = { Text(stringResource(R.string.restore_last_tab)) },
+                        description = stringResource(R.string.restore_last_tab_desc),
+                        icon = { Icon(painterResource(R.drawable.nav_bar), null) },
                         checked = restoreLastTab,
                         onCheckedChange = onRestoreLastTabChange,
                     )
@@ -1317,7 +1356,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     ListPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.default_lib_chips)) },
+                        icon = { Icon(painterResource(R.drawable.tab), null) },
                         selectedValue = defaultChip,
                         values = DefaultLibraryFilterOrder,
                         valueText = {
@@ -1337,32 +1377,36 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.arrange_library_chips_desc),
+                        title = { Text(stringResource(R.string.arrange_library_chips)) },
+                        description = stringResource(R.string.arrange_library_chips_desc),
+                        icon = { Icon(painterResource(R.drawable.tab), null) },
                         onClick = { showLibraryChipOrderDialog = true },
                     )
                 }
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.arrange_playlist_tags_desc),
+                        title = { Text(stringResource(R.string.arrange_playlist_tags)) },
+                        description = stringResource(R.string.arrange_playlist_tags_desc),
+                        icon = { Icon(painterResource(R.drawable.style), null) },
                         onClick = { showPlaylistTagOrderDialog = true },
                     )
                 }
 
                 item {
                     PreferenceEntry(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.manage_playlist_tags_desc),
+                        title = { Text(stringResource(R.string.manage_playlist_tags)) },
+                        description = stringResource(R.string.manage_playlist_tags_desc),
+                        icon = { Icon(painterResource(R.drawable.style), null) },
                         onClick = { showTagsManagementDialog = true },
                     )
                 }
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.show_home_category_chips_desc),
+                        title = { Text(stringResource(R.string.show_home_category_chips)) },
+                        description = stringResource(R.string.show_home_category_chips_desc),
+                        icon = { Icon(painterResource(R.drawable.home_outlined), null) },
                         checked = showHomeCategoryChips,
                         onCheckedChange = onShowHomeCategoryChipsChange,
                     )
@@ -1370,8 +1414,9 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
-                        summary = stringResource(R.string.show_tags_in_library_desc),
+                        title = { Text(stringResource(R.string.show_tags_in_library)) },
+                        description = stringResource(R.string.show_tags_in_library_desc),
+                        icon = { Icon(painterResource(R.drawable.filter_alt), null) },
                         checked = showTagsInLibrary,
                         onCheckedChange = onShowTagsInLibraryChange,
                     )
@@ -1379,7 +1424,8 @@ fun AppearanceSettings(navController: NavController) {
 
                 item {
                     SwitchPreference(
-                        title = stringResource(R.string.\1),
+                        title = { Text(stringResource(R.string.swipe_song_to_add)) },
+                        icon = { Icon(painterResource(R.drawable.swipe), null) },
                         checked = swipeToSong,
                         onCheckedChange = onSwipeToSongChange,
                     )
