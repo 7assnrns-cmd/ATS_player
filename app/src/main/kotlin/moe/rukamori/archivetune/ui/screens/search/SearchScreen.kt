@@ -79,6 +79,7 @@ import moe.rukamori.archivetune.innertube.models.WatchEndpoint
 import moe.rukamori.archivetune.models.toMediaMetadata
 import moe.rukamori.archivetune.playback.queues.YouTubeQueue
 import moe.rukamori.archivetune.search.SearchDiscoveryUiModel
+import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.NavigationTitle
 import moe.rukamori.archivetune.ui.component.YouTubeGridItem
@@ -524,7 +525,7 @@ private fun SuggestedSongsSection(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .combinedClickable(
+                            .miuixCombinedClickable(
                                 onClick = {
                                     if (isActive) {
                                         playerConnection.player.togglePlayPause()
@@ -604,7 +605,7 @@ private fun TrendingAlbumsSection(
                 coroutineScope = coroutineScope,
                 modifier =
                     Modifier
-                        .combinedClickable(
+                        .miuixCombinedClickable(
                             onClick = {
                                 navController.navigate("album/${album.id}")
                             },
@@ -652,7 +653,7 @@ private fun SuggestedArtistsSection(
                 item = artist,
                 modifier =
                     Modifier
-                        .combinedClickable(
+                        .miuixCombinedClickable(
                             onClick = {
                                 navController.navigate("artist/${artist.id}")
                             },

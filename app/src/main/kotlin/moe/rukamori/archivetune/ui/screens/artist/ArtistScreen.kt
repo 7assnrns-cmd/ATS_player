@@ -121,6 +121,7 @@ import moe.rukamori.archivetune.innertube.pages.ArtistSectionLayout
 import moe.rukamori.archivetune.models.toMediaMetadata
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.YouTubeQueue
+import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.ui.component.AlbumGridItem
 import moe.rukamori.archivetune.ui.component.HideOnScrollFAB
 import moe.rukamori.archivetune.ui.component.IconButton
@@ -609,7 +610,7 @@ fun ArtistScreen(
                                         .fillMaxWidth()
                                         .widthIn(max = ArtistContentMaxWidth)
                                         .padding(horizontal = ArtistHorizontalPadding, vertical = 12.dp)
-                                        .combinedClickable(
+                                        .miuixCombinedClickable(
                                             onClick = { isExpanded = !isExpanded },
                                             onLongClick = {},
                                         ),
@@ -681,7 +682,7 @@ fun ArtistScreen(
                                 modifier =
                                     Modifier
                                         .fillMaxWidth()
-                                        .combinedClickable(
+                                        .miuixCombinedClickable(
                                             onClick = {
                                                 if (song.id == mediaMetadata?.id) {
                                                     playerConnection.player.togglePlayPause()
@@ -773,7 +774,7 @@ fun ArtistScreen(
                                         coroutineScope = coroutineScope,
                                         modifier =
                                             Modifier
-                                                .combinedClickable(
+                                                .miuixCombinedClickable(
                                                     onClick = {
                                                         navController.navigate("album/${album.id}")
                                                     },
@@ -844,7 +845,7 @@ fun ArtistScreen(
                                     },
                                     modifier =
                                         Modifier
-                                            .combinedClickable(
+                                            .miuixCombinedClickable(
                                                 onClick = {
                                                     if (song.id == mediaMetadata?.id) {
                                                         playerConnection.player.togglePlayPause()
@@ -914,7 +915,7 @@ fun ArtistScreen(
                                             coroutineScope = coroutineScope,
                                             modifier =
                                                 Modifier
-                                                    .combinedClickable(
+                                                    .miuixCombinedClickable(
                                                         onClick = {
                                                             when (item) {
                                                                 is SongItem -> {

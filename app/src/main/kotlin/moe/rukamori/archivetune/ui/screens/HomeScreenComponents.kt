@@ -125,6 +125,7 @@ import moe.rukamori.archivetune.models.toMediaMetadata
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.playback.queues.ListQueue
 import moe.rukamori.archivetune.playback.queues.YouTubeQueue
+import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.ui.component.IconButton
 import moe.rukamori.archivetune.ui.component.ItemThumbnail
 import moe.rukamori.archivetune.ui.component.MenuState
@@ -335,7 +336,7 @@ fun QuickPicksSection(
                                     ),
                                     MaterialTheme.shapes.extraLarge,
                                 ).focusable()
-                                .combinedClickable(
+                                .miuixCombinedClickable(
                                     onClick = {
                                         if (isActive) {
                                             playerConnection.player.togglePlayPause()
@@ -491,7 +492,7 @@ fun QuickPicksSection(
                             modifier =
                                 Modifier
                                     .width(itemWidth)
-                                    .combinedClickable(
+                                    .miuixCombinedClickable(
                                         onClick = {
                                             if (song.id == mediaMetadata?.id) {
                                                 playerConnection.player.togglePlayPause()
@@ -598,7 +599,7 @@ fun RemoteQuickPicksSection(
                                     ),
                                     MaterialTheme.shapes.extraLarge,
                                 ).focusable()
-                                .combinedClickable(
+                                .miuixCombinedClickable(
                                     onClick = {
                                         if (isActive) {
                                             playerConnection.player.togglePlayPause()
@@ -750,7 +751,7 @@ fun RemoteQuickPicksSection(
                             modifier =
                                 Modifier
                                     .width(itemWidth)
-                                    .combinedClickable(
+                                    .miuixCombinedClickable(
                                         onClick = {
                                             if (song.id == mediaMetadata?.id) {
                                                 playerConnection.player.togglePlayPause()
@@ -1022,7 +1023,7 @@ fun SpeedDialSection(
                                                         .size(tileSize)
                                                         .clip(MaterialTheme.shapes.large)
                                                         .focusable()
-                                                        .combinedClickable(
+                                                        .miuixCombinedClickable(
                                                             onClick = {
                                                                 when (localItem) {
                                                                     is Song -> {
@@ -1157,7 +1158,7 @@ private fun SpeedDialRandomTile(
         modifier =
             modifier
                 .aspectRatio(1f)
-                .combinedClickable(onClick = onClick),
+                .miuixCombinedClickable(onClick = onClick),
     ) {
         Box(contentAlignment = Alignment.Center) {
             Column(
@@ -1355,7 +1356,7 @@ private fun KeepListeningResumeCard(
             modifier
                 .heightIn(min = 120.dp)
                 .focusable()
-                .combinedClickable(onClick = onClick, onLongClick = onLongClick),
+                .miuixCombinedClickable(onClick = onClick, onLongClick = onLongClick),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -1526,7 +1527,7 @@ fun ForgottenFavoritesSection(
                     Modifier
                         .width(horizontalLazyGridItemWidth)
                         .focusable()
-                        .combinedClickable(
+                        .miuixCombinedClickable(
                             onClick = {
                                 if (song.id == mediaMetadata?.id) {
                                     playerConnection.player.togglePlayPause()
@@ -1896,7 +1897,7 @@ private fun FeaturedPlaylistCard(
                         .fillMaxWidth()
                         .heightIn(min = 96.dp)
                         .then(
-                            Modifier.combinedClickable(
+                            Modifier.miuixCombinedClickable(
                                 onClick = openPlaylist,
                                 onLongClick = showPlaylistMenu,
                             ),
@@ -1992,7 +1993,7 @@ private fun FeaturedPlaylistCard(
                     modifier =
                         Modifier
                             .fillMaxWidth()
-                            .combinedClickable(
+                            .miuixCombinedClickable(
                                 onClick = playSong,
                                 onLongClick = {
                                     menuState.show {
@@ -2095,7 +2096,7 @@ private fun YouTubeGridItemWrapper(
         modifier =
             modifier
                 .focusable()
-                .combinedClickable(
+                .miuixCombinedClickable(
                     onClick = {
                         when (item) {
                             is SongItem -> {
