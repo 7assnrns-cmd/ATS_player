@@ -8,19 +8,22 @@
 package moe.rukamori.archivetune.ui.component
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -30,45 +33,53 @@ import androidx.compose.ui.unit.dp
 import moe.rukamori.archivetune.R
 
 /**
- * A simple language picker dialog showing every language supported by ArchiveTune.
- * Returns the BCP-47 tag (or "system") to the caller via [onSelect].
+ * Bottom sheet for picking the app language.
+ * @param currentTag BCP-47 tag of the currently selected language ("system" for system default).
+ * @param onDismiss Called when the user dismisses the sheet.
+ * @param onSelect Called with the picked tag. The caller is responsible for persisting + applying.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguagePickerDialog(
+fun LanguagePickerSheet(
     currentTag: String,
     onDismiss: () -> Unit,
     onSelect: (String) -> Unit,
 ) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val languages = remember { supportedLanguages() }
 
-    AlertDialog(
+    ModalBottomSheet(
         onDismissRequest = onDismiss,
-        title = { Text(stringResource(R.string.app_language)) },
-        text = {
+        sheetState = sheetState,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .navigationBarsPadding(),
+        ) {
+            Text(
+                text = stringResource(R.string.app_language),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 12.dp),
+            )
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(max = 420.dp),
+                    .heightIn(max = 520.dp),
             ) {
                 items(languages, key = { it.first }) { (tag, name) ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable {
-                                onSelect(tag)
-                                onDismiss()
-                            }
-                            .padding(vertical = 10.dp, horizontal = 4.dp),
+                            .clickable { onSelect(tag) }
+                            .padding(horizontal = 24.dp, vertical = 14.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         RadioButton(
                             selected = tag == currentTag,
-                            onClick = {
-                                onSelect(tag)
-                                onDismiss()
-                            },
+                            onClick = { onSelect(tag) },
                         )
-                        Spacer(Modifier.width(8.dp))
+                        Spacer(Modifier.width(12.dp))
                         Text(
                             text = name,
                             style = MaterialTheme.typography.bodyLarge,
@@ -76,16 +87,12 @@ fun LanguagePickerDialog(
                     }
                 }
             }
-        },
-        confirmButton = {
-            TextButton(onClick = onDismiss) {
-                Text(stringResource(android.R.string.cancel))
-            }
-        },
-    )
+            Spacer(Modifier.heightIn(min = 16.dp))
+        }
+    }
 }
 
-/** Display name for the currently selected language tag. */
+/** Display name for a language tag (used in the settings row). */
 fun languageDisplayName(tag: String): String =
     supportedLanguages().firstOrNull { it.first == tag }?.second ?: tag
 
