@@ -60,14 +60,14 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberSliderState
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import top.yukonga.miuix.kmp.anim.folmeSpring
+import top.yukonga.miuix.kmp.basic.Switch
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
@@ -844,12 +844,15 @@ fun SwitchPreference(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
                 enabled = isEnabled,
-                thumbContent = {
-                    AnimatedContent(
-                        targetState = checked,
-                        transitionSpec = {
-                            fadeIn(tween(100)) togetherWith fadeOut(tween(100))
-                        },
+                colors =
+                    SwitchDefaults.colors(
+                        checkedThumbColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.onPrimary,
+                        checkedTrackColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.primary,
+                        uncheckedThumbColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.onSurface,
+                        uncheckedTrackColor = top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.surfaceVariant,
+                    ),
+            )
+        },
                         label = "switchThumbIcon",
                     ) { isChecked ->
                         Icon(
