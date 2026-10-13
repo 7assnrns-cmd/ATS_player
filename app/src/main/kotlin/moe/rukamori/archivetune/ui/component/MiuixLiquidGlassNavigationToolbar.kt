@@ -7,8 +7,6 @@
 
 package moe.rukamori.archivetune.ui.component
 
-import android.os.SystemClock
-import android.view.ViewConfiguration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -24,27 +22,25 @@ import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.VideoLibrary
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import component.liquid.IosLiquidGlassNavigationBar
 import moe.rukamori.archivetune.ui.screens.Screens
-import top.yukonga.miuix.kmp.basic.FloatingNavigationBar
-import top.yukonga.miuix.kmp.basic.FloatingNavigationBarItem
-import top.yukonga.miuix.kmp.theme.MiuixTheme
+import top.yukonga.miuix.kmp.basic.NavigationItem
+import top.yukonga.miuix.kmp.blur.LayerBackdrop
 
 /**
- * Miuix-styled replacement for [FloatingNavigationToolbar]. Same surface
- * contract (items, selection, double-tap on Search) so MainActivity does
- * not need to change.
+ * ArchiveTune wrapper around the Miuix Liquid Glass navigation bar from the
+ * upstream example tree. Translates the app's [Screens] list into Miuix
+ * [NavigationItem]s and forwards the surrounding [LayerBackdrop] so the bar
+ * can blur and refract the content behind it.
  *
- * Note: the liquid-glass implementation from the Miuix sample tree has been
- * removed because its API does not match the shipped miuix-blur 0.9.4
- * artifact. The plain [FloatingNavigationBar] is used instead, which ships
- * in the stable library and compiles without extra samples.
+ * When [appBackdrop] is null (e.g. during the first launch of a release that
+ * has not yet wired the backdrop in MainActivity), the bar renders without
+ * the live refraction but keeps its shape, colours and press behaviour.
  */
 @Composable
 fun MiuixLiquidGlassNavigationToolbar(
@@ -54,9 +50,22 @@ fun MiuixLiquidGlassNavigationToolbar(
     isSelected: (Screens) -> Boolean,
     onItemClick: (Screens, Boolean) -> Unit,
     onSearchItemDoubleClick: (() -> Unit)? = null,
+    appBackdrop: LayerBackdrop? = null,
 ) {
-    val navigationContainerColor =
-        if (pureBlack) Color.Black else MiuixTheme.colorScheme.surfaceContainer
+    val selectedIndex =
+        remember(items, isSelected) {
+            items.indexOfFirst { isSelected(it) }.coerceAtLeast(0)
+        }
+
+    // Resolve labels through stringResource here because NavigationItem
+    // stores plain strings, not resource IDs.
+    val navigationItems =
+        items.map { screen ->
+            NavigationItem(
+                label = stringResource(screen.titleId),
+                icon = screen.miuixIcon(isSelected(screen)),
+            )
+        }
 
     Box(
         modifier =
@@ -65,40 +74,16 @@ fun MiuixLiquidGlassNavigationToolbar(
                 .windowInsetsPadding(WindowInsets.systemBars.only(WindowInsetsSides.Horizontal)),
         contentAlignment = Alignment.Center,
     ) {
-        FloatingNavigationBar(
-            color = navigationContainerColor,
-            defaultWindowInsetsPadding = false,
-        ) {
-            items.forEach { screen ->
-                val selected = isSelected(screen)
-                val lastClickTime = remember(screen) { mutableLongStateOf(0L) }
-                val onClick =
-                    remember(screen, selected, onItemClick, onSearchItemDoubleClick) {
-                        {
-                            val currentTime = SystemClock.uptimeMillis()
-                            val doubleTapHandler =
-                                if (screen === Screens.Search) onSearchItemDoubleClick else null
-                            val isDoubleClick =
-                                doubleTapHandler != null &&
-                                    currentTime - lastClickTime.longValue <=
-                                    ViewConfiguration.getDoubleTapTimeout()
-                            lastClickTime.longValue = if (isDoubleClick) 0L else currentTime
-                            if (isDoubleClick) {
-                                doubleTapHandler?.invoke()
-                                Unit
-                            } else {
-                                onItemClick(screen, selected)
-                            }
-                        }
-                    }
-                FloatingNavigationBarItem(
-                    selected = selected,
-                    onClick = onClick,
-                    icon = screen.miuixIcon(selected),
-                    label = stringResource(screen.titleId),
-                )
-            }
-        }
+        IosLiquidGlassNavigationBar(
+            items = navigationItems,
+            selectedIndex = selectedIndex,
+            onItemClick = { index ->
+                val screen = items.getOrNull(index) ?: return@IosLiquidGlassNavigationBar
+                onItemClick(screen, isSelected(screen))
+            },
+            backdrop = appBackdrop,
+            isBlurActive = appBackdrop != null,
+        )
     }
 }
 

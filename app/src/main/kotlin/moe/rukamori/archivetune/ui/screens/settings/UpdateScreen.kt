@@ -1023,8 +1023,9 @@ private fun UpdateDashboard(
     onOpenChangelog: () -> Unit,
     onAutomaticUpdateChecksChange: (Boolean) -> Unit,
     onUpdateNotificationChange: (Boolean) -> Unit,
-    onBetaUpdatesChange: (Boolean) -> Unit,
+    betaUpdates: Boolean,
     onStableSelected: () -> Unit,
+    onBetaUpdatesChange: (Boolean) -> Unit,
     onArtifactSelected: () -> Unit,
 ) {
     if (useWideLayout) {

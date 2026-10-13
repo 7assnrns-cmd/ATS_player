@@ -56,6 +56,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -2503,6 +2504,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                                 bottomBar = {
+                                    val navigationBackdrop = rememberLayerBackdrop()
                                     Box {
                                         val navigationProximityProvider: () -> Float =
                                             remember(playerBottomSheetState, bottomNavigationBarHeightState) {
@@ -2597,6 +2599,7 @@ class MainActivity : ComponentActivity() {
                                                     searchSource = SearchSource.ONLINE
                                                     openSearch()
                                                 },
+                                                appBackdrop = navigationBackdrop,
                                             )
                                         }
 
@@ -2835,7 +2838,7 @@ class MainActivity : ComponentActivity() {
                                                 },
                                             ).nestedScroll(
                                                 topAppBarScrollBehavior.nestedScrollConnection,
-                                            ).then(LocalGlassSource.current),
+                                            ).then(LocalGlassSource.current).layerBackdrop(navigationBackdrop),
                                 ) {
                                     navigationBuilder(
                                         navController,
