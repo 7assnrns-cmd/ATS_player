@@ -1,5 +1,3 @@
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.layout.statusBars
 /*
  * ArchiveTune (2026)
  * © Rukamori — github.com/rukamori
@@ -61,6 +59,7 @@ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.QuickPicks
+import moe.rukamori.archivetune.constants.AppBarHeight
 import moe.rukamori.archivetune.home.HomeAction
 import moe.rukamori.archivetune.home.HomeEvent
 import moe.rukamori.archivetune.home.HomeScreenState
@@ -239,7 +238,7 @@ private fun HomeStatePane(
         modifier =
             modifier
                 .fillMaxSize()
-                .padding(LocalPlayerAwareWindowInsets.current.asPaddingValues()),
+                .padding(androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues()),
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -342,7 +341,7 @@ private fun HomeContent(
                     state = lazyListState,
                     contentPadding = androidx.compose.foundation.layout.PaddingValues(
                         bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
-                        top = androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),
+                        top = androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues().calculateTopPadding() + AppBarHeight,
                         start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateLeftPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
                         end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateRightPadding(androidx.compose.ui.platform.LocalLayoutDirection.current)
                     ),
