@@ -952,6 +952,10 @@ val LastNotifiedVersionKey = stringPreferencesKey("lastNotifiedVersion")
 // Appearance: glass effect
 val GlassEffectEnabledKey = booleanPreferencesKey("glassEffectEnabled")
 val GlassIntroSeenKey = booleanPreferencesKey("glassIntroSeen")
+val GlassBlurStrengthKey = stringPreferencesKey("glassBlurStrength")
+val LastDynamicThemeColorKey = intPreferencesKey("lastDynamicThemeColor")
+val RestoreLastTabKey = booleanPreferencesKey("restoreLastTab")
+val LastTabRouteKey = stringPreferencesKey("lastTabRoute")
 
 val GitHubContributorsEtagKey = stringPreferencesKey("github_contributors_etag")
 val GitHubContributorsJsonKey = stringPreferencesKey("github_contributors_json")
