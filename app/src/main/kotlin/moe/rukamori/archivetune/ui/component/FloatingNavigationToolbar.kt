@@ -10,6 +10,7 @@
 package moe.rukamori.archivetune.ui.component
 
 import android.os.SystemClock
+import android.os.Build
 import android.view.ViewConfiguration
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
@@ -78,7 +79,10 @@ fun FloatingNavigationToolbar(
     // implementation and return early. Legacy Material path is untouched.
     val masterMiuix by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
     val miuixNavBar by rememberPreference(MiuixForNavigationBarKey, defaultValue = true)
-    if (masterMiuix && miuixNavBar) {
+    // Liquid Glass uses the miuix-blur AAR, which requires API 33+ at
+    // runtime (the manifest override only lets the build finish). On
+    // older devices fall through to the Material 3 branch below.
+    if (masterMiuix && miuixNavBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         val dark = isSystemInDarkTheme()
         val colors = remember(dark) { if (dark) darkColorScheme() else lightColorScheme() }
         MiuixTheme(colors = colors) {
