@@ -19,6 +19,10 @@ dependencyResolutionManagement {
 
     repositories {
         google()
+        // Google's mirror of Maven Central. Faster and less prone to the
+        // transient 403 rate-limits that parallel CI matrix jobs hit when
+        // they all request the same artifacts within the same second.
+        maven("https://maven-central.storage-download.googleapis.com/maven2/")
         mavenCentral {
             mavenContent {
                 releasesOnly()
