@@ -13,6 +13,7 @@ import android.os.SystemClock
 import android.view.ViewConfiguration
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -46,12 +47,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import top.yukonga.miuix.kmp.theme.MiuixTheme
+import top.yukonga.miuix.kmp.theme.darkColorScheme
+import top.yukonga.miuix.kmp.theme.lightColorScheme
 import moe.rukamori.archivetune.constants.FloatingBarJunctionCornerRadius
 import moe.rukamori.archivetune.constants.FloatingBarOuterCornerRadius
 import moe.rukamori.archivetune.constants.FloatingBarStandaloneCornerRadius
 import moe.rukamori.archivetune.constants.NavigationBarHeight
+import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
+import moe.rukamori.archivetune.constants.MiuixForNavigationBarKey
 import moe.rukamori.archivetune.constants.NavigationBarMaxWidth
 import moe.rukamori.archivetune.ui.screens.Screens
+import moe.rukamori.archivetune.utils.rememberPreference
 
 private val NavigationItemsMaxWidth = 360.dp
 private val NavigationItemVerticalPadding = 8.dp
@@ -66,6 +73,27 @@ fun FloatingNavigationToolbar(
     onItemClick: (Screens, Boolean) -> Unit,
     onSearchItemDoubleClick: (() -> Unit)? = null,
 ) {
+    // Miuix branch: opt-in via Settings → Appearance → Miuix theme.
+    // When enabled for the navigation bar area, delegate to the Miuix
+    // implementation and return early. Legacy Material path is untouched.
+    val masterMiuix by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
+    val miuixNavBar by rememberPreference(MiuixForNavigationBarKey, defaultValue = true)
+    if (masterMiuix && miuixNavBar) {
+        val dark = isSystemInDarkTheme()
+        val colors = remember(dark) { if (dark) darkColorScheme() else lightColorScheme() }
+        MiuixTheme(colors = colors) {
+            MiuixFloatingNavigationToolbar(
+                items = items,
+                pureBlack = pureBlack,
+                modifier = modifier,
+                isSelected = isSelected,
+                onItemClick = onItemClick,
+                onSearchItemDoubleClick = onSearchItemDoubleClick,
+            )
+        }
+        return
+    }
+
     val miniPlayerProximity = miniPlayerProximityProvider()
     val navigationShape =
         RoundedCornerShape(

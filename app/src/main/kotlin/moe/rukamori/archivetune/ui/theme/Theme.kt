@@ -271,12 +271,13 @@ dynamicThemeAnimationDurationMs: Int = 800,
             drawRect(glassSurfaceColor)
             drawContent()
         }
-    // Miuix replaces the legacy glass effect. When Miuix is on, glassActive
-    // is forced to false so LocalGlassBackdrop provides null and every
-    // component that depends on it gracefully falls back to flat surfaces.
+    // Miuix gating is intentionally NOT applied yet. The Miuix theme is
+    // scaffolding only (see MiuixScope, MiuixFloatingNavigationToolbar)
+    // and does not yet provide a full glass replacement. Disabling the
+    // legacy glass here left the UI flat with no substitute. Restore the
+    // gate once Miuix glass lands across all surfaces.
     val glassActive =
         glassEnabled &&
-            !miuixEnabled &&
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     val glassBackdrop = if (glassActive) glassLayer else null
     val glowPrimary = animatedColorScheme.primary
