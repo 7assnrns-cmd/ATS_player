@@ -59,6 +59,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
+import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
@@ -235,7 +236,7 @@ fun OnlineSearchResult(
             },
             modifier =
                 Modifier
-                    .combinedClickable(
+                    .miuixCombinedClickable(
                         onClick = {
                             when (item) {
                                 is SongItem -> {

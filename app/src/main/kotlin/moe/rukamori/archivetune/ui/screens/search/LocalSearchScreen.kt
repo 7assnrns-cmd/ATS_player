@@ -32,6 +32,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
+import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.CONTENT_TYPE_LIST
@@ -237,7 +238,7 @@ fun LocalSearchScreen(
                                 },
                                 modifier =
                                     Modifier
-                                        .combinedClickable(
+                                        .miuixCombinedClickable(
                                             onClick = {
                                                 if (item.id == mediaMetadata?.id) {
                                                     playerConnection.player.togglePlayPause()
