@@ -160,7 +160,12 @@ fun SearchScreen(
 
         LazyColumn(
             state = lazyListState,
-            contentPadding = LocalPlayerAwareWindowInsets.current.asPaddingValues(),
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(
+                                        bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
+                                        top = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateTopPadding(),
+                                        start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateStartPadding(androidx.compose.ui.unit.LayoutDirection.Ltr),
+                                        end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateEndPadding(androidx.compose.ui.unit.LayoutDirection.Ltr)
+                                    ),
             modifier = Modifier.fillMaxSize(),
         ) {
             item(

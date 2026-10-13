@@ -2223,29 +2223,10 @@ class MainActivity : ComponentActivity() {
                                                             top.yukonga.miuix.kmp.theme.darkColorScheme()
                                                         else top.yukonga.miuix.kmp.theme.lightColorScheme(),
                                                 ) {
-                                                    MiuixTopBar(
-                                                        title = {
-                                                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                                                Icon(
-                                                                    painter = painterResource(R.drawable.about_appbar),
-                                                                    contentDescription = null,
-                                                                    modifier = Modifier.size(35.dp).padding(end = 3.dp),
-                                                                )
-                                                                Text(
-                                                                    text = stringResource(R.string.app_name),
-                                                                    style =
-                                                                        MaterialTheme.typography.titleLarge.copy(
-                                                                            fontWeight = FontWeight.Bold,
-                                                                        ),
-                                                                    maxLines = 1,
-                                                                    overflow = TextOverflow.Ellipsis,
-                                                                )
-                                                            }
-                                                        },
+                                                    TopAppBar(
+                                                        title = stringResource(R.string.app_name),
                                                         actions = topBarActions,
-                                                        containerColor =
-                                                            if (shouldUseFloatingTopBar) Color.Transparent
-                                                            else top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.surface,
+                                                        color = if (shouldUseFloatingTopBar) Color.Transparent else top.yukonga.miuix.kmp.theme.MiuixTheme.colorScheme.surface,
                                                     )
                                                 }
                                             } else {
