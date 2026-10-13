@@ -15,6 +15,7 @@ import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.ListItem
 import moe.rukamori.archivetune.constants.GlassBlurStrengthKey
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
+import moe.rukamori.archivetune.constants.RestoreLastTabKey
 import moe.rukamori.archivetune.ui.component.GlassBlurStrength
 import moe.rukamori.archivetune.ui.component.ListDialog
 import moe.rukamori.archivetune.ui.theme.DynamicThemeAnimationStyle
@@ -277,6 +278,7 @@ fun AppearanceSettings(navController: NavController) {
             DefaultOpenTabKey,
             defaultValue = NavigationTab.HOME,
         )
+    val (restoreLastTab, onRestoreLastTabChange) = rememberPreference(RestoreLastTabKey, defaultValue = true)
     val (playerButtonsStyle, onPlayerButtonsStyleChange) =
         rememberEnumPreference(
             PlayerButtonsStyleKey,
@@ -1265,6 +1267,16 @@ fun AppearanceSettings(navController: NavController) {
                                 NavigationTab.LIBRARY -> stringResource(R.string.filter_library)
                             }
                         },
+                    )
+                }
+
+                item {
+                    SwitchPreference(
+                        title = { Text(stringResource(R.string.restore_last_tab)) },
+                        description = stringResource(R.string.restore_last_tab_desc),
+                        icon = { Icon(painterResource(R.drawable.nav_bar), null) },
+                        checked = restoreLastTab,
+                        onCheckedChange = onRestoreLastTabChange,
                     )
                 }
 

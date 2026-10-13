@@ -204,6 +204,9 @@ import moe.rukamori.archivetune.constants.AppFontPreference
 import moe.rukamori.archivetune.constants.AppLanguageKey
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
 import moe.rukamori.archivetune.constants.GlassIntroSeenKey
+import moe.rukamori.archivetune.constants.LastDynamicThemeColorKey
+import moe.rukamori.archivetune.constants.LastTabRouteKey
+import moe.rukamori.archivetune.constants.RestoreLastTabKey
 import moe.rukamori.archivetune.constants.UseSystemLanguageKey
 import moe.rukamori.archivetune.constants.CustomFontUriKey
 import moe.rukamori.archivetune.constants.CustomThemeColorKey
@@ -981,8 +984,12 @@ class MainActivity : ComponentActivity() {
                     }
                 }
 
+            val (cachedThemeArgb, setCachedThemeArgb) =
+                rememberPreference(LastDynamicThemeColorKey, defaultValue = 0)
+            val cachedThemeColor =
+                remember { if (cachedThemeArgb != 0) Color(cachedThemeArgb) else DefaultThemeColor }
             var themeColor by rememberSaveable(stateSaver = ColorSaver) {
-                mutableStateOf(DefaultThemeColor)
+                mutableStateOf(if (enableDynamicTheme) cachedThemeColor else DefaultThemeColor)
             }
 
             LaunchedEffect(legacyUseSystemFont) {
@@ -996,7 +1003,7 @@ class MainActivity : ComponentActivity() {
             LaunchedEffect(playerConnection, enableDynamicTheme, isSystemInDarkTheme, customThemeColor) {
                 val playerConnection = playerConnection
                 if (!enableDynamicTheme || playerConnection == null) {
-                    themeColor = if (!enableDynamicTheme) customThemeColor else DefaultThemeColor
+                    themeColor = if (!enableDynamicTheme) customThemeColor else cachedThemeColor
                     return@LaunchedEffect
                 }
                 // Key the theme extraction on media ID only. Without this,
@@ -1033,6 +1040,7 @@ class MainActivity : ComponentActivity() {
                                 val extractedColor = result.image?.toBitmap()?.extractThemeColor()
                                 withContext(Dispatchers.Main) {
                                     themeColor = extractedColor ?: DefaultThemeColor
+                                    extractedColor?.let { setCachedThemeArgb(it.toArgb()) }
                                 }
                             } catch (e: Exception) {
                                 withContext(Dispatchers.Main) {
@@ -1162,6 +1170,26 @@ class MainActivity : ComponentActivity() {
                     val (_, setGlassEnabled) =
                         rememberPreference(GlassEffectEnabledKey, defaultValue = false)
                     val defaultOpenTab by rememberEnumPreference(DefaultOpenTabKey, NavigationTab.HOME)
+                    val (restoreLastTab) = rememberPreference(RestoreLastTabKey, defaultValue = true)
+                    val (lastTabRoute, setLastTabRoute) = rememberPreference(LastTabRouteKey, defaultValue = "")
+                    val restoredTab =
+                        remember {
+                            if (!restoreLastTab) {
+                                null
+                            } else {
+                                when (lastTabRoute) {
+                                    Screens.Library.route -> NavigationTab.LIBRARY
+                                    Screens.Home.route -> NavigationTab.HOME
+                                    else -> null
+                                }
+                            }
+                        }
+                    LaunchedEffect(currentRoute) {
+                        val route = currentRoute
+                        if (route != null && (route == Screens.Home.route || route == Screens.Library.route)) {
+                            setLastTabRoute(route)
+                        }
+                    }
                     val pauseSearchHistory by rememberPreference(PauseSearchHistoryKey, defaultValue = false)
                     val tabOpenedFromShortcut =
                         remember {
@@ -2625,7 +2653,7 @@ class MainActivity : ComponentActivity() {
                                         if (launchMusicRecognitionFromShortcut) {
                                             MusicRecognitionRoute
                                         } else {
-                                            when (tabOpenedFromShortcut ?: defaultOpenTab) {
+                                            when (tabOpenedFromShortcut ?: restoredTab ?: defaultOpenTab) {
                                                 NavigationTab.HOME -> Screens.Home.route
                                                 NavigationTab.LIBRARY -> Screens.Library.route
                                                 else -> Screens.Home.route
