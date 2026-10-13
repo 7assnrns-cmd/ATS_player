@@ -661,24 +661,28 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val initialLocale =
-            if (PreferenceStore.get(UseSystemLanguageKey) ?: true) {
+        val savedLanguage = PreferenceStore.get(AppLanguageKey) ?: "system"
+        val initialLocale: Locale =
+            if (savedLanguage == "system" || savedLanguage.isBlank()) {
                 Locale.getDefault()
             } else {
-                Locale.ENGLISH
+                Locale.forLanguageTag(savedLanguage).takeIf { it.language.isNotEmpty() }
+                    ?: Locale.getDefault()
             }
         setAppLocale(this, initialLocale)
 
         lifecycleScope.launch(Dispatchers.IO) {
             runCatching {
                 dataStore.data.first().let { prefs ->
-                    if (prefs[UseSystemLanguageKey] ?: true) {
+                    val savedLang = prefs[AppLanguageKey] ?: "system"
+                    if (savedLang == "system" || savedLang.isBlank()) {
                         Locale.getDefault()
                     } else {
-                        Locale.ENGLISH
+                        Locale.forLanguageTag(savedLang).takeIf { it.language.isNotEmpty() }
+                            ?: Locale.getDefault()
                     }
                 }
             }.onSuccess { targetLocale ->

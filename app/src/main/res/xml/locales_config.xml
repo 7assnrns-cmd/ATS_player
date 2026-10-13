@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ArchiveTune — Per-app language list (Android 13+).
+  Only includes languages with substantial translations (>50 strings).
+  App name and technical terms (FPS, API, etc.) stay untranslated.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="ar"/>
+    <locale android:name="ar-EG"/>
+    <locale android:name="az"/>
+    <locale android:name="cs"/>
+    <locale android:name="de-DE"/>
+    <locale android:name="es"/>
+    <locale android:name="et"/>
+    <locale android:name="fa"/>
+    <locale android:name="fr"/>
+    <locale android:name="hi"/>
+    <locale android:name="hu"/>
+    <locale android:name="in-ID"/>
+    <locale android:name="it"/>
+    <locale android:name="iw"/>
+    <locale android:name="ja"/>
+    <locale android:name="jv"/>
+    <locale android:name="ko"/>
+    <locale android:name="nl"/>
+    <locale android:name="pl"/>
+    <locale android:name="pt"/>
+    <locale android:name="pt-BR"/>
+    <locale android:name="ru"/>
+    <locale android:name="si"/>
+    <locale android:name="sl"/>
+    <locale android:name="ta"/>
+    <locale android:name="th"/>
+    <locale android:name="tr"/>
+    <locale android:name="uk"/>
+    <locale android:name="ur"/>
+    <locale android:name="uz"/>
+    <locale android:name="vi"/>
+    <locale android:name="zh-CN"/>
+    <locale android:name="zh-TW"/>
+</locale-config>
