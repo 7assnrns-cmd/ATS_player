@@ -67,6 +67,13 @@ import kotlinx.coroutines.launch
 import moe.rukamori.archivetune.constants.AppLanguageKey
 import moe.rukamori.archivetune.utils.dataStore
 import moe.rukamori.archivetune.utils.PreferenceStore
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.edit
+import moe.rukamori.archivetune.ui.component.LanguagePickerDialog
+import moe.rukamori.archivetune.ui.component.languageDisplayName
 
 @Composable
 fun ContentSettings(
