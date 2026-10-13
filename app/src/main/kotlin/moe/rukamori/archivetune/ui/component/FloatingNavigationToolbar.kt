@@ -82,7 +82,7 @@ fun FloatingNavigationToolbar(
         val dark = isSystemInDarkTheme()
         val colors = remember(dark) { if (dark) darkColorScheme() else lightColorScheme() }
         MiuixTheme(colors = colors) {
-            MiuixFloatingNavigationToolbar(
+            MiuixLiquidGlassNavigationToolbar(
                 items = items,
                 pureBlack = pureBlack,
                 modifier = modifier,
