@@ -122,6 +122,8 @@ import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.SongListItem
 import moe.rukamori.archivetune.ui.component.TopSearch
 import moe.rukamori.archivetune.ui.component.YouTubeListItem
+import moe.rukamori.archivetune.ui.component.glassCardBorder
+import moe.rukamori.archivetune.ui.component.glassFill
 import moe.rukamori.archivetune.ui.menu.SelectionMediaMetadataMenu
 import moe.rukamori.archivetune.ui.menu.SongMenu
 import moe.rukamori.archivetune.ui.menu.YouTubeSongMenu
@@ -508,7 +510,7 @@ fun HistoryScreen(
                     colors =
                         TopAppBarDefaults.topAppBarColors(
                             containerColor = MaterialTheme.colorScheme.surface,
-                            scrolledContainerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            scrolledContainerColor = glassFill(MaterialTheme.colorScheme.surfaceContainer, 0.82f),
                         ),
                 )
             }
@@ -1064,7 +1066,8 @@ private fun HistorySongGroupItem(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp, bottom = 4.dp),
         shape = shape,
-        color = containerColor,
+        color = glassFill(containerColor, 0.78f),
+        border = glassCardBorder(),
     ) {
         content(containerColor)
     }
