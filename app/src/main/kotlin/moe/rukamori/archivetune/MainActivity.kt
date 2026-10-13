@@ -195,8 +195,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import moe.rukamori.archivetune.ui.component.UpdateFoundSheet
-import moe.rukamori.archivetune.constants.LastUpdateFoundShownVersionKey
 import moe.rukamori.archivetune.aod.ACTION_AOD_MODE
 import moe.rukamori.archivetune.constants.AodAutoStartScreenOffKey
 import moe.rukamori.archivetune.constants.CrossfadeDurationKey
@@ -819,25 +817,6 @@ class MainActivity : ComponentActivity() {
                     moe.rukamori.archivetune.ui.component
                         .BottomSheetPageState()
                 }
-            // Check for a newer release after the intro sheet is out of the
-            // way. Runs once per session; the sheet itself is suppressed if
-            // the same version was already shown (or the user is already on
-            // the latest build).
-            LaunchedEffect(glassIntroSeen) {
-                if (!glassIntroSeen) return@LaunchedEffect
-                kotlinx.coroutines.delay(3000)
-                if (!BuildConfig.UPDATER_AVAILABLE) return@LaunchedEffect
-                if (lastUpdateFoundShownVersion == BuildConfig.VERSION_NAME) return@LaunchedEffect
-                val result = runCatching {
-                    Updater.getLatestReleaseInfo(forceRefresh = false).getOrThrow()
-                }.getOrNull() ?: return@LaunchedEffect
-                val latest = Updater.getReleaseVersionName(result)
-                if (!Updater.isUpdateAvailable(latest, BuildConfig.VERSION_NAME)) return@LaunchedEffect
-                if (latest == lastUpdateFoundShownVersion) return@LaunchedEffect
-                updateFoundVersion = latest
-                updateFoundChangelog = result.body
-            }
-
             val menuState =
                 remember {
                     moe.rukamori.archivetune.ui.component
@@ -1195,12 +1174,6 @@ class MainActivity : ComponentActivity() {
                         )
                     val (glassIntroSeen, setGlassIntroSeen) =
                         rememberPreference(GlassIntroSeenKey, defaultValue = false)
-
-            // Update-found sheet — shown once per new release.
-            val (lastUpdateFoundShownVersion, setLastUpdateFoundShownVersion) =
-                rememberPreference(LastUpdateFoundShownVersionKey, defaultValue = "")
-            var updateFoundVersion by remember { mutableStateOf<String?>(null) }
-            var updateFoundChangelog by remember { mutableStateOf<String?>(null) }
                     val (_, setGlassEnabled) =
                         rememberPreference(GlassEffectEnabledKey, defaultValue = false)
                     val defaultOpenTab by rememberEnumPreference(DefaultOpenTabKey, NavigationTab.HOME)
@@ -2860,25 +2833,6 @@ class MainActivity : ComponentActivity() {
                                 onSkip = {
                                     setGlassEnabled(false)
                                     setGlassIntroSeen(true)
-                                },
-                            )
-                        }
-
-                        // One-time-per-version "update found" sheet.
-                        updateFoundVersion?.let { version ->
-                            UpdateFoundSheet(
-                                version = version,
-                                changelog = updateFoundChangelog,
-                                onGoToUpdates = {
-                                    setLastUpdateFoundShownVersion(version)
-                                    updateFoundVersion = null
-                                    updateFoundChangelog = null
-                                    navController.navigate("settings/update_detail?channel=$updateChannel")
-                                },
-                                onLater = {
-                                    setLastUpdateFoundShownVersion(version)
-                                    updateFoundVersion = null
-                                    updateFoundChangelog = null
                                 },
                             )
                         }

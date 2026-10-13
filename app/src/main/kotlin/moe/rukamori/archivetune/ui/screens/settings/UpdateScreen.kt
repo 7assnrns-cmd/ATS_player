@@ -1059,6 +1059,7 @@ private fun UpdateDashboard(
                     updateChannel = updateChannel,
                     onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
                     onUpdateNotificationChange = onUpdateNotificationChange,
+                    onBetaUpdatesChange = onBetaUpdatesChange,
                     onStableSelected = onStableSelected,
                     onArtifactSelected = onArtifactSelected,
                     modifier = Modifier.weight(1f),
@@ -1091,6 +1092,7 @@ private fun UpdateDashboard(
                 updateChannel = updateChannel,
                 onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
                 onUpdateNotificationChange = onUpdateNotificationChange,
+                onBetaUpdatesChange = onBetaUpdatesChange,
                 onStableSelected = onStableSelected,
                 onArtifactSelected = onArtifactSelected,
             )
@@ -1353,6 +1355,7 @@ private fun UpdatePreferencesPanel(
     modifier: Modifier = Modifier,
     onAutomaticUpdateChecksChange: (Boolean) -> Unit,
     onUpdateNotificationChange: (Boolean) -> Unit,
+    onBetaUpdatesChange: (Boolean) -> Unit,
     onStableSelected: () -> Unit,
     onArtifactSelected: () -> Unit,
 ) {
