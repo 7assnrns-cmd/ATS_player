@@ -2004,6 +2004,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
+                            val navigationBackdrop = rememberLayerBackdrop()
                             Scaffold(
                                 topBar = { GlassBarHaloScope {
                                     if (shouldShowTopBar) {
@@ -2507,7 +2508,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                                 bottomBar = {
-                                    val navigationBackdrop = rememberLayerBackdrop()
                                     Box {
                                         val navigationProximityProvider: () -> Float =
                                             remember(playerBottomSheetState, bottomNavigationBarHeightState) {
