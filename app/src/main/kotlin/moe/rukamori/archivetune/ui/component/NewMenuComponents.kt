@@ -52,7 +52,8 @@ fun NewActionButton(
     backgroundColor: Color = Color.Unspecified,
     contentColor: Color = Color.Unspecified,
 ) {
-    val containerColor = if (backgroundColor.isSpecified) backgroundColor else MaterialTheme.colorScheme.surfaceContainerHigh
+    val containerColor =
+        if (backgroundColor.isSpecified) backgroundColor else glassFill(MaterialTheme.colorScheme.surfaceContainerHigh, 0.55f)
     val actionContentColor = if (contentColor.isSpecified) contentColor else MaterialTheme.colorScheme.onSurfaceVariant
 
     FilledTonalButton(
@@ -69,6 +70,7 @@ fun NewActionButton(
                 contentColor = actionContentColor,
             ),
         contentPadding = PaddingValues(horizontal = 12.dp, vertical = 14.dp),
+        border = glassCardBorder(),
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -231,7 +233,8 @@ fun NewIconButton(
     backgroundColor: Color = Color.Unspecified,
     contentColor: Color = Color.Unspecified,
 ) {
-    val containerColor = if (backgroundColor.isSpecified) backgroundColor else MaterialTheme.colorScheme.surfaceContainerHigh
+    val containerColor =
+        if (backgroundColor.isSpecified) backgroundColor else glassFill(MaterialTheme.colorScheme.surfaceContainerHigh, 0.55f)
     val iconContentColor = if (contentColor.isSpecified) contentColor else MaterialTheme.colorScheme.onSurfaceVariant
 
     FilledTonalIconButton(
@@ -272,7 +275,8 @@ fun MenuSurfaceSection(
 ) {
     Surface(
         shape = MaterialTheme.shapes.extraLarge,
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        color = glassFill(MaterialTheme.colorScheme.surfaceContainerLow, 0.62f),
+        border = glassCardBorder(),
         modifier = modifier.fillMaxWidth(),
     ) {
         Column(content = content)
