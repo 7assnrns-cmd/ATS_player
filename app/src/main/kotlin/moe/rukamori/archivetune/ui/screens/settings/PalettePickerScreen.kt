@@ -1050,8 +1050,9 @@ fun PalettePickerScreen(navController: NavController) {
                 Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
-                    .verticalScroll(rememberScrollState()),
+                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal))
+                    .verticalScroll(rememberScrollState())
+                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Bottom)),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(16.dp))
@@ -1262,8 +1263,9 @@ fun ThemeCreatorScreen(navController: NavController) {
                 Modifier
                     .fillMaxWidth()
                     .padding(paddingValues)
-                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Bottom))
-                    .verticalScroll(rememberScrollState()),
+                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal))
+                    .verticalScroll(rememberScrollState())
+                    .windowInsetsPadding(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Bottom)),
         ) {
             SimpleThemePreview(
                 palette = currentPalette,
