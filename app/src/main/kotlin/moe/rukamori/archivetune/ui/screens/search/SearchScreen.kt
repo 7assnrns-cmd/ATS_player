@@ -15,9 +15,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -164,7 +162,7 @@ fun SearchScreen(
             state = lazyListState,
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
                                         bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
-                                        top = androidx.compose.foundation.layout.WindowInsets.statusBars.asPaddingValues().calculateTopPadding(),
+                                        top = androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues().calculateTopPadding(),
                                         start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateLeftPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
                                         end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateRightPadding(androidx.compose.ui.platform.LocalLayoutDirection.current)
                                     ),
