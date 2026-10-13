@@ -245,18 +245,36 @@ fun Modifier.glassHeaderScrim(fallback: Brush): Modifier {
 }
 
 
-/** Glass edge that follows [shape]; no-op while glass is off. */
+/**
+ * Glass edge that follows [shape]; no-op while glass is off. [fadeTop] and
+ * [fadeBottom] (0..1) fade the rim out along that edge, so two stacked glass
+ * panels (mini player over navigation bar) share one clean seam.
+ */
 @Composable
-fun Modifier.glassRim(shape: Shape): Modifier {
+fun Modifier.glassRim(
+    shape: Shape,
+    fadeTop: Float = 0f,
+    fadeBottom: Float = 0f,
+): Modifier {
     if (LocalGlassBackdrop.current == null) return this
     val dark = MaterialTheme.colorScheme.surface.luminance() < 0.5f
+    val top = (if (dark) 0.34f else 0.70f) * (1f - fadeTop.coerceIn(0f, 1f))
+    val bottom = (if (dark) 0.14f else 0.30f) * (1f - fadeBottom.coerceIn(0f, 1f))
     val edge =
-        Brush.linearGradient(
-            listOf(
-                Color.White.copy(alpha = if (dark) 0.34f else 0.70f),
-                Color.White.copy(alpha = 0.06f),
-                Color.White.copy(alpha = if (dark) 0.14f else 0.30f),
-            ),
+        Brush.verticalGradient(
+            colorStops =
+                arrayOf(
+                    0f to Color.White.copy(alpha = top),
+                    0.5f to Color.White.copy(alpha = 0.06f),
+                    1f to Color.White.copy(alpha = bottom),
+                ),
         )
     return this.border(width = 1.dp, brush = edge, shape = shape)
 }
+
+/** [base] made translucent while glass is on; unchanged otherwise. */
+@Composable
+fun glassFill(
+    base: Color,
+    alpha: Float = 0.62f,
+): Color = if (LocalGlassBackdrop.current != null) base.copy(alpha = alpha) else base
