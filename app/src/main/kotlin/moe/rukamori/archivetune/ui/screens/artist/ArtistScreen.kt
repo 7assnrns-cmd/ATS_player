@@ -94,6 +94,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import com.valentinilk.shimmer.shimmer
 import kotlinx.coroutines.flow.collect
+import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.LocalDatabase
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
@@ -762,8 +763,7 @@ fun ArtistScreen(
                                 contentPadding = PaddingValues(horizontal = 12.dp),
                                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                             ) {
-                                items(
-                                    items = filteredLibraryAlbums,
+                                staggeredItems(items = filteredLibraryAlbums,
                                     key = { album -> "local_album_${album.id}" },
                                     contentType = { CONTENT_TYPE_ALBUM },
                                 ) { album ->
@@ -815,8 +815,7 @@ fun ArtistScreen(
                         }
 
                         if (section.layout == ArtistSectionLayout.LIST && section.items.all { it is SongItem }) {
-                            items(
-                                items = section.items.distinctBy { it.id },
+                            staggeredItems(items = section.items.distinctBy { it.id },
                                 key = { "youtube_song_${it.id}" },
                                 contentType = { CONTENT_TYPE_SONG },
                             ) { song ->
@@ -880,8 +879,7 @@ fun ArtistScreen(
                                     contentPadding = PaddingValues(horizontal = 12.dp),
                                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                                 ) {
-                                    items(
-                                        items = section.items.distinctBy { it.id },
+                                    staggeredItems(items = section.items.distinctBy { it.id },
                                         key = {
                                             val type =
                                                 when (it) {

@@ -67,6 +67,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
@@ -412,8 +413,7 @@ private fun SearchMoodAndGenresGrid(
                     .fillMaxWidth()
                     .height((MoodAndGenresButtonHeight + 12.dp) * rowCount + 12.dp),
         ) {
-            items(
-                items = data.moodAndGenres,
+            staggeredItems(items = data.moodAndGenres,
                 key = { item -> "${item.title}:${item.endpoint.browseId}:${item.endpoint.params}" },
                 contentType = { "mood_genres_item" },
             ) { item ->
@@ -593,8 +593,7 @@ private fun TrendingAlbumsSection(
     LazyRow(
         contentPadding = LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal).asPaddingValues(),
     ) {
-        items(
-            items = albums,
+        staggeredItems(items = albums,
             key = { album -> album.id },
             contentType = { "trending_album" },
         ) { album ->
@@ -644,8 +643,7 @@ private fun SuggestedArtistsSection(
     LazyRow(
         contentPadding = LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Horizontal).asPaddingValues(),
     ) {
-        items(
-            items = artists,
+        staggeredItems(items = artists,
             key = { artist -> artist.id },
             contentType = { "trending_artist" },
         ) { artist ->

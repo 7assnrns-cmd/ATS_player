@@ -37,6 +37,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.drop
+import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.ui.component.miuixCombinedClickable
 import moe.rukamori.archivetune.LocalPlayerConnection
 import moe.rukamori.archivetune.R
@@ -206,8 +207,7 @@ fun OnlineSearchScreen(
                 }
             }
 
-            items(
-                items = distinctResultItems,
+            staggeredItems(items = distinctResultItems,
                 key = { item -> "item_${item.id}" },
                 contentType = { item -> item::class },
             ) { item ->

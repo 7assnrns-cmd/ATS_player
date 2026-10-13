@@ -98,6 +98,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.size.Size
 import kotlinx.coroutines.CoroutineScope
+import moe.rukamori.archivetune.ui.component.staggeredItems
 import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.constants.ListItemHeight
 import moe.rukamori.archivetune.constants.ListThumbnailSize
@@ -460,8 +461,7 @@ fun QuickPicksSection(
                             .fillMaxWidth()
                             .height(ListItemHeight * 4),
                 ) {
-                    items(
-                        items = distinctQuickPicks,
+                    staggeredItems(items = distinctQuickPicks,
                         key = { it.id },
                         contentType = { "quick_pick_song" },
                     ) { song ->
@@ -720,8 +720,7 @@ fun RemoteQuickPicksSection(
                             .fillMaxWidth()
                             .height(ListItemHeight * 4),
                 ) {
-                    items(
-                        items = songs,
+                    staggeredItems(items = songs,
                         key = SongItem::id,
                         contentType = { "remote_quick_pick_song" },
                     ) { song ->
@@ -1206,8 +1205,7 @@ fun KeepListeningSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(start = startPadding, end = endPadding),
         ) {
-            items(
-                items = distinctItems,
+            staggeredItems(items = distinctItems,
                 key = LocalItem::stableHomeKey,
                 contentType = LocalItem::homeContentType,
             ) { item ->
@@ -1493,8 +1491,7 @@ fun ForgottenFavoritesSection(
                 .fillMaxWidth()
                 .height(ListItemHeight * rows),
     ) {
-        items(
-            items = distinctForgottenFavorites,
+        staggeredItems(items = distinctForgottenFavorites,
             key = { it.id },
             contentType = { "forgotten_favorite_song" },
         ) { song ->
@@ -1582,8 +1579,7 @@ fun AccountPlaylistsSection(
                 .asPaddingValues(),
         modifier = modifier,
     ) {
-        items(
-            items = distinctPlaylists,
+        staggeredItems(items = distinctPlaylists,
             key = { it.id },
             contentType = { "account_playlist" },
         ) { item ->
@@ -1633,8 +1629,7 @@ fun SimilarRecommendationsSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(start = startPadding, end = endPadding),
         ) {
-            items(
-                items = distinctRecommendations,
+            staggeredItems(items = distinctRecommendations,
                 key = { recommendation -> recommendation.title.stableHomeKey() },
                 contentType = { "similar_discovery_deck" },
             ) { recommendation ->
@@ -1772,8 +1767,7 @@ fun HomePageSectionContent(
                 .asPaddingValues(),
         modifier = modifier,
     ) {
-        items(
-            items = section.items,
+        staggeredItems(items = section.items,
             key = { it.id },
             contentType = { item -> item::class },
         ) { item ->
@@ -1816,8 +1810,7 @@ private fun FeaturedPlaylistCardsSection(
             contentPadding = PaddingValues(start = startPadding, end = endPadding),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            items(
-                items = section.featuredCards,
+            staggeredItems(items = section.featuredCards,
                 key = HomePage.Section.FeaturedCard::id,
                 contentType = { "featured_playlist_card" },
             ) { card ->
