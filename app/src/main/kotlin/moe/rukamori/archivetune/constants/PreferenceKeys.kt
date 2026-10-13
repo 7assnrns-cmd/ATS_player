@@ -947,6 +947,7 @@ val AutoDownloadUpdatesKey = booleanPreferencesKey("autoDownloadUpdates")
 val UpdatesWifiOnlyKey = booleanPreferencesKey("updatesWifiOnly")
 val UpdatesDownloadedApkVersionKey = stringPreferencesKey("updatesDownloadedApkVersion")
 val UpdatesAutoInstallKey = booleanPreferencesKey("updatesAutoInstall")
+val LastUpdateFoundShownVersionKey = stringPreferencesKey("lastUpdateFoundShownVersion")
 val LastUpdateCheckKey = longPreferencesKey("lastUpdateCheck")
 val LastNotifiedVersionKey = stringPreferencesKey("lastNotifiedVersion")
 

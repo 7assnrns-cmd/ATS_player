@@ -1213,4 +1213,8 @@
     <string name="miuix_for_sheets">Miuix for sheets</string>
     <string name="beta_updates_title">Beta updates</string>
     <string name="beta_updates_desc">Include pre-release builds when checking for updates.</string>
+    <string name="update_found_title">Update available</string>
+    <string name="update_found_go_to_updates">Go to updates</string>
+    <string name="update_found_later">Later</string>
+    <string name="update_found_no_notes">Open the updates screen to see what changed.</string>
 </resources>
