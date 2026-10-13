@@ -281,6 +281,7 @@ import moe.rukamori.archivetune.ui.component.DISMISSED_ANCHOR
 import moe.rukamori.archivetune.ui.component.EXPANDED_ANCHOR
 import moe.rukamori.archivetune.ui.component.FloatingNavigationToolbar
 import moe.rukamori.archivetune.ui.component.FpsOverlay
+import moe.rukamori.archivetune.ui.component.GlassBarHaloScope
 import moe.rukamori.archivetune.ui.component.GlassEasing
 import moe.rukamori.archivetune.ui.component.GlassIntroSheet
 import moe.rukamori.archivetune.ui.component.GlassWindowBlur
@@ -1937,7 +1938,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             Scaffold(
-                                topBar = {
+                                topBar = { GlassBarHaloScope {
                                     if (shouldShowTopBar) {
                                         val shouldUseFloatingTopBar =
                                             remember(navBackStackEntry) {
@@ -2388,7 +2389,8 @@ class MainActivity : ComponentActivity() {
                                             }
                                         }
                                     }
-                                },
+                                }
+                            },
                                 bottomBar = {
                                     Box {
                                         val navigationProximityProvider: () -> Float =
