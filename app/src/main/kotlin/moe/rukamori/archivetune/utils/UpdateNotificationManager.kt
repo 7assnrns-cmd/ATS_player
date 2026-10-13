@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import moe.rukamori.archivetune.BuildConfig
 import moe.rukamori.archivetune.MainActivity
 import moe.rukamori.archivetune.R
+import moe.rukamori.archivetune.constants.BetaUpdatesKey
 import moe.rukamori.archivetune.constants.AutomaticUpdateCheckKey
 import moe.rukamori.archivetune.constants.EnableUpdateNotificationKey
 import moe.rukamori.archivetune.constants.LastNotifiedVersionKey
@@ -87,6 +88,11 @@ object UpdateNotificationManager {
 
                 val updateChannel =
                     UpdateChannel.fromStoredName(preferences[UpdateChannelKey], defaultUpdateChannel)
+
+                // Propagate the beta preference so every release fetch on this
+                // path includes (or excludes) prerelease entries consistently.
+                val betaUpdates = preferences[BetaUpdatesKey] ?: false
+                Updater.setBetaEnabled(betaUpdates)
 
                 val lastCheck = preferences[LastUpdateCheckKey] ?: 0L
                 val now = System.currentTimeMillis()

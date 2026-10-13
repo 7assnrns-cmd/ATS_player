@@ -15,6 +15,7 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import moe.rukamori.archivetune.BuildConfig
 import moe.rukamori.archivetune.constants.AutoDownloadUpdatesKey
+import moe.rukamori.archivetune.constants.BetaUpdatesKey
 import moe.rukamori.archivetune.constants.AutomaticUpdateCheckKey
 import moe.rukamori.archivetune.constants.LastUpdateCheckKey
 import moe.rukamori.archivetune.constants.UpdatesWifiOnlyKey
@@ -51,6 +52,11 @@ class UpdateCheckWorker(
 
             val updateChannel =
                 UpdateChannel.fromStoredName(preferences[UpdateChannelKey], defaultUpdateChannel)
+
+            // Propagate the beta preference so every release fetch on this
+            // worker includes (or excludes) prerelease entries consistently.
+            val betaUpdates = preferences[BetaUpdatesKey] ?: false
+            Updater.setBetaEnabled(betaUpdates)
 
             val latestVersion =
                 when (updateChannel) {

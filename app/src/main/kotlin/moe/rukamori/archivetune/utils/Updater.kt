@@ -18,6 +18,7 @@ import kotlinx.coroutines.CancellationException
 import moe.rukamori.archivetune.App
 import moe.rukamori.archivetune.updates.ApkAsset
 import moe.rukamori.archivetune.BuildConfig
+import moe.rukamori.archivetune.constants.BetaUpdatesKey
 import moe.rukamori.archivetune.constants.CanaryReleasesEtagKey
 import moe.rukamori.archivetune.constants.CanaryReleasesFingerprintKey
 import moe.rukamori.archivetune.constants.CanaryReleasesJsonKey
@@ -313,14 +314,32 @@ object Updater {
     internal fun getReleaseVersionName(release: ReleaseInfo): String =
         preferredReleaseVersionNameOrNull(release) ?: release.name.ifBlank { release.tagName }
 
+    /**
+     * Whether prerelease entries should be included when parsing releases.
+     * Kept as a plain field so parseReleasesJson can stay synchronous. The
+     * caller (usually a settings observer) updates it whenever the user
+     * toggles the beta channel.
+     */
+    @Volatile
+    private var betaEnabled: Boolean = false
+
+    fun setBetaEnabled(enabled: Boolean) {
+        betaEnabled = enabled
+    }
+
     private fun parseReleasesJson(
         json: String,
         expectedArtifactName: String,
+        includePrerelease: Boolean = false,
     ): List<ReleaseInfo> {
         val jsonArray = JSONArray(json)
         val releases = ArrayList<ReleaseInfo>(jsonArray.length())
         for (i in 0 until jsonArray.length()) {
             val item = jsonArray.getJSONObject(i)
+            // Always skip drafts. When the beta channel is off, skip
+            // prerelease entries too, so the user only sees stable builds.
+            if (item.optBoolean("draft", false)) continue
+            if (!includePrerelease && !betaEnabled && item.optBoolean("prerelease", false)) continue
             val assets = item.optJSONArray("assets")
             val assetDownloadUrl =
                 assets?.let { releaseAssets ->

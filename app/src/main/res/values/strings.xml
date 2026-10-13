@@ -1211,4 +1211,6 @@
     <string name="miuix_for_navigation_bar">Miuix for navigation bar</string>
     <string name="miuix_for_dialogs">Miuix for dialogs</string>
     <string name="miuix_for_sheets">Miuix for sheets</string>
+    <string name="beta_updates_title">Beta updates</string>
+    <string name="beta_updates_desc">Include pre-release builds when checking for updates.</string>
 </resources>

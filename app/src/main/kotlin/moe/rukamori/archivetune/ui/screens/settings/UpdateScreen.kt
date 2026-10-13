@@ -120,6 +120,7 @@ import moe.rukamori.archivetune.LocalAnimationsDisabled
 import moe.rukamori.archivetune.channelTitle
 import moe.rukamori.archivetune.constants.UpdateChannel
 import moe.rukamori.archivetune.constants.UpdateChannelKey
+import moe.rukamori.archivetune.constants.BetaUpdatesKey
 import moe.rukamori.archivetune.constants.AutoDownloadUpdatesKey
 import moe.rukamori.archivetune.constants.UpdatesAutoInstallKey
 import moe.rukamori.archivetune.constants.UpdatesDownloadedApkVersionKey
@@ -202,6 +203,15 @@ fun UpdateScreen(
             UpdateChannelKey,
             defaultValue = defaultUpdateChannel,
         )
+
+    val (betaUpdates, onBetaUpdatesChange) =
+        rememberPreference(BetaUpdatesKey, defaultValue = false)
+
+    // Keep Updater's filter in sync with the toggle so any release fetch
+    // that happens on this screen already sees the right value.
+    LaunchedEffect(betaUpdates) {
+        Updater.setBetaEnabled(betaUpdates)
+    }
 
     var commits by remember { mutableStateOf<List<GitCommit>>(emptyList()) }
     var isLoadingCommits by remember { mutableStateOf(true) }
@@ -702,6 +712,8 @@ fun UpdateScreen(
                     },
                     onStableSelected = { onUpdateChannelChange(UpdateChannel.OFFICIAL_VERSION) },
                     onArtifactSelected = { onUpdateChannelChange(UpdateChannel.MY_VERSION) },
+                    betaUpdates = betaUpdates,
+                    onBetaUpdatesChange = onBetaUpdatesChange,
                     modifier =
                         Modifier
                             .fillMaxWidth()
@@ -1011,6 +1023,7 @@ private fun UpdateDashboard(
     onOpenChangelog: () -> Unit,
     onAutomaticUpdateChecksChange: (Boolean) -> Unit,
     onUpdateNotificationChange: (Boolean) -> Unit,
+    onBetaUpdatesChange: (Boolean) -> Unit,
     onStableSelected: () -> Unit,
     onArtifactSelected: () -> Unit,
 ) {
@@ -1042,6 +1055,7 @@ private fun UpdateDashboard(
                     automaticUpdateChecksEnabled = automaticUpdateChecksEnabled,
                     enableUpdateNotification = enableUpdateNotification,
                     controlsEnabled = updateSettingsControlsEnabled,
+                    betaUpdates = betaUpdates,
                     updateChannel = updateChannel,
                     onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
                     onUpdateNotificationChange = onUpdateNotificationChange,
@@ -1073,6 +1087,7 @@ private fun UpdateDashboard(
                 automaticUpdateChecksEnabled = automaticUpdateChecksEnabled,
                 enableUpdateNotification = enableUpdateNotification,
                 controlsEnabled = updateSettingsControlsEnabled,
+                betaUpdates = betaUpdates,
                 updateChannel = updateChannel,
                 onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
                 onUpdateNotificationChange = onUpdateNotificationChange,
@@ -1333,6 +1348,7 @@ private fun UpdatePreferencesPanel(
     automaticUpdateChecksEnabled: Boolean,
     enableUpdateNotification: Boolean,
     controlsEnabled: Boolean,
+    betaUpdates: Boolean,
     updateChannel: UpdateChannel,
     modifier: Modifier = Modifier,
     onAutomaticUpdateChecksChange: (Boolean) -> Unit,
@@ -1448,7 +1464,38 @@ private fun UpdatePreferencesPanel(
                     }
                 }
 
-                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                SegmentedListItem(
+            onClick = { onBetaUpdatesChange(!betaUpdates) },
+            enabled = controlsEnabled,
+            shapes = ListItemDefaults.segmentedShapes(index = 0, count = 1),
+            modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
+            colors =
+                ListItemDefaults.segmentedColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                ),
+            leadingContent = {
+                FeatureIcon(
+                    iconRes = R.drawable.new_release,
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                )
+            },
+            trailingContent = {
+                Switch(
+                    checked = betaUpdates,
+                    onCheckedChange = null,
+                    enabled = controlsEnabled,
+                )
+            },
+            supportingContent = {
+                Text(text = stringResource(R.string.beta_updates_desc))
+            },
+            content = {
+                Text(text = stringResource(R.string.beta_updates_title))
+            },
+        )
+
+        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
                     SegmentedButton(
                         selected = updateChannel == UpdateChannel.OFFICIAL_VERSION,
                         onClick = onStableSelected,
