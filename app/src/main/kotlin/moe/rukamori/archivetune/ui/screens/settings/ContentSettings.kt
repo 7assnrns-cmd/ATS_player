@@ -57,6 +57,16 @@ import moe.rukamori.archivetune.viewmodels.AiContentFilterSettingsEffect
 import moe.rukamori.archivetune.viewmodels.AiContentFilterSettingsState
 import moe.rukamori.archivetune.viewmodels.ContentSettingsViewModel
 import java.util.Locale
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
+import moe.rukamori.archivetune.constants.AppLanguageKey
+import moe.rukamori.archivetune.utils.dataStore
+import moe.rukamori.archivetune.utils.PreferenceStore
 
 @Composable
 fun ContentSettings(
@@ -203,6 +213,10 @@ fun ContentSettings(
             onOpenSource = viewModel::openAiContentFilterSource,
         )
 
+        var showLanguageDialog by remember { mutableStateOf(false) }
+        val currentLanguageTag = PreferenceStore.get(AppLanguageKey) ?: "system"
+        val langScope = rememberCoroutineScope()
+
         PreferenceGroup(title = stringResource(R.string.app_language)) {
             item {
                 SwitchPreference(
@@ -211,12 +225,64 @@ fun ContentSettings(
                     checked = useSystemLanguage,
                     onCheckedChange = { checked ->
                         onUseSystemLanguageChange(checked)
-                        val newLocale = if (checked) Locale.getDefault() else Locale.ENGLISH
+                        val targetTag = if (checked) "system" else currentLanguageTag.takeIf { it != "system" } ?: "en"
+                        langScope.launch {
+                            context.dataStore.edit { prefs -> prefs[AppLanguageKey] = targetTag }
+                        }
+                        val newLocale = if (checked) Locale.getDefault()
+                                        else Locale.forLanguageTag(targetTag).takeIf { it.language.isNotEmpty() }
+                                            ?: Locale.getDefault()
                         setAppLocale(context, newLocale)
                         (context as? android.app.Activity)?.recreate()
                     },
                 )
             }
+
+            if (!useSystemLanguage) {
+                item {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showLanguageDialog = true }
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(painterResource(R.drawable.language), contentDescription = null)
+                        Spacer(Modifier.width(12.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.app_language),
+                                style = MaterialTheme.typography.bodyLarge,
+                            )
+                            Text(
+                                text = languageDisplayName(currentLanguageTag),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+
+        if (showLanguageDialog) {
+            LanguagePickerDialog(
+                currentTag = currentLanguageTag,
+                onDismiss = { showLanguageDialog = false },
+                onSelect = { tag ->
+                    langScope.launch {
+                        context.dataStore.edit { prefs -> prefs[AppLanguageKey] = tag }
+                    }
+                    val newLocale = if (tag == "system") {
+                        Locale.getDefault()
+                    } else {
+                        Locale.forLanguageTag(tag).takeIf { it.language.isNotEmpty() }
+                            ?: Locale.getDefault()
+                    }
+                    setAppLocale(context, newLocale)
+                    (context as? android.app.Activity)?.recreate()
+                },
+            )
         }
 
         PreferenceGroup(title = stringResource(R.string.misc)) {
