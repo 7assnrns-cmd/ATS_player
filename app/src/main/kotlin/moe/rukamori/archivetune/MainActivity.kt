@@ -350,6 +350,9 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
+import top.yukonga.miuix.kmp.blur.LayerBackdrop
+import top.yukonga.miuix.kmp.blur.layerBackdrop
+import top.yukonga.miuix.kmp.blur.rememberLayerBackdrop
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @AndroidEntryPoint
@@ -1999,6 +2002,8 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
+                            val navigationBackdrop = rememberLayerBackdrop()
+
                             Scaffold(
                                 topBar = { GlassBarHaloScope {
                                     if (shouldShowTopBar) {
@@ -2528,6 +2533,7 @@ class MainActivity : ComponentActivity() {
                                             FloatingNavigationToolbar(
                                                 items = navigationItems,
                                                 pureBlack = pureBlack,
+                                                appBackdrop = navigationBackdrop,
                                                 miniPlayerProximityProvider = navigationProximityProvider,
                                                 modifier =
                                                     Modifier
@@ -2786,7 +2792,7 @@ class MainActivity : ComponentActivity() {
                                                 },
                                             ).nestedScroll(
                                                 topAppBarScrollBehavior.nestedScrollConnection,
-                                            ).then(LocalGlassSource.current),
+                                            ).then(LocalGlassSource.current).layerBackdrop(navigationBackdrop),
                                 ) {
                                     navigationBuilder(
                                         navController,
