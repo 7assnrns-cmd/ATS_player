@@ -132,6 +132,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -2084,9 +2085,13 @@ class MainActivity : ComponentActivity() {
                                             // is hidden.
                                             if (shouldShowBlurBackground) {
                                                 val appBarHeightPx = with(LocalDensity.current) { AppBarHeight.toPx() }
+                                                val scrimProgress =
+                                                    (-currentScrollBehavior.state.heightOffset / appBarHeightPx)
+                                                        .coerceIn(0f, 1f)
                                                 Box(
                                                     modifier =
                                                         Modifier
+                                                            .graphicsLayer { alpha = scrimProgress }
                                                             .offset {
                                                                 val raw = currentScrollBehavior.state.heightOffset
                                                                 val clamped = raw.coerceAtLeast(-appBarHeightPx)
