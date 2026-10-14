@@ -98,6 +98,7 @@ import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.SearchDiscoveryScreenState
 import moe.rukamori.archivetune.viewmodels.SearchDiscoveryTab
 import moe.rukamori.archivetune.viewmodels.SearchDiscoveryViewModel
+import androidx.compose.foundation.layout.windowInsetsPadding
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -164,11 +165,14 @@ fun SearchScreen(
             state = lazyListState,
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
                                         bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
-                                        top = androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues().calculateTopPadding() + AppBarHeight,
+                                        
                                         start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateLeftPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
                                         end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateRightPadding(androidx.compose.ui.platform.LocalLayoutDirection.current)
                                     ),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                .padding(top = AppBarHeight),
         ) {
             item(
                 key = "search_field",

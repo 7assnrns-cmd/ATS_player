@@ -75,6 +75,9 @@ import moe.rukamori.archivetune.ui.component.LocalMenuState
 import moe.rukamori.archivetune.ui.component.MenuState
 import moe.rukamori.archivetune.ui.utils.SnapLayoutInfoProvider
 import moe.rukamori.archivetune.viewmodels.HomeViewModel
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.windowInsetsPadding
 
 private val HomeFeedMaxWidth = 1_200.dp
 private val HomeSectionSpacing = 18.dp
@@ -342,7 +345,7 @@ private fun HomeContent(
                     state = lazyListState,
                     contentPadding = androidx.compose.foundation.layout.PaddingValues(
                         bottom = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateBottomPadding() + 24.dp,
-                        top = androidx.compose.foundation.layout.WindowInsets.systemBars.asPaddingValues().calculateTopPadding() + AppBarHeight,
+                        
                         start = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateLeftPadding(androidx.compose.ui.platform.LocalLayoutDirection.current),
                         end = LocalPlayerAwareWindowInsets.current.asPaddingValues().calculateRightPadding(androidx.compose.ui.platform.LocalLayoutDirection.current)
                     ),
@@ -350,7 +353,9 @@ private fun HomeContent(
                         Modifier
                             .widthIn(max = HomeFeedMaxWidth)
                             .fillMaxWidth()
-                            .align(Alignment.TopCenter),
+                            .align(Alignment.TopCenter)
+                            .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                            .padding(top = AppBarHeight),
                 ) {
                     if (uiState.showCategoryChips) {
                         item(
