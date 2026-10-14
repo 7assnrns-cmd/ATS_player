@@ -230,30 +230,15 @@ fun ContentSettings(
 
 
         PreferenceGroup(title = stringResource(R.string.app_language)) {
-            item {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { showLanguageDialog = true }
-                        .padding(horizontal = 16.dp, vertical = 12.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Icon(painterResource(R.drawable.language), contentDescription = null)
-                    Spacer(Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.app_language),
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-                        Text(
-                            text = languageDisplayName(currentLanguageTag),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                item {
+                    PreferenceEntry(
+                        title = { Text(stringResource(R.string.app_language)) },
+                        description = languageDisplayName(currentLanguageTag),
+                        icon = { Icon(painterResource(R.drawable.language), null) },
+                        onClick = { showLanguageDialog = true },
+                    )
                 }
             }
-        }
 
         if (showLanguageDialog) {
             LanguagePickerSheet(

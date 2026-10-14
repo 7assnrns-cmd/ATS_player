@@ -166,7 +166,10 @@ fun SearchScreen(
         }
 
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                .padding(top = AppBarHeight),
         ) {
         LazyColumn(
             state = lazyListState,

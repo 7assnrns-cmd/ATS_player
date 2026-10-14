@@ -331,7 +331,10 @@ private fun HomeContent(
         }
 
         Box(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                .padding(top = AppBarHeight),
         ) {
             ExpressivePullToRefreshBox(
                 isRefreshing = uiState.isRefreshing,

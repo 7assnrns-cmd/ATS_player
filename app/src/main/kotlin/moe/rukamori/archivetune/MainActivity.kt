@@ -28,6 +28,7 @@ import android.view.WindowManager
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -359,7 +360,7 @@ import top.yukonga.miuix.kmp.blur.rememberLayerBackdrop
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : androidx.appcompat.app.AppCompatActivity() {
     @Inject
     lateinit var database: MusicDatabase
 
@@ -657,6 +658,21 @@ class MainActivity : ComponentActivity() {
             pendingIntent = intent
         }
     }
+    override fun attachBaseContext(newBase: Context) {
+        val savedTag = moe.rukamori.archivetune.utils.PreferenceStore.get(
+            moe.rukamori.archivetune.constants.AppLanguageKey,
+        ) ?: "system"
+        val locale = if (savedTag == "system" || savedTag.isBlank()) {
+            Locale.getDefault()
+        } else {
+            Locale.forLanguageTag(savedTag).takeIf { it.language.isNotEmpty() }
+                ?: Locale.getDefault()
+        }
+        val config = Configuration(newBase.resources.configuration)
+        config.setLocale(locale)
+        super.attachBaseContext(newBase.createConfigurationContext(config))
+    }
+
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
