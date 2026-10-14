@@ -2845,7 +2845,7 @@ class MainActivity : ComponentActivity() {
                                                 },
                                             ).nestedScroll(
                                                 topAppBarScrollBehavior.nestedScrollConnection,
-                                            ).layerBackdrop(navigationBackdrop),  // DIAG: LocalGlassSource temporarily removed
+                                            ).then(LocalGlassSource.current).layerBackdrop(navigationBackdrop),
                                 ) {
                                     navigationBuilder(
                                         navController,
