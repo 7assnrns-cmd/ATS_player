@@ -665,36 +665,8 @@ class MainActivity : ComponentActivity() {
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
-        val savedLanguage = PreferenceStore.get(AppLanguageKey) ?: "system"
-        val initialLocale: Locale =
-            if (savedLanguage == "system" || savedLanguage.isBlank()) {
-                Locale.getDefault()
-            } else {
-                Locale.forLanguageTag(savedLanguage).takeIf { it.language.isNotEmpty() }
-                    ?: Locale.getDefault()
-            }
-        setAppLocale(this, initialLocale)
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            runCatching {
-                dataStore.data.first().let { prefs ->
-                    val savedLang = prefs[AppLanguageKey] ?: "system"
-                    if (savedLang == "system" || savedLang.isBlank()) {
-                        Locale.getDefault()
-                    } else {
-                        Locale.forLanguageTag(savedLang).takeIf { it.language.isNotEmpty() }
-                            ?: Locale.getDefault()
-                    }
-                }
-            }.onSuccess { targetLocale ->
-                if (targetLocale != initialLocale) {
-                    withContext(Dispatchers.Main) {
-                        setAppLocale(this@MainActivity, targetLocale)
-                        recreate()
-                    }
-                }
-            }
-        }
+        // AppCompatDelegate handles locale persistence automatically on all
+        // Android versions. No manual setAppLocale, no recreate() loop.
 
         lifecycleScope.launch(Dispatchers.IO) {
             dataStore.data

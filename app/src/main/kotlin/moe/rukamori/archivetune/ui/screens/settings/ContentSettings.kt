@@ -229,29 +229,8 @@ fun ContentSettings(
         val langScope = rememberCoroutineScope()
 
         PreferenceGroup(title = stringResource(R.string.app_language)) {
-            item {
-                SwitchPreference(
-                    title = { Text(stringResource(R.string.use_system_language)) },
-                    icon = { Icon(painterResource(R.drawable.language), null) },
-                    checked = useSystemLanguage,
-                    onCheckedChange = { checked ->
-                        onUseSystemLanguageChange(checked)
-                        langScope.launch {
-                            if (checked) {
-                                context.dataStore.edit { it[AppLanguageKey] = "system" }
-                            }
-                            delay(100)
-                            withContext(Dispatchers.Main) {
-                                val newLocale = if (checked) Locale.getDefault() else Locale.ENGLISH
-                                setAppLocale(context, newLocale)
-                                (context as? android.app.Activity)?.recreate()
-                            }
-                        }
-                    },
-                )
-            }
 
-            if (!useSystemLanguage) {
+            // always visible
                 item {
                     Row(
                         modifier = Modifier

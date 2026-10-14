@@ -132,3 +132,16 @@ _backups/
 .archiveTune_*/
 .archiveTune_*
 install.sh
+
+# Dev backups
+.final-*
+.liquidglass-*
+.miuix-*
+.fix-*
+.settings-anim-*
+*.bak
+*.bak-*
+*.bak2-*
+*.bak3-*
+*.bak4-*
+*.bak5-*

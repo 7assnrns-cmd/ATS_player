@@ -10,6 +10,8 @@ package moe.rukamori.archivetune.utils
 import android.content.Context
 import android.content.res.Configuration
 import java.util.Locale
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 
 fun reportException(throwable: Throwable) {
     throwable.printStackTrace()
@@ -20,7 +22,18 @@ fun setAppLocale(
     context: Context,
     locale: Locale,
 ) {
-    val config = Configuration(context.resources.configuration)
-    config.setLocale(locale)
-    context.resources.updateConfiguration(config, context.resources.displayMetrics)
+    val tag = if (locale == Locale.getDefault() && locale.language == "en") "system" else locale.toLanguageTag()
+    AppCompatDelegate.setApplicationLocales(
+        LocaleListCompat.forLanguageTags(tag)
+    )
+}
+
+fun setAppLocaleTag(
+    context: Context,
+    tag: String,
+) {
+    AppCompatDelegate.setApplicationLocales(
+        if (tag == "system") LocaleListCompat.getEmptyLocaleList()
+        else LocaleListCompat.forLanguageTags(tag)
+    )
 }
