@@ -90,8 +90,6 @@ import moe.rukamori.archivetune.ui.screens.Screens
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.LibraryAlbumsViewModel
-import moe.rukamori.archivetune.ui.component.HyperOsReveal
-import androidx.compose.foundation.lazy.grid.itemsIndexed
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -510,8 +508,8 @@ fun LibraryAlbumsScreen(
                     }
 
                     // 4-column albums list
-                    itemsIndexed(filteredAlbums, key = { _, it -> it.id }) { index, album ->
-        HyperOsReveal(index = index) {                        Column(
+                    items(filteredAlbums, key = { it.id }) { album ->
+                        Column(
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
@@ -586,8 +584,7 @@ fun LibraryAlbumsScreen(
                                 overflow = TextOverflow.Ellipsis,
                             )
                         }
-                    
-        } }
+                    }
                 }
             } else {
                 // List View
@@ -606,8 +603,8 @@ fun LibraryAlbumsScreen(
                         }
                     }
 
-                    itemsIndexed(filteredAlbums, key = { _, it -> it.id }) { index, album ->
-        HyperOsReveal(index = index) {                        Row(
+                    items(filteredAlbums, key = { it.id }) { album ->
+                        Row(
                             modifier =
                                 Modifier
                                     .fillMaxWidth()
@@ -678,8 +675,7 @@ fun LibraryAlbumsScreen(
                                 )
                             }
                         }
-                    
-        } }
+                    }
                 }
             }
         }
