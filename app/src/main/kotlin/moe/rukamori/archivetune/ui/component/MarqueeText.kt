@@ -77,7 +77,7 @@ fun Modifier.marqueeScroll(
     velocity: Dp = 30.dp,
     repeatDelayMillis: Int = 1500,
     initialDelayMillis: Int = 800,
-    spacing: MarqueeSpacing = MarqueeSpacing(0.35f),
+    spacing: MarqueeSpacing = MarqueeSpacing(30.dp),
 ): Modifier =
     this.basicMarquee(
         iterations = Int.MAX_VALUE,

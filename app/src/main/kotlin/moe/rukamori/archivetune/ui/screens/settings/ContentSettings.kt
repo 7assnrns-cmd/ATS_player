@@ -85,6 +85,10 @@ fun ContentSettings(
     viewModel: ContentSettingsViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+
+    var showLanguageDialog by remember { mutableStateOf(false) }
+    var currentLanguageTag by remember { mutableStateOf(PreferenceStore.get(AppLanguageKey) ?: "system") }
+    val langScope = rememberCoroutineScope()
     val aiContentFilterState by viewModel.aiContentFilterState.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -229,29 +233,26 @@ fun ContentSettings(
         val langScope = rememberCoroutineScope()
 
         PreferenceGroup(title = stringResource(R.string.app_language)) {
-
-            // always visible
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showLanguageDialog = true }
-                            .padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Icon(painterResource(R.drawable.language), contentDescription = null)
-                        Spacer(Modifier.width(12.dp))
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = stringResource(R.string.app_language),
-                                style = MaterialTheme.typography.bodyLarge,
-                            )
-                            Text(
-                                text = languageDisplayName(currentLanguageTag),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            )
-                        }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { showLanguageDialog = true }
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(painterResource(R.drawable.language), contentDescription = null)
+                    Spacer(Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.app_language),
+                            style = MaterialTheme.typography.bodyLarge,
+                        )
+                        Text(
+                            text = languageDisplayName(currentLanguageTag),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
                     }
                 }
             }
@@ -281,7 +282,6 @@ fun ContentSettings(
                 },
             )
         }
-        
 
         PreferenceGroup(title = stringResource(R.string.misc)) {
             item {
