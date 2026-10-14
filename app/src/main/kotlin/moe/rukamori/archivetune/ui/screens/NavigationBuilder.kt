@@ -91,58 +91,6 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 
-/**
- * HyperOS-style slide transition.
- * - Home → other tabs: new screen slides in from the right, old fades out.
- * - Other tab → Home: new screen slides in from the left.
- * Used on NavHost routes inside [navigationBuilder].
- */
-internal fun NavGraphBuilder.hyperOsSlideTransition(
-    isRootTab: Boolean,
-) {
-    enterTransition = {
-        if (isRootTab) {
-            fadeIn(tween(220, easing = FastOutSlowInEasing)) +
-                scaleIn(
-                    initialScale = 0.94f,
-                    animationSpec = tween(320, easing = FastOutSlowInEasing),
-                )
-        } else {
-            slideInHorizontally(
-                initialOffsetX = { it / 4 },
-                animationSpec = tween(320, easing = FastOutSlowInEasing),
-            ) + fadeIn(tween(280, easing = FastOutSlowInEasing))
-        }
-    }
-    exitTransition = {
-        if (isRootTab) {
-            fadeOut(tween(200, easing = FastOutSlowInEasing)) +
-                scaleOut(
-                    targetScale = 0.96f,
-                    animationSpec = tween(320, easing = FastOutSlowInEasing),
-                )
-        } else {
-            slideOutHorizontally(
-                targetOffsetX = { -it / 4 },
-                animationSpec = tween(320, easing = FastOutSlowInEasing),
-            ) + fadeOut(tween(220, easing = FastOutSlowInEasing))
-        }
-    }
-    popEnterTransition = {
-        fadeIn(tween(280, easing = FastOutSlowInEasing)) +
-            scaleIn(
-                initialScale = 0.96f,
-                animationSpec = tween(320, easing = FastOutSlowInEasing),
-            )
-    }
-    popExitTransition = {
-        fadeOut(tween(220, easing = FastOutSlowInEasing)) +
-            slideOutHorizontally(
-                targetOffsetX = { it / 4 },
-                animationSpec = tween(320, easing = FastOutSlowInEasing),
-            )
-    }
-}
 
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -209,7 +209,7 @@ private fun BoxScope.LibraryPodcastsContent(
             ) {
                 itemsIndexed(
                     items = state.uiState.podcasts,
-                    key = PodcastLibraryItemUiModel::browseId,
+                    key = { _, item -> item.browseId },
                     contentType = { _, _ -> "library_podcast" },
                 ) { index, podcast ->
         HyperOsReveal(index = index) {                    val onClick = remember(podcast.browseId, onPodcastClick) { { onPodcastClick(podcast.browseId) } }

@@ -510,7 +510,7 @@ fun LibraryAlbumsScreen(
                     }
 
                     // 4-column albums list
-                    itemsIndexed(filteredAlbums, key = { it.id }) { index, album ->
+                    itemsIndexed(filteredAlbums, key = { _, it -> it.id }) { index, album ->
         HyperOsReveal(index = index) {                        Column(
                             modifier =
                                 Modifier
@@ -606,7 +606,7 @@ fun LibraryAlbumsScreen(
                         }
                     }
 
-                    itemsIndexed(filteredAlbums, key = { it.id }) { index, album ->
+                    itemsIndexed(filteredAlbums, key = { _, it -> it.id }) { index, album ->
         HyperOsReveal(index = index) {                        Row(
                             modifier =
                                 Modifier

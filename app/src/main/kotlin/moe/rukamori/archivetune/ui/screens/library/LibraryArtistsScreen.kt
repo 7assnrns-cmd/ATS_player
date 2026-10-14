@@ -510,7 +510,7 @@ fun LibraryArtistsScreen(
             }
 
             // Artists Grid: 2-column capsule artist cards
-            itemsIndexed(artists, key = { it.id }) { index, artistWrapper ->
+            itemsIndexed(artists, key = { _, it -> it.id }) { index, artistWrapper ->
         HyperOsReveal(index = index) {                val artist = artistWrapper.artist
                 Row(
                     modifier =
