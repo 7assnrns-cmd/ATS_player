@@ -50,7 +50,7 @@ fun MiuixScope(
     area: MiuixArea,
     content: @Composable () -> Unit,
 ) {
-    val master by rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
+    val master by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
     if (!master) {
         content()
         return

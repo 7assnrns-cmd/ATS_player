@@ -79,12 +79,12 @@ fun FloatingNavigationToolbar(
     // Miuix branch: opt-in via Settings → Appearance → Miuix theme.
     // When enabled for the navigation bar area, delegate to the Miuix
     // implementation and return early. Legacy Material path is untouched.
-    val masterMiuix by rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
+    val masterMiuix by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
     val miuixNavBar by rememberPreference(MiuixForNavigationBarKey, defaultValue = true)
     // Liquid Glass uses the miuix-blur AAR, which requires API 33+ at
     // runtime (the manifest override only lets the build finish). On
     // older devices fall through to the Material 3 branch below.
-    if (masterMiuix && miuixNavBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+    if (miuixNavBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         val dark = isSystemInDarkTheme()
         val colors = remember(dark) { if (dark) darkColorScheme() else lightColorScheme() }
         MiuixTheme(colors = colors) {

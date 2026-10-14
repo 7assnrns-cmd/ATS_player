@@ -255,9 +255,9 @@ fun AppearanceSettings(navController: NavController) {
             defaultValue = MiniPlayerBackgroundStyle.THEME,
         )
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
-    val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = false)
+    val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = true)
     val (miuixThemeEnabled, onMiuixThemeEnabledChange) =
-        rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
+        rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
     val (miuixForSettings, onMiuixForSettingsChange) =
         rememberPreference(MiuixForSettingsKey, defaultValue = true)
     val (miuixForTopBar, onMiuixForTopBarChange) =

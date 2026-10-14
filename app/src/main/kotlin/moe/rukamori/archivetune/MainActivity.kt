@@ -1170,7 +1170,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                     val (glassIntroSeen, setGlassIntroSeen) =
                         rememberPreference(GlassIntroSeenKey, defaultValue = false)
                     val (_, setGlassEnabled) =
-                        rememberPreference(GlassEffectEnabledKey, defaultValue = false)
+                        rememberPreference(GlassEffectEnabledKey, defaultValue = true)
                     val defaultOpenTab by rememberEnumPreference(DefaultOpenTabKey, NavigationTab.HOME)
                     val (restoreLastTab) = rememberPreference(RestoreLastTabKey, defaultValue = true)
                     val (lastTabRoute, setLastTabRoute) = rememberPreference(LastTabRouteKey, defaultValue = "")
@@ -2207,7 +2207,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                             // default look so scroll behavior, scrim and insets are unchanged.
                                             val miuixTopBarEnabled by rememberPreference(
                                                 moe.rukamori.archivetune.constants.MiuixThemeEnabledKey,
-                                                defaultValue = true,
+                                                defaultValue = false,
                                             )
                                             val miuixTopBarArea by rememberPreference(
                                                 moe.rukamori.archivetune.constants.MiuixForTopBarKey,
