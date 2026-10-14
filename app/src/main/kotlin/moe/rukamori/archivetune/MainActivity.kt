@@ -2086,7 +2086,7 @@ class MainActivity : ComponentActivity() {
                                             if (shouldShowBlurBackground) {
                                                 val appBarHeightPx = with(LocalDensity.current) { AppBarHeight.toPx() }
                                                 val scrimProgress =
-                                                    (0.40f + 0.60f * (-currentScrollBehavior.state.heightOffset / appBarHeightPx))
+                                                    (0.85f + 0.15f * (-currentScrollBehavior.state.heightOffset / appBarHeightPx))
                                                         .coerceIn(0f, 1f)
                                                 Box(
                                                     modifier =
