@@ -1204,7 +1204,6 @@ Kararlılık, uyumluluk ve işlevsellik garanti edilmez.</string>
     <string name="joined">Katıldı</string>
     <string name="loading">Yükleniyor</string>
     <string name="connecting">Bağlanıyor</string>
-    <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="together_host_section">Sunucu</string>
     <string name="together_join_section">Katıl</string>
     <string name="together_status">Durum</string>
