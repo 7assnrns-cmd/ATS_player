@@ -355,6 +355,7 @@ private fun HomeContent(
                             .widthIn(max = HomeFeedMaxWidth)
                             .fillMaxWidth()
                             .align(Alignment.TopCenter)
+                            .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
                             .padding(top = AppBarHeight)
                             .clipToBounds(),
                 ) {

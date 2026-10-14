@@ -172,7 +172,8 @@ fun SearchScreen(
                                     ),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = AppBarHeight)
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                            .padding(top = AppBarHeight)
                             .clipToBounds(),
         ) {
             item(
