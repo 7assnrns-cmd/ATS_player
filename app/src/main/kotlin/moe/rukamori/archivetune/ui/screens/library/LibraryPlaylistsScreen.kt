@@ -112,6 +112,7 @@ import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.LibraryPlaylistsViewModel
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
+import moe.rukamori.archivetune.ui.component.HyperOsReveal
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -478,12 +479,12 @@ fun LibraryPlaylistsScreen(
                         }
                     }
 
-                    items(
+                    itemsIndexed(
                         items = visiblePlaylists,
-                        key = { playlist -> playlist.id },
-                        contentType = { "playlist_grid" },
-                    ) { playlist ->
-                        PlaylistGridCard(
+                        key = { _, playlist -> playlist.id },
+                        contentType = { _, _ -> "playlist_grid" },
+                    ) { index, playlist ->
+        HyperOsReveal(index = index) {                        PlaylistGridCard(
                             playlist = playlist,
                             onClick = {
                                 openPlaylist(navController, playlist)
@@ -506,7 +507,8 @@ fun LibraryPlaylistsScreen(
                                 }
                             },
                         )
-                    }
+                    
+        } }
                 }
             } else {
                 val listPlaylists = if (sortType == PlaylistSortType.CUSTOM) mutablePlaylists else visiblePlaylists

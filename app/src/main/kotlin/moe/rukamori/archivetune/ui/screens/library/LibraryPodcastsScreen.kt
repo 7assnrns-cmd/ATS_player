@@ -52,6 +52,8 @@ import moe.rukamori.archivetune.ui.component.MediaDetailStatePanel
 import moe.rukamori.archivetune.ui.component.MenuSurfaceSection
 import moe.rukamori.archivetune.ui.component.NewMenuItem
 import moe.rukamori.archivetune.viewmodels.PodcastLibraryViewModel
+import moe.rukamori.archivetune.ui.component.HyperOsReveal
+import androidx.compose.foundation.lazy.itemsIndexed
 
 @Composable
 fun LibraryPodcastsScreen(
@@ -205,12 +207,12 @@ private fun BoxScope.LibraryPodcastsContent(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.fillMaxSize(),
             ) {
-                items(
+                itemsIndexed(
                     items = state.uiState.podcasts,
                     key = PodcastLibraryItemUiModel::browseId,
-                    contentType = { "library_podcast" },
-                ) { podcast ->
-                    val onClick = remember(podcast.browseId, onPodcastClick) { { onPodcastClick(podcast.browseId) } }
+                    contentType = { _, _ -> "library_podcast" },
+                ) { index, podcast ->
+        HyperOsReveal(index = index) {                    val onClick = remember(podcast.browseId, onPodcastClick) { { onPodcastClick(podcast.browseId) } }
                     val onPlay = remember(podcast.browseId, onPodcastPlay) { { onPodcastPlay(podcast.browseId) } }
                     val onMenuClick = remember(podcast, onPodcastMenuClick) { { onPodcastMenuClick(podcast) } }
                     PodcastLibraryCard(
@@ -219,7 +221,8 @@ private fun BoxScope.LibraryPodcastsContent(
                         onPlay = onPlay,
                         onMenuClick = onMenuClick,
                     )
-                }
+                
+        } }
             }
         }
     }

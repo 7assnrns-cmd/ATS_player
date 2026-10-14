@@ -30,6 +30,8 @@ import moe.rukamori.archivetune.R
 import moe.rukamori.archivetune.spotify.SpotifyLibraryViewModel
 import moe.rukamori.archivetune.ui.component.ExpressivePullToRefreshBox
 import moe.rukamori.archivetune.ui.component.SpotifyLibraryPlaylistListItem
+import moe.rukamori.archivetune.ui.component.HyperOsReveal
+import androidx.compose.foundation.lazy.itemsIndexed
 
 @Composable
 fun LibrarySpotifyPlaylistsScreen(
@@ -73,16 +75,17 @@ fun LibrarySpotifyPlaylistsScreen(
                 }
             }
 
-            items(
+            itemsIndexed(
                 items = playlists,
-                key = { playlist -> playlist.id },
-                contentType = { "spotify_playlist" },
-            ) { playlist ->
-                SpotifyLibraryPlaylistListItem(
+                key = { _, playlist -> playlist.id },
+                contentType = { _, _ -> "spotify_playlist" },
+            ) { index, playlist ->
+        HyperOsReveal(index = index) {                SpotifyLibraryPlaylistListItem(
                     playlist = playlist,
                     navController = navController,
                 )
-            }
+            
+        } }
         }
     }
 }

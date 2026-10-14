@@ -83,6 +83,67 @@ import moe.rukamori.archivetune.ui.screens.settings.UpdateDetailScreen
 import moe.rukamori.archivetune.ui.screens.settings.UpdateScreen
 import moe.rukamori.archivetune.viewmodels.HomeViewModel
 import moe.rukamori.archivetune.viewmodels.OnlineSearchSort
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.togetherWith
+
+/**
+ * HyperOS-style slide transition.
+ * - Home → other tabs: new screen slides in from the right, old fades out.
+ * - Other tab → Home: new screen slides in from the left.
+ * Used on NavHost routes inside [navigationBuilder].
+ */
+internal fun NavGraphBuilder.hyperOsSlideTransition(
+    isRootTab: Boolean,
+) {
+    enterTransition = {
+        if (isRootTab) {
+            fadeIn(tween(220, easing = FastOutSlowInEasing)) +
+                scaleIn(
+                    initialScale = 0.94f,
+                    animationSpec = tween(320, easing = FastOutSlowInEasing),
+                )
+        } else {
+            slideInHorizontally(
+                initialOffsetX = { it / 4 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeIn(tween(280, easing = FastOutSlowInEasing))
+        }
+    }
+    exitTransition = {
+        if (isRootTab) {
+            fadeOut(tween(200, easing = FastOutSlowInEasing)) +
+                scaleOut(
+                    targetScale = 0.96f,
+                    animationSpec = tween(320, easing = FastOutSlowInEasing),
+                )
+        } else {
+            slideOutHorizontally(
+                targetOffsetX = { -it / 4 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeOut(tween(220, easing = FastOutSlowInEasing))
+        }
+    }
+    popEnterTransition = {
+        fadeIn(tween(280, easing = FastOutSlowInEasing)) +
+            scaleIn(
+                initialScale = 0.96f,
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            )
+    }
+    popExitTransition = {
+        fadeOut(tween(220, easing = FastOutSlowInEasing)) +
+            slideOutHorizontally(
+                targetOffsetX = { it / 4 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            )
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 fun NavGraphBuilder.navigationBuilder(
@@ -97,7 +158,37 @@ fun NavGraphBuilder.navigationBuilder(
     onlineSearchSort: OnlineSearchSort = OnlineSearchSort.DEFAULT,
     libraryScrollBehavior: TopAppBarScrollBehavior,
 ) {
-    composable(Screens.Home.route) {
+    composable(
+        route = Screens.Home.route,
+        enterTransition = {
+            fadeIn(tween(260, easing = FastOutSlowInEasing)) +
+                scaleIn(
+                    initialScale = 0.96f,
+                    animationSpec = tween(360, easing = FastOutSlowInEasing),
+                )
+        },
+        exitTransition = {
+            fadeOut(tween(200, easing = FastOutSlowInEasing)) +
+                scaleOut(
+                    targetScale = 0.97f,
+                    animationSpec = tween(300, easing = FastOutSlowInEasing),
+                )
+        },
+        popEnterTransition = {
+            fadeIn(tween(260, easing = FastOutSlowInEasing)) +
+                scaleIn(
+                    initialScale = 0.96f,
+                    animationSpec = tween(360, easing = FastOutSlowInEasing),
+                )
+        },
+        popExitTransition = {
+            fadeOut(tween(200, easing = FastOutSlowInEasing)) +
+                scaleOut(
+                    targetScale = 0.97f,
+                    animationSpec = tween(300, easing = FastOutSlowInEasing),
+                )
+        },
+    ) {
         HomeScreen(
             navController = navController,
             viewModel = homeViewModel,
@@ -106,10 +197,60 @@ fun NavGraphBuilder.navigationBuilder(
     }
     composable(
         Screens.Library.route,
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { it / 4 },
+                animationSpec = tween(340, easing = FastOutSlowInEasing),
+            ) + fadeIn(tween(300, easing = FastOutSlowInEasing))
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { -it / 4 },
+                animationSpec = tween(340, easing = FastOutSlowInEasing),
+            ) + fadeOut(tween(240, easing = FastOutSlowInEasing))
+        },
+        popEnterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it / 4 },
+                animationSpec = tween(340, easing = FastOutSlowInEasing),
+            ) + fadeIn(tween(300, easing = FastOutSlowInEasing))
+        },
+        popExitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { it / 4 },
+                animationSpec = tween(340, easing = FastOutSlowInEasing),
+            ) + fadeOut(tween(240, easing = FastOutSlowInEasing))
+        },
     ) {
         LibraryScreen(navController = navController, scrollBehavior = libraryScrollBehavior)
     }
-    composable(Screens.Search.route) {
+    composable(
+        route = Screens.Search.route,
+        enterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { -it / 5 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeIn(tween(280, easing = FastOutSlowInEasing))
+        },
+        exitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { it / 5 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeOut(tween(220, easing = FastOutSlowInEasing))
+        },
+        popEnterTransition = {
+            slideInHorizontally(
+                initialOffsetX = { it / 5 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeIn(tween(280, easing = FastOutSlowInEasing))
+        },
+        popExitTransition = {
+            slideOutHorizontally(
+                targetOffsetX = { -it / 5 },
+                animationSpec = tween(320, easing = FastOutSlowInEasing),
+            ) + fadeOut(tween(220, easing = FastOutSlowInEasing))
+        },
+    ) {
         SearchScreen(
             navController = navController,
             onSearchClick = {

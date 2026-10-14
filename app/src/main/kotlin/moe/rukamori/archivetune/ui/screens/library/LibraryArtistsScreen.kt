@@ -88,6 +88,8 @@ import moe.rukamori.archivetune.ui.screens.Screens
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.LibraryArtistsViewModel
+import moe.rukamori.archivetune.ui.component.HyperOsReveal
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -508,8 +510,8 @@ fun LibraryArtistsScreen(
             }
 
             // Artists Grid: 2-column capsule artist cards
-            items(artists, key = { it.id }) { artistWrapper ->
-                val artist = artistWrapper.artist
+            itemsIndexed(artists, key = { it.id }) { index, artistWrapper ->
+        HyperOsReveal(index = index) {                val artist = artistWrapper.artist
                 Row(
                     modifier =
                         Modifier
@@ -598,7 +600,8 @@ fun LibraryArtistsScreen(
                         )
                     }
                 }
-            }
+            
+        } }
 
             // Recently Played Artists Section
             if (artists.size > 2) {
