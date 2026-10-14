@@ -257,7 +257,7 @@ fun AppearanceSettings(navController: NavController) {
     val (pureBlack, onPureBlackChange) = rememberPreference(PureBlackKey, defaultValue = false)
     val (glassEffect, onGlassEffectChange) = rememberPreference(GlassEffectEnabledKey, defaultValue = false)
     val (miuixThemeEnabled, onMiuixThemeEnabledChange) =
-        rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
+        rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
     val (miuixForSettings, onMiuixForSettingsChange) =
         rememberPreference(MiuixForSettingsKey, defaultValue = true)
     val (miuixForTopBar, onMiuixForTopBarChange) =

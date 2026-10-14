@@ -2207,7 +2207,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                             // default look so scroll behavior, scrim and insets are unchanged.
                                             val miuixTopBarEnabled by rememberPreference(
                                                 moe.rukamori.archivetune.constants.MiuixThemeEnabledKey,
-                                                defaultValue = false,
+                                                defaultValue = true,
                                             )
                                             val miuixTopBarArea by rememberPreference(
                                                 moe.rukamori.archivetune.constants.MiuixForTopBarKey,

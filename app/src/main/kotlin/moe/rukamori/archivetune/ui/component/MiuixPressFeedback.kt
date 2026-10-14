@@ -33,7 +33,7 @@ fun Modifier.miuixClickable(
     role: Role? = null,
     onClick: () -> Unit,
 ): Modifier {
-    val miuixEnabled by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
+    val miuixEnabled by rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
     if (!miuixEnabled) {
         return this.clickable(
             enabled = enabled,
@@ -69,7 +69,7 @@ fun Modifier.miuixCombinedClickable(
     onDoubleClick: (() -> Unit)? = null,
     onClick: () -> Unit,
 ): Modifier {
-    val miuixEnabled by rememberPreference(MiuixThemeEnabledKey, defaultValue = false)
+    val miuixEnabled by rememberPreference(MiuixThemeEnabledKey, defaultValue = true)
     if (!miuixEnabled) {
         return this.combinedClickable(
             enabled = enabled,
