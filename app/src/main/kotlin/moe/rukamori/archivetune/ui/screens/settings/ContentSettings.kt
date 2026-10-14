@@ -228,9 +228,6 @@ fun ContentSettings(
             onOpenSource = viewModel::openAiContentFilterSource,
         )
 
-        var showLanguageDialog by remember { mutableStateOf(false) }
-        var currentLanguageTag by remember { mutableStateOf(PreferenceStore.get(AppLanguageKey) ?: "system") }
-        val langScope = rememberCoroutineScope()
 
         PreferenceGroup(title = stringResource(R.string.app_language)) {
             item {
