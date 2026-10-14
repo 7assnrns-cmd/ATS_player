@@ -12,6 +12,7 @@ import androidx.activity.compose.BackHandler
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -304,7 +305,12 @@ private fun HomeContent(
             ?.remoteQuickPicks
     val tonalStart = MaterialTheme.colorScheme.primaryContainer
     val tonalMiddle = MaterialTheme.colorScheme.secondaryContainer
-    Box(modifier = modifier.fillMaxSize()) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .clipToBounds()
+            .background(MaterialTheme.colorScheme.background),
+    ) {
         if (uiState.showTonalBackdrop) {
             Box(
                 modifier =
@@ -324,11 +330,17 @@ private fun HomeContent(
             )
         }
 
-        ExpressivePullToRefreshBox(
-            isRefreshing = uiState.isRefreshing,
-            onRefresh = { onAction(HomeAction.Refresh) },
-            modifier = Modifier.fillMaxSize(),
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                .padding(top = AppBarHeight),
         ) {
+            ExpressivePullToRefreshBox(
+                isRefreshing = uiState.isRefreshing,
+                onRefresh = { onAction(HomeAction.Refresh) },
+                modifier = Modifier.fillMaxSize(),
+            ) {
             BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
                 val forgottenItemWidthFactor = if (maxWidth * 0.475f >= 320.dp) 0.475f else 0.9f
                 val forgottenItemWidth = maxWidth.coerceAtMost(HomeFeedMaxWidth) * forgottenItemWidthFactor
@@ -354,10 +366,7 @@ private fun HomeContent(
                         Modifier
                             .widthIn(max = HomeFeedMaxWidth)
                             .fillMaxWidth()
-                            .align(Alignment.TopCenter)
-                            .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
-                            .padding(top = AppBarHeight)
-                            .clipToBounds(),
+                            .align(Alignment.TopCenter),
                 ) {
                     if (uiState.showCategoryChips) {
                         item(
@@ -663,9 +672,7 @@ private fun HomeContent(
             }
         }
     }
-}
-
-private fun androidx.compose.foundation.lazy.LazyListScope.sectionSpacer(key: String) {
+    }}private fun androidx.compose.foundation.lazy.LazyListScope.sectionSpacer(key: String) {
     item(
         key = "home_section_spacer_$key",
         contentType = "section_spacer",

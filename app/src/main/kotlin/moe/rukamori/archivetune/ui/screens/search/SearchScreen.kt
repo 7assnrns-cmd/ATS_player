@@ -8,6 +8,7 @@
 package moe.rukamori.archivetune.ui.screens.search
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -133,6 +134,8 @@ fun SearchScreen(
         modifier =
             Modifier
                 .fillMaxSize()
+                .clipToBounds()
+                .background(MaterialTheme.colorScheme.background)
                 .then(
                     // Step 2b: attach the shell's floating-header connection here so Search's
                     // scroll/fling writes Search's own header state and can't leak elsewhere.
@@ -162,6 +165,12 @@ fun SearchScreen(
             )
         }
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
+                .padding(top = AppBarHeight),
+        ) {
         LazyColumn(
             state = lazyListState,
             contentPadding = androidx.compose.foundation.layout.PaddingValues(
@@ -172,9 +181,7 @@ fun SearchScreen(
                                     ),
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
-                            .padding(top = AppBarHeight)
-                            .clipToBounds(),
+                .clipToBounds(),
         ) {
             item(
                 key = "search_field",
@@ -304,6 +311,7 @@ fun SearchScreen(
                     }
                 }
             }
+        }
         }
     }
 }
