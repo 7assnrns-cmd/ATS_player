@@ -64,6 +64,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.draw.clipToBounds
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -171,8 +172,8 @@ fun SearchScreen(
                                     ),
             modifier = Modifier
                 .fillMaxSize()
-                .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
-                .padding(top = AppBarHeight),
+                .padding(top = AppBarHeight)
+                            .clipToBounds(),
         ) {
             item(
                 key = "search_field",

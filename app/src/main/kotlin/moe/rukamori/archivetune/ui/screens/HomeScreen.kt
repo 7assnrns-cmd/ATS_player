@@ -52,6 +52,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.draw.clipToBounds
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -354,8 +355,8 @@ private fun HomeContent(
                             .widthIn(max = HomeFeedMaxWidth)
                             .fillMaxWidth()
                             .align(Alignment.TopCenter)
-                            .windowInsetsPadding(androidx.compose.foundation.layout.WindowInsets.systemBars.only(androidx.compose.foundation.layout.WindowInsetsSides.Top))
-                            .padding(top = AppBarHeight),
+                            .padding(top = AppBarHeight)
+                            .clipToBounds(),
                 ) {
                     if (uiState.showCategoryChips) {
                         item(
