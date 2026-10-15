@@ -153,6 +153,9 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.roundToInt
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.HorizontalDivider
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -1252,6 +1255,27 @@ private fun UpdateStatusPanel(
 
             }
         }
+    }
+}
+
+@Composable
+private fun FeatureIcon(
+    @DrawableRes iconRes: Int,
+    containerColor: Color,
+    contentColor: Color,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.large,
+        color = containerColor,
+    ) {
+        Icon(
+            painter = painterResource(iconRes),
+            contentDescription = null,
+            tint = contentColor,
+            modifier = Modifier
+                .padding(12.dp)
+                .size(22.dp),
+        )
     }
 }
 
