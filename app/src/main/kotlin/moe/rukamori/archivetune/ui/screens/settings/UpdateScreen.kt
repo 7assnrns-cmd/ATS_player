@@ -1581,7 +1581,6 @@ private fun UpdateDashboard(
                     onCheckForUpdate = onCheckForUpdate,
                     modifier = Modifier.weight(1f),
                 ),
-                )
             }
         }
     } else {
