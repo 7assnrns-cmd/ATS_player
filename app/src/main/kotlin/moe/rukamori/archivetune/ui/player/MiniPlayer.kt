@@ -216,14 +216,20 @@ private fun NewMiniPlayer(
                     .fillMaxWidth()
                     .height(MiniPlayerHeight)
                     .offset { IntOffset(offsetX.roundToInt(), 0) }
-                    .clip(miniPlayerShape)
+                    .glassSurface(
+                        shape = miniPlayerShape,
+                        liquid = true,
+                        rim = false,
+                    )
                     .glassRim(miniPlayerShape, fadeBottom = proximity),
         ) {
-            MiniPlayerBackground(
-                style = effectiveBackgroundStyle,
-                palette = backgroundPalette,
-                modifier = Modifier.fillMaxSize(),
-            )
+            if (LocalGlassBackdrop.current == null) {
+                MiniPlayerBackground(
+                    style = effectiveBackgroundStyle,
+                    palette = backgroundPalette,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
             NewMiniPlayerContent(
                 position = position,
                 duration = duration,
