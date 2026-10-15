@@ -37,6 +37,31 @@ object TranslationCache {
         }.getOrNull()
     }
 
+    /**
+     * Returns ALL cached translations for [lang] in one DataStore read.
+     * Used to preload the entire map so the UI never flashes English.
+     */
+    suspend fun getAll(
+        context: Context,
+        lang: String,
+    ): Map<String, String> {
+        val raw = context.dataStore.data.first()[CACHE_KEY] ?: return emptyMap()
+        return runCatching {
+            val json = org.json.JSONObject(raw)
+            val prefix = "$lang:"
+            val result = mutableMapOf<String, String>()
+            val keys = json.keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                if (key.startsWith(prefix)) {
+                    val sha = key.removePrefix(prefix)
+                    result[sha] = json.optString(key, "")
+                }
+            }
+            result
+        }.getOrDefault(emptyMap())
+    }
+
     suspend fun put(
         context: Context,
         lang: String,

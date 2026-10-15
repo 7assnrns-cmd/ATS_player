@@ -309,6 +309,7 @@ fun UpdateScreen(
     }
 
     var commits by remember { mutableStateOf<List<GitCommit>>(emptyList()) }
+    var translatedCommits by remember { mutableStateOf<Map<String, String>>(emptyMap()) }
     var isLoadingCommits by remember { mutableStateOf(true) }
     var latestVersion by remember { mutableStateOf<String?>(null) }
     var isExpanded by rememberSaveable { mutableStateOf(true) }
@@ -686,50 +687,29 @@ fun UpdateScreen(
             }
         isLoadingCommits = false
     }
-        // Cache-first: any translation already prepared by ChangelogPrefetcher
-        // appears instantly. Anything missing falls back to a live translate.
+        // Preload all cached translations for the current language — runs once.
+        LaunchedEffect(Unit) {
+            val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
+            val cached = TranslationCache.getAll(context, lang)
+            if (cached.isNotEmpty()) {
+                translatedCommits = translatedCommits + cached
+            }
+        }
+
+        // Translate missing entries in the background. Cached entries are skipped,
+        // so an already-translated changelog never re-translates.
         LaunchedEffect(commits) {
-            val targetLang = TranslationService.currentTargetLanguage()
-            if (targetLang == null || commits.isEmpty()) {
-                translatedCommits = emptyMap()
-                return@LaunchedEffect
-            }
-
-            val result = mutableMapOf<String, String>()
+            val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
+            if (commits.isEmpty()) return@LaunchedEffect
             for (commit in commits) {
-                val cacheKey = commit.sha.ifBlank { commit.url }
-                val cached = TranslationCache.get(context, targetLang, cacheKey)
-                if (cached != null) {
-                    result[cacheKey] = cached
-                    translatedCommits = result.toMap()
-                    continue
-                }
-                val translated = TranslationService.translate(commit.message, targetLang)
-                if (translated != null) {
-                    TranslationCache.put(context, targetLang, cacheKey, translated)
-                    result[cacheKey] = translated
-                    translatedCommits = result.toMap()
-                }
+                val key = commit.sha.ifBlank { commit.url }
+                if (key in translatedCommits) continue
+                val translated = TranslationService.translate(commit.message, lang) ?: continue
+                TranslationCache.put(context, lang, key, translated)
+                translatedCommits = translatedCommits + (key to translated)
             }
         }
 
-        val result = mutableMapOf<String, String>()
-        for (commit in commits) {
-            val cacheKey = commit.sha.ifBlank { commit.url }
-            val cached = TranslationCache.get(context, targetLang, cacheKey)
-            if (cached != null) {
-                result[cacheKey] = cached
-                translatedCommits = result.toMap()
-                continue
-            }
-            val translated = TranslationService.translate(commit.message, targetLang)
-            if (translated != null) {
-                TranslationCache.put(context, targetLang, cacheKey, translated)
-                result[cacheKey] = translated
-                translatedCommits = result.toMap()
-            }
-        }
-    }
 
     val rotationAngle by animateFloatAsState(
         targetValue = if (isExpanded) 180f else 0f,
@@ -1197,6 +1177,8 @@ fun UpdateScreen(
                 },
             )
         }
+    }
+
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
