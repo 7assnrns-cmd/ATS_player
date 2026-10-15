@@ -1580,7 +1580,7 @@ private fun UpdateDashboard(
                     isUpdateAvailable = isUpdateAvailable,
                     onCheckForUpdate = onCheckForUpdate,
                     modifier = Modifier.weight(1f),
-                ),
+                )
             }
         }
     } else {
