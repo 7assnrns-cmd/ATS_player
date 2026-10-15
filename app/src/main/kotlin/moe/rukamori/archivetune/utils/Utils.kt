@@ -19,13 +19,17 @@ fun reportException(throwable: Throwable) {
 
 @Suppress("DEPRECATION")
 fun setAppLocale(
-    context: Context,
+    @Suppress("UNUSED_PARAMETER") context: Context,
     locale: Locale,
 ) {
-    val tag = if (locale == Locale.getDefault() && locale.language == "en") "system" else locale.toLanguageTag()
-    AppCompatDelegate.setApplicationLocales(
-        LocaleListCompat.forLanguageTags(tag)
-    )
+    // For English, use empty list (system default is usually English-compatible)
+    // Otherwise, set the specific language.
+    val tag = if (locale.language == "en") {
+        "system"
+    } else {
+        locale.toLanguageTag()
+    }
+    setAppLocaleTag(tag)
 }
 
 fun setAppLocaleTag(

@@ -74,6 +74,8 @@ import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
 import moe.rukamori.archivetune.ui.component.LocalGlassSource
 import moe.rukamori.archivetune.ui.component.ProvideBouncyIndication
 import moe.rukamori.archivetune.utils.rememberPreference
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 
 val DefaultThemeColor = Color(0xFFED5564)
 val LocalArchiveTuneFontPreference = staticCompositionLocalOf { AppFontPreference.DEFAULT }
@@ -315,6 +317,7 @@ dynamicThemeAnimationDurationMs: Int = 800,
         LocalArchiveTuneFontFamily provides resolvedFontFamily,
         LocalGlassBackdrop provides glassBackdrop,
         LocalGlassSource provides glassSource,
+        LocalLayoutDirection provides LayoutDirection.Ltr,
     ) {
         MaterialExpressiveTheme(
             colorScheme = animatedColorScheme,

@@ -678,7 +678,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LOCALE
+        window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         // AppCompatDelegate handles locale persistence automatically on all
@@ -2073,9 +2073,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                             // is hidden.
                                             if (shouldShowBlurBackground) {
                                                 val appBarHeightPx = with(LocalDensity.current) { AppBarHeight.toPx() }
-                                                val scrimProgress =
-                                                    (0.85f + 0.15f * (-currentScrollBehavior.state.heightOffset / appBarHeightPx))
-                                                        .coerceIn(0f, 1f)
+                                                val scrimProgress = 0f  // 100% transparent — no grey strip
                                                 Box(
                                                     modifier =
                                                         Modifier

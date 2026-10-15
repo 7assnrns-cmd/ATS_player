@@ -52,7 +52,7 @@ import moe.rukamori.archivetune.ui.component.SwitchPreference
 import moe.rukamori.archivetune.ui.utils.backToMain
 import moe.rukamori.archivetune.utils.rememberEnumPreference
 import moe.rukamori.archivetune.utils.rememberPreference
-import moe.rukamori.archivetune.utils.setAppLocale
+import moe.rukamori.archivetune.utils.setAppLocaleTag
 import moe.rukamori.archivetune.viewmodels.AiContentFilterSettingsEffect
 import moe.rukamori.archivetune.viewmodels.AiContentFilterSettingsState
 import moe.rukamori.archivetune.viewmodels.ContentSettingsViewModel
@@ -251,14 +251,7 @@ fun ContentSettings(
                         context.dataStore.edit { it[AppLanguageKey] = tag }
                         delay(150)
                         withContext(Dispatchers.Main) {
-                            val newLocale = if (tag == "system") {
-                                Locale.getDefault()
-                            } else {
-                                Locale.forLanguageTag(tag).takeIf { it.language.isNotEmpty() }
-                                    ?: Locale.getDefault()
-                            }
-                            setAppLocale(context, newLocale)
-                            (context as? android.app.Activity)?.recreate()
+                            setAppLocaleTag(tag)
                         }
                     }
                 },

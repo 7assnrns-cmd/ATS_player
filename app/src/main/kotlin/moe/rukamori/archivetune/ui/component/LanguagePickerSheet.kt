@@ -98,6 +98,7 @@ fun languageDisplayName(tag: String): String =
 
 private fun supportedLanguages(): List<Pair<String, String>> = listOf(
     "system" to "System default",
+    "en" to "English",
     "ar" to "العربية",
     "ar-EG" to "العربية (مصر)",
     "az" to "Azərbaycanca",
