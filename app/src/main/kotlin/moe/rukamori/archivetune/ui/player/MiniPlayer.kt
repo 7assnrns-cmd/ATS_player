@@ -216,6 +216,7 @@ private fun NewMiniPlayer(
                     .fillMaxWidth()
                     .height(MiniPlayerHeight)
                     .offset { IntOffset(offsetX.roundToInt(), 0) }
+                    .clip(miniPlayerShape)
                     .glassSurface(
                         shape = miniPlayerShape,
                         liquid = true,
