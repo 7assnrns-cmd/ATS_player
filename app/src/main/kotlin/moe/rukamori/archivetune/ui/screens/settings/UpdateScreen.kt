@@ -171,6 +171,7 @@ import moe.rukamori.archivetune.ui.component.HyperOsReveal
 import androidx.compose.foundation.lazy.itemsIndexed
 import moe.rukamori.archivetune.updates.TranslationService
 import moe.rukamori.archivetune.updates.TranslationCache
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 @OptIn(ExperimentalMaterial3Api::class)
 private sealed interface UpdateButtonState {
@@ -1473,7 +1474,7 @@ private fun UpdateCommitCard(
                             )
                             if (commit.author.isNotBlank()) {
                                 Text(
-                                    text = "\u2014 " + commit.author,
+                                    text = "— " + commit.author,
                                     style = MaterialTheme.typography.labelMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 )
