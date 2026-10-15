@@ -32,12 +32,9 @@ fun setAppLocale(
     setAppLocaleTag(tag)
 }
 
-fun setAppLocaleTag(
-    context: Context,
-    tag: String,
-) {
+fun setAppLocaleTag(tag: String) {
     AppCompatDelegate.setApplicationLocales(
         if (tag == "system") LocaleListCompat.getEmptyLocaleList()
-        else LocaleListCompat.forLanguageTags(tag)
+        else LocaleListCompat.forLanguageTags(tag),
     )
 }
