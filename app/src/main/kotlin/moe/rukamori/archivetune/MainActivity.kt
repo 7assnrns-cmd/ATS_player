@@ -358,6 +358,7 @@ import kotlin.time.Duration.Companion.days
 import top.yukonga.miuix.kmp.blur.LayerBackdrop
 import top.yukonga.miuix.kmp.blur.layerBackdrop
 import top.yukonga.miuix.kmp.blur.rememberLayerBackdrop
+import moe.rukamori.archivetune.updates.ChangelogPrefetcher
 
 @Suppress("DEPRECATION", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
 @AndroidEntryPoint
@@ -679,6 +680,13 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Kick off background translation of the changelog / commit history
+        // as soon as the app starts, so the update screen never shows
+        // un-translated text to the user.
+        lifecycleScope.launch(Dispatchers.IO) {
+            runCatching { ChangelogPrefetcher.prefetch(this@MainActivity) }
+        }
         window.decorView.layoutDirection = View.LAYOUT_DIRECTION_LTR
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
@@ -1754,11 +1762,11 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                     LaunchedEffect(Unit) {
                         // Give the star dialog logic a moment to start first.
                         kotlinx.coroutines.delay(2000)
-                        val shownVersion =
+                        val shownIntro =
                             withContext(Dispatchers.IO) {
-                                dataStore\[MiuixIntroShownKey\]
+                                dataStore[MiuixIntroShownKey]
                             }
-                        if (shownVersion != BuildConfig.VERSION_NAME) {
+                        if (shownIntro != true) {
                             // Wait for the bottom sheet page to be free
                             // (same pattern as the star dialog below).
                             var waited = 0L
@@ -1812,7 +1820,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                         withContext(Dispatchers.IO) {
                                             dataStore.edit { prefs ->
                                                 prefs[MiuixThemeEnabledKey] = true
-                                                prefs\[MiuixIntroShownKey\] = BuildConfig.VERSION_NAME
+                                                prefs[MiuixIntroShownKey] = true
                                             }
                                         }
                                     } catch (e: Exception) {
@@ -1827,7 +1835,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                     try {
                                         withContext(Dispatchers.IO) {
                                             dataStore.edit { prefs ->
-                                                prefs\[MiuixIntroShownKey\] = BuildConfig.VERSION_NAME
+                                                prefs[MiuixIntroShownKey] = true
                                             }
                                         }
                                     } catch (e: Exception) {

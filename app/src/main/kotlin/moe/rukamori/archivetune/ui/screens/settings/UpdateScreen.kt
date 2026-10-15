@@ -161,8 +161,95 @@ import moe.rukamori.archivetune.ui.component.glassSurface
 import moe.rukamori.archivetune.ui.component.glassRim
 import androidx.compose.ui.draw.clip
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.foundation.clickable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalDensity
+import moe.rukamori.archivetune.ui.component.HyperOsReveal
+import androidx.compose.foundation.lazy.itemsIndexed
+import moe.rukamori.archivetune.updates.TranslationService
+import moe.rukamori.archivetune.updates.TranslationCache
 
 @OptIn(ExperimentalMaterial3Api::class)
+private sealed interface UpdateButtonState {
+    data object Idle : UpdateButtonState
+    data object UpToDate : UpdateButtonState
+    data object UpdateAvailable : UpdateButtonState
+    data class Downloading(val progress: Float) : UpdateButtonState
+    data object Downloaded : UpdateButtonState
+}
+
+@Composable
+private fun UnifiedUpdateButton(
+    state: UpdateButtonState,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val shape = MaterialTheme.shapes.extraLarge
+    val enabled = state !is UpdateButtonState.UpToDate
+
+    val (label, iconRes) = when (state) {
+        UpdateButtonState.Idle -> "Check for updates" to R.drawable.sync
+        UpdateButtonState.UpToDate -> "You are up to date" to R.drawable.check
+        UpdateButtonState.UpdateAvailable -> "Download update" to R.drawable.update
+        is UpdateButtonState.Downloading ->
+            "Cancel download" to R.drawable.close
+        UpdateButtonState.Downloaded -> "Install update" to R.drawable.update
+    }
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = 56.dp)
+            .animateContentSize()
+            .clip(shape)
+            .glassSurface(shape = shape, liquid = true, rim = true)
+            .clickable(enabled = enabled, onClick = onClick),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 14.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Icon(
+                    painter = painterResource(iconRes),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp),
+                )
+                Spacer(Modifier.width(10.dp))
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
+            }
+
+            if (state is UpdateButtonState.Downloading) {
+                LinearProgressIndicator(
+                    progress = { state.progress.coerceIn(0f, 1f) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 4.dp),
+                )
+                Text(
+                    text = "${(state.progress * 100f).toInt().coerceIn(0, 100)}%",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+        }
+    }
+}
+
 @Composable
 fun UpdateScreen(
     navController: NavController,
@@ -599,6 +686,50 @@ fun UpdateScreen(
             }
         isLoadingCommits = false
     }
+        // Cache-first: any translation already prepared by ChangelogPrefetcher
+        // appears instantly. Anything missing falls back to a live translate.
+        LaunchedEffect(commits) {
+            val targetLang = TranslationService.currentTargetLanguage()
+            if (targetLang == null || commits.isEmpty()) {
+                translatedCommits = emptyMap()
+                return@LaunchedEffect
+            }
+
+            val result = mutableMapOf<String, String>()
+            for (commit in commits) {
+                val cacheKey = commit.sha.ifBlank { commit.url }
+                val cached = TranslationCache.get(context, targetLang, cacheKey)
+                if (cached != null) {
+                    result[cacheKey] = cached
+                    translatedCommits = result.toMap()
+                    continue
+                }
+                val translated = TranslationService.translate(commit.message, targetLang)
+                if (translated != null) {
+                    TranslationCache.put(context, targetLang, cacheKey, translated)
+                    result[cacheKey] = translated
+                    translatedCommits = result.toMap()
+                }
+            }
+        }
+
+        val result = mutableMapOf<String, String>()
+        for (commit in commits) {
+            val cacheKey = commit.sha.ifBlank { commit.url }
+            val cached = TranslationCache.get(context, targetLang, cacheKey)
+            if (cached != null) {
+                result[cacheKey] = cached
+                translatedCommits = result.toMap()
+                continue
+            }
+            val translated = TranslationService.translate(commit.message, targetLang)
+            if (translated != null) {
+                TranslationCache.put(context, targetLang, cacheKey, translated)
+                result[cacheKey] = translated
+                translatedCommits = result.toMap()
+            }
+        }
+    }
 
     val rotationAngle by animateFloatAsState(
         targetValue = if (isExpanded) 180f else 0f,
@@ -713,9 +844,6 @@ fun UpdateScreen(
                     updateSettingsControlsEnabled = updateSettingsControlsEnabled,
                     useWideLayout = useWideLayout,
                     onCheckForUpdate = onCheckForUpdate,
-                    onOpenChangelog = {
-                        navController.navigate("settings/update_detail?channel=$updateChannel")
-                    },
                     onUpdateNotificationChange = { enabled ->
                         if (enabled) {
                             showEnableUpdateNotificationConfirmDialog = true
@@ -736,6 +864,99 @@ fun UpdateScreen(
                             .widthIn(max = maximumContentWidth),
                 )
             }
+
+                item(key = "unified_update_action", contentType = "action") {
+                    val buttonState: UpdateButtonState = when {
+                        updateDownloadProgress != null ->
+                            UpdateButtonState.Downloading(updateDownloadProgress ?: 0f)
+                        downloadedApkVersion.isNotBlank() &&
+                            UpdateApkStorage.hasPendingApk(context) ->
+                            UpdateButtonState.Downloaded
+                        isUpdateAvailable -> UpdateButtonState.UpdateAvailable
+                        latestVersion == null -> UpdateButtonState.Idle
+                        else -> UpdateButtonState.UpToDate
+                    }
+
+                    val onUnifiedButtonClick: () -> Unit = {
+                        when (buttonState) {
+                            UpdateButtonState.Idle,
+                            UpdateButtonState.UpToDate -> onCheckForUpdate()
+
+                            UpdateButtonState.UpdateAvailable -> {
+                                val url = when (updateChannel) {
+                                    UpdateChannel.MY_VERSION -> Updater.getLatestDownloadUrl()
+                                    UpdateChannel.OFFICIAL_VERSION -> Updater.getOfficialLatestDownloadUrl()
+                                }
+                                if (url.isNotBlank()) {
+                                    UpdateDownloadScheduler.cancel(context)
+                                    updateDownloadJob?.cancel()
+                                    updateDownloadJob = null
+                                    UpdateDownloadScheduler.schedule(
+                                        context,
+                                        url,
+                                        latestVersion ?: BuildConfig.VERSION_NAME,
+                                        updatesWifiOnly,
+                                    )
+                                }
+                            }
+
+                            is UpdateButtonState.Downloading -> {
+                                UpdateDownloadScheduler.cancel(context)
+                                updateDownloadJob?.cancel()
+                                updateDownloadJob = null
+                                updateDownloadProgress = null
+                            }
+
+                            UpdateButtonState.Downloaded -> {
+                                coroutineScope.launch {
+                                    AppUpdateInstaller.installDownloaded(context)
+                                }
+                            }
+                        }
+                    }
+
+                    UnifiedUpdateButton(
+                        state = buttonState,
+                        onClick = onUnifiedButtonClick,
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .widthIn(max = maximumContentWidth),
+                    )
+                }
+
+                if (commits.isNotEmpty()) {
+                    item(key = "commit_section_header", contentType = "header") {
+                        Text(
+                            text = stringResource(R.string.changelog),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .widthIn(max = maximumContentWidth)
+                                    .padding(top = 8.dp, bottom = 4.dp),
+                        )
+                    }
+
+                    itemsIndexed(
+                        items = commits,
+                        key = { _, commit -> commit.sha.ifBlank { commit.url } },
+                        contentType = { _, _ -> "commit_card" },
+                    ) { index, commit ->
+                        UpdateCommitCard(
+                            commit = commit,
+                            index = index,
+                            translatedMessage = translatedCommits[commit.sha.ifBlank { commit.url }],
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .widthIn(max = maximumContentWidth),
+                        )
+                    }
+                }
+
+
 
         }
     }
@@ -977,7 +1198,6 @@ fun UpdateScreen(
             )
         }
     }
-}
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
@@ -1173,6 +1393,122 @@ fun UpdateScreen(
         }
     }
 
+@Composable
+private fun UpdateCommitCard(
+    commit: GitCommit,
+    index: Int,
+    translatedMessage: String? = null,
+    modifier: Modifier = Modifier,
+) {
+    var flipped by remember { mutableStateOf(false) }
+    val rotation by animateFloatAsState(
+        targetValue = if (flipped) 180f else 0f,
+        animationSpec = tween(durationMillis = 600, easing = FastOutSlowInEasing),
+        label = "commitCardFlip",
+    )
+    val density = LocalDensity.current
+    val shape = RoundedCornerShape(24.dp)
+
+    HyperOsReveal(
+        index = index,
+        durationMillis = 300,
+        staggerStepMillis = 60,
+        maxStaggerMillis = 480,
+    ) {
+        Box(
+            modifier = modifier
+                .fillMaxWidth()
+                .heightIn(min = 96.dp)
+                .graphicsLayer {
+                    rotationY = rotation
+                    cameraDistance = 12f * density.density
+                }
+                .clickable { flipped = !flipped },
+        ) {
+            if (rotation <= 90f) {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = shape,
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+                    ),
+                    border = glassCardBorder(),
+                ) {
+                    Column(
+                        modifier = Modifier.padding(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        Text(
+                            text = (translatedMessage ?: commit.message).lineSequence().firstOrNull()?.take(80) ?: "",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                        if (commit.author.isNotBlank()) {
+                            Text(
+                                text = commit.author,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                        Text(
+                            text = "Tap to see changelog",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                }
+            } else {
+                Box(
+                    modifier = Modifier.graphicsLayer {
+                        rotationY = 180f
+                    },
+                ) {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = shape,
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                        ),
+                        border = glassCardBorder(),
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .heightIn(max = 320.dp)
+                                .verticalScroll(rememberScrollState()),
+                            verticalArrangement = Arrangement.spacedBy(10.dp),
+                        ) {
+                            Text(
+                                text = stringResource(R.string.changelog),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
+                            )
+                            Text(
+                                text = translatedMessage ?: commit.message,
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                            if (commit.author.isNotBlank()) {
+                                Text(
+                                    text = "\u2014 " + commit.author,
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                )
+                            }
+                            Text(
+                                text = "Tap to flip back",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = MaterialTheme.colorScheme.primary,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 /**
  * HyperOS-style hero: large app name with the current version below,
  * tappable to trigger an update check. Sits above the update status card.
@@ -1232,7 +1568,6 @@ private fun UpdateDashboard(
     useWideLayout: Boolean,
     modifier: Modifier = Modifier,
     onCheckForUpdate: () -> Unit,
-    onOpenChangelog: () -> Unit,
     onAutomaticUpdateChecksChange: (Boolean) -> Unit,
     onUpdateNotificationChange: (Boolean) -> Unit,
     betaUpdates: Boolean,
@@ -1261,21 +1596,8 @@ private fun UpdateDashboard(
                     updateChannel = updateChannel,
                     isUpdateAvailable = isUpdateAvailable,
                     onCheckForUpdate = onCheckForUpdate,
-                    onOpenChangelog = onOpenChangelog,
                     modifier = Modifier.weight(1f),
-                )
-                UpdatePreferencesPanel(
-                    automaticUpdateChecksEnabled = automaticUpdateChecksEnabled,
-                    enableUpdateNotification = enableUpdateNotification,
-                    controlsEnabled = updateSettingsControlsEnabled,
-                    betaUpdates = betaUpdates,
-                    updateChannel = updateChannel,
-                    onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
-                    onUpdateNotificationChange = onUpdateNotificationChange,
-                    onBetaUpdatesChange = onBetaUpdatesChange,
-                    onStableSelected = onStableSelected,
-                    onArtifactSelected = onArtifactSelected,
-                    modifier = Modifier.weight(1f),
+                ),
                 )
             }
         }
@@ -1295,19 +1617,6 @@ private fun UpdateDashboard(
                 updateChannel = updateChannel,
                 isUpdateAvailable = isUpdateAvailable,
                 onCheckForUpdate = onCheckForUpdate,
-                onOpenChangelog = onOpenChangelog,
-            )
-            UpdatePreferencesPanel(
-                automaticUpdateChecksEnabled = automaticUpdateChecksEnabled,
-                enableUpdateNotification = enableUpdateNotification,
-                controlsEnabled = updateSettingsControlsEnabled,
-                betaUpdates = betaUpdates,
-                updateChannel = updateChannel,
-                onAutomaticUpdateChecksChange = onAutomaticUpdateChecksChange,
-                onUpdateNotificationChange = onUpdateNotificationChange,
-                onBetaUpdatesChange = onBetaUpdatesChange,
-                onStableSelected = onStableSelected,
-                onArtifactSelected = onArtifactSelected,
             )
         }
     }
@@ -1320,8 +1629,7 @@ private fun UpdateStatusPanel(
     updateChannel: UpdateChannel,
     isUpdateAvailable: Boolean,
     modifier: Modifier = Modifier,
-    onCheckForUpdate: () -> Unit,
-    onOpenChangelog: () -> Unit,
+    onCheckForUpdate: () -> Unit
 ) {
     val channelLabel =
         when (updateChannel) {
@@ -1439,56 +1747,6 @@ private fun UpdateStatusPanel(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Box(
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp)
-                            .clip(ButtonDefaults.shapes().shape)
-                            .glassSurface(
-                                shape = ButtonDefaults.shapes().shape,
-                                liquid = true,
-                                rim = true,
-                            )
-                            .bouncyPress(checkPressScale),
-                ) {
-                    Button(
-                        onClick = onCheckForUpdate,
-                        interactionSource = checkInteractionSource,
-                        modifier = Modifier.fillMaxSize(),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Transparent,
-                            contentColor = MaterialTheme.colorScheme.onSurface,
-                        ),
-                        shapes = ButtonDefaults.shapes(),
-                    ) {
-                        Icon(
-                            painter = painterResource(R.drawable.sync),
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp),
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = stringResource(R.string.check_for_update))
-                    }
-                }
-                TextButton(
-                    onClick = onOpenChangelog,
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .heightIn(min = 48.dp),
-                    shapes = ButtonDefaults.shapes(),
-                ) {
-                    Icon(
-                        painter = painterResource(R.drawable.update),
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp),
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.view_changelog))
-                }
-            
-
             }
         }
     }
@@ -1512,259 +1770,6 @@ private fun FeatureIcon(
                 .padding(12.dp)
                 .size(22.dp),
         )
-    }
-}
-
-@Composable
-private fun UpdateDownloadPanel(
-    autoDownload: Boolean,
-    onAutoDownloadChange: (Boolean) -> Unit,
-    wifiOnly: Boolean,
-    onWifiOnlyChange: (Boolean) -> Unit,
-    autoInstall: Boolean,
-    onAutoInstallChange: (Boolean) -> Unit,
-    downloadedVersion: String?,
-    onInstallNow: () -> Unit,
-    onDeleteDownload: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh),
-        border = glassCardBorder(),
-    ) {
-        Column(
-            modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Text(
-                text = stringResource(R.string.updates_download_state_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-            )
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = stringResource(R.string.updates_auto_download_title),
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                    Text(
-                        text = stringResource(R.string.updates_auto_download_desc),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-                Switch(checked = autoDownload, onCheckedChange = onAutoDownloadChange)
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(R.string.updates_wifi_only_title),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.weight(1f),
-                )
-                Switch(checked = wifiOnly, onCheckedChange = onWifiOnlyChange, enabled = autoDownload)
-            }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = stringResource(R.string.updates_auto_install_title),
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.weight(1f),
-                )
-                Switch(checked = autoInstall, onCheckedChange = onAutoInstallChange)
-            }
-            if (!downloadedVersion.isNullOrBlank()) {
-                Text(
-                    text = stringResource(R.string.updates_downloaded_version, downloadedVersion),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary,
-                )
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = onInstallNow, shapes = ButtonDefaults.shapes()) {
-                        Text(stringResource(R.string.updates_install_now))
-                    }
-                    TextButton(onClick = onDeleteDownload) {
-                        Text(stringResource(R.string.updates_delete_download))
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun UpdatePreferencesPanel(
-    automaticUpdateChecksEnabled: Boolean,
-    enableUpdateNotification: Boolean,
-    controlsEnabled: Boolean,
-    betaUpdates: Boolean,
-    updateChannel: UpdateChannel,
-    modifier: Modifier = Modifier,
-    onAutomaticUpdateChecksChange: (Boolean) -> Unit,
-    onUpdateNotificationChange: (Boolean) -> Unit,
-    onBetaUpdatesChange: (Boolean) -> Unit,
-    onStableSelected: () -> Unit,
-    onArtifactSelected: () -> Unit,
-) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            SegmentedListItem(
-                onClick = { onAutomaticUpdateChecksChange(!automaticUpdateChecksEnabled) },
-                enabled = controlsEnabled,
-                shapes = ListItemDefaults.segmentedShapes(index = 0, count = 2),
-                modifier = Modifier.fillMaxWidth(),
-                colors =
-                    ListItemDefaults.segmentedColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                    ),
-                leadingContent = {
-                    FeatureIcon(
-                        iconRes = R.drawable.sync,
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                    )
-                },
-                trailingContent = {
-                    Switch(
-                        checked = automaticUpdateChecksEnabled,
-                        onCheckedChange = null,
-                        enabled = controlsEnabled,
-                    )
-                },
-                supportingContent = {
-                    Text(text = stringResource(R.string.automatic_update_checks_desc))
-                },
-                content = {
-                    Text(text = stringResource(R.string.automatic_update_checks))
-                },
-            )
-
-            SegmentedListItem(
-                onClick = { onUpdateNotificationChange(!enableUpdateNotification) },
-                enabled = controlsEnabled,
-                shapes = ListItemDefaults.segmentedShapes(index = 1, count = 2),
-                modifier = Modifier.fillMaxWidth(),
-                colors =
-                    ListItemDefaults.segmentedColors(
-                        containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                    ),
-                leadingContent = {
-                    FeatureIcon(
-                        iconRes = R.drawable.new_release,
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                    )
-                },
-                trailingContent = {
-                    Switch(
-                        checked = enableUpdateNotification,
-                        onCheckedChange = null,
-                        enabled = controlsEnabled,
-                    )
-                },
-                supportingContent = {
-                    Text(text = stringResource(R.string.enable_update_notification_channel_desc))
-                },
-                content = {
-                    Text(text = stringResource(R.string.enable_update_notification))
-                },
-            )
-        }
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.extraLarge,
-            colors =
-                CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                ),
-            border = glassCardBorder(),
-        ) {
-            Column(
-                modifier = Modifier.padding(20.dp),
-                verticalArrangement = Arrangement.spacedBy(18.dp),
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(14.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    FeatureIcon(
-                        iconRes = R.drawable.tune,
-                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                        contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-                    )
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        verticalArrangement = Arrangement.spacedBy(2.dp),
-                    ) {
-                        Text(
-                            text = stringResource(R.string.update_channel),
-                            style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold,
-                        )
-                        Text(
-                            text = stringResource(R.string.update_channel_desc),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
-                }
-
-                SegmentedListItem(
-            onClick = { onBetaUpdatesChange(!betaUpdates) },
-            enabled = controlsEnabled,
-            shapes = ListItemDefaults.segmentedShapes(index = 0, count = 1),
-            modifier = Modifier.fillMaxWidth().padding(top = 6.dp),
-            colors =
-                ListItemDefaults.segmentedColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
-                ),
-            leadingContent = {
-                FeatureIcon(
-                    iconRes = R.drawable.new_release,
-                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                )
-            },
-            trailingContent = {
-                Switch(
-                    checked = betaUpdates,
-                    onCheckedChange = null,
-                    enabled = controlsEnabled,
-                )
-            },
-            supportingContent = {
-                Text(text = stringResource(R.string.beta_updates_desc))
-            },
-            content = {
-                Text(text = stringResource(R.string.beta_updates_title))
-            },
-        )
-
-        SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
-                    SegmentedButton(
-                        selected = updateChannel == UpdateChannel.OFFICIAL_VERSION,
-                        onClick = onStableSelected,
-                        shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
-                        icon = {},
-                    ) {
-                        Text(text = stringResource(R.string.channel_official_version))
-                    }
-                    SegmentedButton(
-                        selected = updateChannel == UpdateChannel.MY_VERSION,
-                        onClick = onArtifactSelected,
-                        shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
-                        icon = {},
-                    ) {
-                        Text(text = stringResource(R.string.channel_artifact))
-                    }
-                }
-            }
-        }
     }
 }
 

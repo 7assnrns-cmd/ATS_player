@@ -934,6 +934,7 @@
     <string name="update_channel">Update Channel</string>
     <string name="channel_official_version">Official Version</string>
     <string name="update_channel_desc">Choose between tested releases and development snapshots.</string>
+    <string name="update_preferences">Update preferences</string>
     <string name="channel_artifact">My Version</string>
     <string name="recent_commits">Recent Commits</string>
     <string name="updates_artifact_hosting_description">Artifact builds are fetched directly from GitHub Actions workflow runs.</string>
