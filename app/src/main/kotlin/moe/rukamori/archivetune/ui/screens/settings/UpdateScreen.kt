@@ -156,6 +156,10 @@ import kotlin.math.roundToInt
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.HorizontalDivider
+import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
+import moe.rukamori.archivetune.ui.component.glassSurface
+import moe.rukamori.archivetune.ui.component.glassRim
+import androidx.compose.ui.draw.clip
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -1216,25 +1220,38 @@ private fun UpdateStatusPanel(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Button(
-                    onClick = onCheckForUpdate,
-                    interactionSource = checkInteractionSource,
+                Box(
                     modifier =
                         Modifier
                             .fillMaxWidth()
                             .heightIn(min = 48.dp)
+                            .clip(ButtonDefaults.shapes().shape)
+                            .glassSurface(
+                                shape = ButtonDefaults.shapes().shape,
+                                liquid = true,
+                                rim = true,
+                            )
                             .bouncyPress(checkPressScale),
-                    shapes = ButtonDefaults.shapes(),
                 ) {
-                    Icon(
-                        painter = painterResource(R.drawable.sync),
-                        contentDescription = null,
-                        modifier = Modifier.size(18.dp),
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.check_for_update))
+                    Button(
+                        onClick = onCheckForUpdate,
+                        interactionSource = checkInteractionSource,
+                        modifier = Modifier.fillMaxSize(),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.Transparent,
+                            contentColor = MaterialTheme.colorScheme.onSurface,
+                        ),
+                        shapes = ButtonDefaults.shapes(),
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.sync),
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = stringResource(R.string.check_for_update))
+                    }
                 }
-
                 TextButton(
                     onClick = onOpenChangelog,
                     modifier =

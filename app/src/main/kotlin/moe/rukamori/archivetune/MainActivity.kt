@@ -207,6 +207,7 @@ import moe.rukamori.archivetune.constants.AppFontPreference
 import moe.rukamori.archivetune.constants.AppLanguageKey
 import moe.rukamori.archivetune.constants.MiuixThemeEnabledKey
 import moe.rukamori.archivetune.constants.MiuixIntroShownVersionKey
+import moe.rukamori.archivetune.constants.MiuixIntroShownKey
 import moe.rukamori.archivetune.ui.component.MiuixTopBar
 import moe.rukamori.archivetune.ui.component.MiuixIntroSheet
 import moe.rukamori.archivetune.constants.GlassEffectEnabledKey
@@ -1755,7 +1756,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                         kotlinx.coroutines.delay(2000)
                         val shownVersion =
                             withContext(Dispatchers.IO) {
-                                dataStore[MiuixIntroShownVersionKey]
+                                dataStore\[MiuixIntroShownKey\]
                             }
                         if (shownVersion != BuildConfig.VERSION_NAME) {
                             // Wait for the bottom sheet page to be free
@@ -1811,7 +1812,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                         withContext(Dispatchers.IO) {
                                             dataStore.edit { prefs ->
                                                 prefs[MiuixThemeEnabledKey] = true
-                                                prefs[MiuixIntroShownVersionKey] = BuildConfig.VERSION_NAME
+                                                prefs\[MiuixIntroShownKey\] = BuildConfig.VERSION_NAME
                                             }
                                         }
                                     } catch (e: Exception) {
@@ -1826,7 +1827,7 @@ class MainActivity : androidx.appcompat.app.AppCompatActivity() {
                                     try {
                                         withContext(Dispatchers.IO) {
                                             dataStore.edit { prefs ->
-                                                prefs[MiuixIntroShownVersionKey] = BuildConfig.VERSION_NAME
+                                                prefs\[MiuixIntroShownKey\] = BuildConfig.VERSION_NAME
                                             }
                                         }
                                     } catch (e: Exception) {
