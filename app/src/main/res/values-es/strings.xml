@@ -605,6 +605,7 @@
     <string name="updates_status_checking">Comprobar si hay una nueva versión</string>
     <string name="updates_status_current">Tienes la última versión disponible</string>
     <string name="update_channel_desc">Elige entre versiones probadas o en desarrollo.</string>
+    <string name="update_preferences">Preferencias de actualización</string>
     <string name="updates_loading_commits">Cargando las últimas modificaciones</string>
     <string name="updates_recent_commits_count">%1$d commits recientes</string>
     <string name="updates_no_commits">Sin cambios recientes</string>

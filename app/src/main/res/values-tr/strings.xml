@@ -1159,6 +1159,7 @@ Kararlılık, uyumluluk ve işlevsellik garanti edilmez.</string>
     <string name="updates_status_checking">En son sürüm kontrol ediliyor</string>
     <string name="updates_status_current">En son kullanılabilir sürümdesiniz</string>
     <string name="update_channel_desc">Test edilmiş sürümler ile geliştirme anlık görüntüleri arasında seçim yapın.</string>
+    <string name="update_preferences">Güncelleme tercihleri</string>
     <string name="updates_loading_commits">Son commit\'ler yükleniyor</string>
     <string name="updates_recent_commits_count">%1$d son commit</string>
     <string name="updates_no_commits">Son commit bulunamadı</string>

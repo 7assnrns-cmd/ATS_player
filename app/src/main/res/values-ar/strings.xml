@@ -900,6 +900,7 @@
     <string name="enable_update_notification_channel_desc">تلقي إشعارات عند توفر إصدار جديد في القناة المحددة</string>
     <string name="update_channel">قناة التحديث</string>
     <string name="update_channel_desc">اختر بين الإصدارات المختبرة ولقطات التطوير.</string>
+    <string name="update_preferences">تفضيلات التحديث</string>
     <string name="channel_artifact">تجريبي (Canary)</string>
     <string name="recent_commits">التغييرات الأخيرة</string>
     <string name="updates_artifact_hosting_description">تُنشر إصدارات Canary تلقائيًا من أحدث فرع تطوير.</string>

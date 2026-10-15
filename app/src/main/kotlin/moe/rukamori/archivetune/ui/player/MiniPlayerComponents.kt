@@ -257,6 +257,7 @@ fun SwipeableMiniPlayerBox(
                             baseModifier
                         }
                     },
+        contentAlignment = Alignment.Center,
         ) {
             content(offsetXAnimatable.value)
 

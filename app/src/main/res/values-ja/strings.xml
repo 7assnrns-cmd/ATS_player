@@ -856,6 +856,7 @@
     <string name="enable_update_notification_channel_desc">選択したチャンネルで新しいリリースが利用可能になったときに通知を受け取る</string>
     <string name="update_channel">チャンネルを更新する</string>
     <string name="update_channel_desc">テスト済みのリリースと開発スナップショットのどちらかを選択します。</string>
+    <string name="update_preferences">更新の設定</string>
     <string name="channel_artifact">カナリア</string>
     <string name="recent_commits">最近のコミット</string>
     <string name="updates_artifact_hosting_description">Canary リリースは、最新の開発ブランチから自動的に公開されます。</string>

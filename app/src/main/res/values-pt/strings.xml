@@ -866,6 +866,7 @@
     <string name="enable_update_notification_channel_desc">Recebe uma notificação quando uma nova versão estiver disponível no canal selecionado</string>
     <string name="update_channel">Canal de Atualização</string>
     <string name="update_channel_desc">Escolhe entre versões testadas e snapshots de desenvolvimento.</string>
+    <string name="update_preferences">Preferências de atualização</string>
     <string name="channel_artifact">Canary</string>
     <string name="recent_commits">Commits Recentes</string>
     <string name="updates_artifact_hosting_description">As versões Canary são publicadas automaticamente a partir do ramo de desenvolvimento mais recente.</string>

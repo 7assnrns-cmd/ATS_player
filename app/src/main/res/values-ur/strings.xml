@@ -861,6 +861,7 @@
     <string name="enable_update_notification_channel_desc">اطلاع حاصل کریں جب کوئی نیا شائع مقررہ چینل پر دستیاب ہو</string>
     <string name="update_channel">چینل کی پیش رفت</string>
     <string name="update_channel_desc">آزمودہ اشعات اور تعمیراتی سنیپشاٹس میں انتخاب کریں۔</string>
+    <string name="update_preferences">اپ ڈیٹ کی ترجیحات</string>
     <string name="channel_artifact">‫تجربی (Canary)</string>
     <string name="updates_artifact_hosting_description">‫Canary اشعات خودکاری سے تازہ ترین تعمیراتی شاخ سے شائع ہوتے ہیں۔</string>
     <string name="updates_channel_warning_stable_title">مستحکم تعمیرات</string>

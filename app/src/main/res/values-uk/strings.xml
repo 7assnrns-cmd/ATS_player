@@ -641,6 +641,7 @@
     <string name="updates_status_checking">Перевірка наявності останньої версії</string>
     <string name="updates_status_current">Ви використовуєте останню доступну версію</string>
     <string name="update_channel_desc">Виберіть між перевіреними версіями та знімками з розробки.</string>
+    <string name="update_preferences">Налаштування оновлення</string>
     <string name="updates_loading_commits">Завантаження останніх комітів</string>
     <string name="updates_recent_commits_count">%1$d останніх комітів</string>
     <string name="updates_no_commits">Не знайдено останніх комітів</string>

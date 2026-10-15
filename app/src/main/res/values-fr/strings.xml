@@ -604,6 +604,7 @@
     <string name="updates_status_checking">Vérification de la dernière version</string>
     <string name="updates_status_current">Vous utilisez la dernière version disponible</string>
     <string name="update_channel_desc">Choisissez entre les versions testées et les versions de développement.</string>
+    <string name="update_preferences">Préférences de mise à jour</string>
     <string name="updates_loading_commits">Chargement des modifications récentes</string>
     <string name="updates_recent_commits_count">%1$d modifications récentes</string>
     <string name="updates_no_commits">Aucune modification récente n\'a été trouvée</string>

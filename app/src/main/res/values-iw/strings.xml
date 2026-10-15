@@ -727,6 +727,7 @@
     <string name="enable_update_notification">הפעל התראות עדכון</string>
     <string name="update_channel">עדכון ערוץ</string>
     <string name="update_channel_desc">בחרו בין גרסאות שנבדקו לבין תמונות מצב של פיתוח.</string>
+    <string name="update_preferences">העדפות עדכון</string>
     <string name="recent_commits">שינויים אחרונים</string>
     <string name="updates_loading_commits">טוען את השינויים האחרונים</string>
     <string name="updates_recent_commits_count">%1$d שינויים אחרונים</string>
