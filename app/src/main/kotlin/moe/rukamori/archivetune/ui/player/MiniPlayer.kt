@@ -213,7 +213,7 @@ private fun NewMiniPlayer(
         Box(
             modifier =
                 Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(0.8f)
                     .height(MiniPlayerHeight)
                     .offset { IntOffset(offsetX.roundToInt(), 0) }
                     .clip(miniPlayerShape)

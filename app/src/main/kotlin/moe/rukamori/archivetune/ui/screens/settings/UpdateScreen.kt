@@ -160,6 +160,7 @@ import moe.rukamori.archivetune.ui.component.LocalGlassBackdrop
 import moe.rukamori.archivetune.ui.component.glassSurface
 import moe.rukamori.archivetune.ui.component.glassRim
 import androidx.compose.ui.draw.clip
+import androidx.compose.material3.IconButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -260,6 +261,7 @@ fun UpdateScreen(
     var showUpdateDownloadDialog by remember { mutableStateOf(false) }
     val useInAppUpdateInstaller = BuildConfig.DISTRIBUTION == "gms"
     val snackbarHostState = remember { SnackbarHostState() }
+    var showSettingsSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(updateSettingsErrorRes) {
         val messageRes = updateSettingsErrorRes ?: return@LaunchedEffect
@@ -663,7 +665,14 @@ fun UpdateScreen(
                         )
                     }
                 },
-                actions = {},
+                actions = {
+                    IconButton(onClick = { showSettingsSheet = true }) {
+                        Icon(
+                            painter = painterResource(R.drawable.tune),
+                            contentDescription = stringResource(R.string.update_preferences),
+                        )
+                    }
+                },
                 scrollBehavior = scrollBehavior,
                 colors =
                     TopAppBarDefaults.topAppBarColors(
@@ -728,31 +737,6 @@ fun UpdateScreen(
                 )
             }
 
-            item(key = "download_prefs", contentType = "download_prefs") {
-                    UpdateDownloadPanel(
-                        autoDownload = autoDownloadUpdates,
-                        onAutoDownloadChange = onAutoDownloadUpdatesChange,
-                        wifiOnly = updatesWifiOnly,
-                        onWifiOnlyChange = onUpdatesWifiOnlyChange,
-                        autoInstall = updatesAutoInstall,
-                        onAutoInstallChange = onUpdatesAutoInstallChange,
-                        downloadedVersion = downloadedApkVersion.takeIf { it.isNotBlank() },
-                        onInstallNow = {
-                            coroutineScope.launch {
-                                AppUpdateInstaller.installDownloaded(context)
-                            }
-                        },
-                        onDeleteDownload = {
-                            UpdateApkStorage.deletePendingApk(context)
-                            UpdateDownloadScheduler.cancel(context)
-                            onDownloadedApkVersionChange("")
-                        },
-                        modifier =
-                            Modifier
-                                .fillMaxWidth()
-                                .widthIn(max = maximumContentWidth),
-                    )
-                }
         }
     }
 
@@ -951,8 +935,243 @@ fun UpdateScreen(
             },
             containerColor = glassDialogContainer(),
         )
+
+        if (showSettingsSheet) {
+            UpdateSettingsSheet(
+                onDismiss = { showSettingsSheet = false },
+                automaticUpdateChecksEnabled = automaticUpdateChecksEnabled,
+                enableUpdateNotification = enableUpdateNotification,
+                onAutomaticUpdateChecksChange = { enabled ->
+                    onUpdateSettingsAction(UpdateSettingsAction.SetAutomaticChecksEnabled(enabled))
+                },
+                onUpdateNotificationChange = { enabled ->
+                    if (enabled) {
+                        showEnableUpdateNotificationConfirmDialog = true
+                    } else {
+                        onUpdateSettingsAction(UpdateSettingsAction.SetNotificationsEnabled(false))
+                    }
+                },
+                controlsEnabled = updateSettingsControlsEnabled,
+                betaUpdates = betaUpdates,
+                onBetaUpdatesChange = onBetaUpdatesChange,
+                updateChannel = updateChannel,
+                onStableSelected = { onUpdateChannelChange(UpdateChannel.OFFICIAL_VERSION) },
+                onArtifactSelected = { onUpdateChannelChange(UpdateChannel.MY_VERSION) },
+                autoDownload = autoDownloadUpdates,
+                onAutoDownloadChange = onAutoDownloadUpdatesChange,
+                wifiOnly = updatesWifiOnly,
+                onWifiOnlyChange = onUpdatesWifiOnlyChange,
+                autoInstall = updatesAutoInstall,
+                onAutoInstallChange = onUpdatesAutoInstallChange,
+                downloadedVersion = downloadedApkVersion.takeIf { it.isNotBlank() },
+                onInstallNow = {
+                    coroutineScope.launch {
+                        AppUpdateInstaller.installDownloaded(context)
+                    }
+                },
+                onDeleteDownload = {
+                    UpdateApkStorage.deletePendingApk(context)
+                    UpdateDownloadScheduler.cancel(context)
+                    onDownloadedApkVersionChange("")
+                },
+            )
+        }
     }
 }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun UpdateSettingsSheet(
+        onDismiss: () -> Unit,
+        automaticUpdateChecksEnabled: Boolean,
+        enableUpdateNotification: Boolean,
+        onAutomaticUpdateChecksChange: (Boolean) -> Unit,
+        onUpdateNotificationChange: (Boolean) -> Unit,
+        controlsEnabled: Boolean,
+        betaUpdates: Boolean,
+        onBetaUpdatesChange: (Boolean) -> Unit,
+        updateChannel: UpdateChannel,
+        onStableSelected: () -> Unit,
+        onArtifactSelected: () -> Unit,
+        autoDownload: Boolean,
+        onAutoDownloadChange: (Boolean) -> Unit,
+        wifiOnly: Boolean,
+        onWifiOnlyChange: (Boolean) -> Unit,
+        autoInstall: Boolean,
+        onAutoInstallChange: (Boolean) -> Unit,
+        downloadedVersion: String?,
+        onInstallNow: () -> Unit,
+        onDeleteDownload: () -> Unit,
+    ) {
+        val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+        ModalBottomSheet(
+            onDismissRequest = onDismiss,
+            sheetState = sheetState,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .padding(bottom = 32.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+            ) {
+                Text(
+                    text = stringResource(R.string.update_preferences),
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 4.dp),
+                )
+
+                UpdateSettingsToggleRow(
+                    title = stringResource(R.string.automatic_update_checks),
+                    subtitle = stringResource(R.string.automatic_update_checks_desc),
+                    checked = automaticUpdateChecksEnabled,
+                    onCheckedChange = onAutomaticUpdateChecksChange,
+                    enabled = controlsEnabled,
+                )
+
+                UpdateSettingsToggleRow(
+                    title = stringResource(R.string.enable_update_notification),
+                    subtitle = stringResource(R.string.enable_update_notification_channel_desc),
+                    checked = enableUpdateNotification,
+                    onCheckedChange = onUpdateNotificationChange,
+                    enabled = controlsEnabled,
+                )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+                Text(
+                    text = stringResource(R.string.update_channel),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Text(
+                    text = stringResource(R.string.update_channel_desc),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                    SegmentedButton(
+                        selected = updateChannel == UpdateChannel.OFFICIAL_VERSION,
+                        onClick = onStableSelected,
+                        shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2),
+                        icon = {},
+                    ) {
+                        Text(stringResource(R.string.channel_official_version))
+                    }
+                    SegmentedButton(
+                        selected = updateChannel == UpdateChannel.MY_VERSION,
+                        onClick = onArtifactSelected,
+                        shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2),
+                        icon = {},
+                    ) {
+                        Text(stringResource(R.string.channel_artifact))
+                    }
+                }
+
+                UpdateSettingsToggleRow(
+                    title = stringResource(R.string.beta_updates_title),
+                    subtitle = stringResource(R.string.beta_updates_desc),
+                    checked = betaUpdates,
+                    onCheckedChange = onBetaUpdatesChange,
+                    enabled = controlsEnabled,
+                )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+                Text(
+                    text = stringResource(R.string.updates_download_state_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
+
+                UpdateSettingsToggleRow(
+                    title = stringResource(R.string.updates_auto_download_title),
+                    subtitle = stringResource(R.string.updates_auto_download_desc),
+                    checked = autoDownload,
+                    onCheckedChange = onAutoDownloadChange,
+                    enabled = true,
+                )
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.updates_wifi_only_title),
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(
+                        checked = wifiOnly,
+                        onCheckedChange = onWifiOnlyChange,
+                        enabled = autoDownload,
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        text = stringResource(R.string.updates_auto_install_title),
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.weight(1f),
+                    )
+                    Switch(checked = autoInstall, onCheckedChange = onAutoInstallChange)
+                }
+
+                if (!downloadedVersion.isNullOrBlank()) {
+                    HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+                    Text(
+                        text = stringResource(R.string.updates_downloaded_version, downloadedVersion),
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(onClick = onInstallNow, shapes = ButtonDefaults.shapes()) {
+                            Text(stringResource(R.string.updates_install_now))
+                        }
+                        TextButton(onClick = onDeleteDownload) {
+                            Text(stringResource(R.string.updates_delete_download))
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun UpdateSettingsToggleRow(
+        title: String,
+        subtitle: String,
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        enabled: Boolean,
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
+            Switch(
+                checked = checked,
+                onCheckedChange = onCheckedChange,
+                enabled = enabled,
+            )
+        }
+    }
 
 /**
  * HyperOS-style hero: large app name with the current version below,
