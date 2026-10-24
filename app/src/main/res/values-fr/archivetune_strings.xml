@@ -640,7 +640,6 @@
     <string name="aod_battery_percent">%d%%</string>
     <string name="aod_customize_clock_style">Style d\'horloge</string>
     <string name="aod_customize_ambient_brightness">Luminosité ambiante</string>
-    <string name="use_system_language">Utiliser la langue du système</string>
     <string name="backup_category_downloads">Télécharger à nouveau les morceaux hors ligne</string>
     <string name="backup_category_downloads_desc">Sera téléchargé à nouveau lors de la restauration</string>
     <string name="import_priority_setting_title">Priorité de la source d\'importation</string>

@@ -698,7 +698,6 @@
     <string name="lyrics_mode">وضع الكلمات</string>
     <string name="lyrics_mode_v2">V2 القديم</string>
     <string name="lyrics_mode_enhanced">محسّن</string>
-    <string name="lyrics_animation_style_v2_only">متاح فقط في وضع الكلمات V2</string>
     <string name="internet">الإنترنت</string>
     <string name="internet_warning_title">تحذير الأمان والاستخدام</string>
     <string name="internet_warning_doh">يعمل DNS over HTTPS فقط إذا كان بلدك يحظر YouTube. إذا كان YouTube يحظر منطقتك نشطًا، ففكر في استخدام بروكسي أو VPN.</string>
@@ -902,7 +901,6 @@
     <string name="update_channel_desc">اختر بين الإصدارات المختبرة ولقطات التطوير.</string>
     <string name="update_preferences">تفضيلات التحديث</string>
     <string name="channel_artifact">تجريبي (Canary)</string>
-    <string name="recent_commits">التغييرات الأخيرة</string>
     <string name="updates_artifact_hosting_description">تُنشر إصدارات Canary تلقائيًا من أحدث فرع تطوير.</string>
     <string name="updates_channel_warning_intro">يوفر ArchiveTune قناتي تنزيل للبناءات:</string>
     <string name="updates_channel_warning_stable_title">البناءات المستقرة</string>
@@ -910,12 +908,7 @@
     <string name="updates_channel_warning_stable_desc">هذه الإصدارات مختبرة وموصى بها لغالبية المستخدمين.</string>
     <string name="updates_channel_warning_artifact_title">إصدارات Canary</string>
     <string name="updates_channel_warning_artifact_risk">قد تتضمن إصدارات Canary ميزات تجريبية، تغييرات غير مكتملة، أو تراجع مؤقت في الأداء.</string>
-    <string name="updates_loading_commits">جاري تحميل التغييرات الأخيرة</string>
-    <string name="updates_recent_commits_count">%1$d التغييرات الأخيرة</string>
-    <string name="updates_no_commits">لم يتم العثور على تغييرات حديثة</string>
     <string name="changelog">سجل التغييرات</string>
-    <string name="view_changelog">عرض سجل التغييرات</string>
-    <string name="check_for_update">التحقق من وجود تحديث</string>
     <string name="error_loading_changelog">خطأ في تحميل سجل التغييرات</string>
     <string name="no_releases">لم يتم العثور على إصدارات</string>
     <string name="update_notification_channel_name">تحديثات التطبيق</string>
@@ -923,7 +916,6 @@
     <string name="update_notification_title">تحديث متوفر</string>
     <string name="update_notification_text">ArchiveTune %s متوفر الآن</string>
     <string name="download">تنزيل</string>
-    <string name="download_complete">اكتمل التنزيل</string>
     <string name="downloads">التنزيلات</string>
     <string name="download_in_progress">قيد التقدم</string>
     <string name="no_downloads">لا توجد موسيقى منزلّة بعد</string>
@@ -1101,7 +1093,6 @@
     <string name="gatekeeper_connection_blocked">تم حظر الاتصال بواسطة ArchiveTune Remote. لم يتم التحقق من هذا التطبيق كإصدار رسمي من ArchiveTune. قم بتثبيت إصدار رسمي من https://github.com/rukamori/ArchiveTune أو https://t.me/ArchiveTuneGC.</string>
     <string name="updates_channel_warning_artifact_unstable">تُوفر إصدارات Canary للاختبار والوصول المبكر فقط.\nالاستقرار، التوافق، والوظائف غير مضمونة.</string>
     <string name="updates_channel_warning_artifact_acknowledgement">ملاحظة: التنزيل مباشرة من GitHub يتجاوز أي فحص إضافي يجريه المتجر الذي ربما ثبّت التطبيق منه سابقًا.\nبالمتابعة، فإنك تقر بأن إصدارات Canary قد تكون غير مستقرة وتتحمل مسؤولية استخدامها.</string>
-    <string name="updates_artifact_channel_confirmation">التبديل إلى قناة Canary لتلقي إصدارات التطوير.\n\nتُحمل إصدارات Canary تلقائيًا من أحدث فرع تطوير.\nملاحظة: التنزيل مباشرة من GitHub يتجاوز أي فحص إضافي يجريه المتجر الذي ربما ثبّت التطبيق منه سابقًا.</string>
     <string name="dynamic_theme_animation_duration_title">مدة انتقال الثيم الديناميكي</string>
     <string name="dynamic_theme_animation_duration_description">كم يستغرق الثيم للانتقال إلى لون الأغنية. 0 = فوري.</string>
     <string name="dynamic_theme_animation_duration_ms">%1$d مللي ثانية</string>
@@ -1202,23 +1193,18 @@
     <string name="sponsor_block_use">استخدام SponsorBlock</string>
     <string name="update_abi_best_device">الأفضل لجهازك</string>
     <string name="update_abi_picker_title">اختر بناء التحديث</string>
-    <string name="update_abi_size_unknown">الحجم غير معروف</string>
     <string name="update_abi_universal">شامل (كل الأجهزة)</string>
     <string name="update_detail_best_device">الأفضل لجهازك</string>
     <string name="update_detail_checking">جارٍ البحث عن تحديثات</string>
     <string name="update_detail_checking_hint">قد يستغرق هذا بضع ثوانٍ</string>
-    <string name="update_detail_current_version">الإصدار الحالي</string>
     <string name="update_detail_download">تنزيل التحديث</string>
     <string name="update_detail_error">تعذّر البحث عن التحديثات</string>
     <string name="update_detail_learn_more">تعرف على الجديد</string>
-    <string name="update_detail_new_version">إصدار جديد</string>
     <string name="update_detail_retry">إعادة المحاولة</string>
-    <string name="update_detail_size_unknown">الحجم غير معروف</string>
     <string name="update_detail_title">تحديث البرنامج</string>
     <string name="update_detail_universal">شامل (كل الأجهزة)</string>
     <string name="update_detail_up_to_date">أنت محدّث</string>
     <string name="update_detail_update_available">يتوفر تحديث</string>
-    <string name="update_detail_updated_apps">التطبيقات المحدثة</string>
     <string name="update_download_cancel">إلغاء</string>
     <string name="update_download_channel_desc">تنزيلات خلفية لتحديثات التطبيق</string>
     <string name="update_download_channel_name">تنزيلات التحديث</string>
@@ -1235,13 +1221,10 @@
     <string name="updates_auto_download_desc">يتم تنزيل الإصدارات الجديدة في الخلفية.</string>
     <string name="updates_auto_download_title">تنزيل التحديثات تلقائياً</string>
     <string name="updates_auto_install_title">التثبيت التلقائي عند التشغيل التالي</string>
-    <string name="updates_cancel_download">إلغاء التنزيل</string>
     <string name="updates_delete_download">حذف التحديث المُنزّل</string>
-    <string name="updates_download_in_background">التنزيل في الخلفية</string>
     <string name="updates_download_started">بدأ التنزيل</string>
     <string name="updates_download_state_title">تنزيلات الخلفية</string>
     <string name="updates_downloaded_version">تم التنزيل: %1$s</string>
-    <string name="updates_downloading">جارٍ التنزيل…</string>
     <string name="updates_install_now">تثبيت التحديث</string>
     <string name="updates_wifi_only_title">Wi-Fi فقط</string>
     <string name="wallpaper_permission">إذن استخراج ألوان الخلفية</string>

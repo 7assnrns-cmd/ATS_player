@@ -376,7 +376,6 @@
     <string name="last_song_listened">Berdasarkan lagu terakhir yang didengarkan</string>
     <string name="dont_show">Jangan Tampilkan</string>
     <string name="app_language">Bahasa aplikasi</string>
-    <string name="use_system_language">Gunakan bahasa sistem</string>
     <string name="open_supported_links">Buka tautan yang didukung secara default</string>
     <string name="set_first_lyrics_provider">Penyedia lirik pilihan</string>
     <string name="audio_quality_max">Maks (beta)</string>

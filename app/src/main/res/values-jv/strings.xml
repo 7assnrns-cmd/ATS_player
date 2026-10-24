@@ -306,7 +306,6 @@
     <string name="lyrics_mode">Mode lirik</string>
     <string name="lyrics_mode_v2">V2 Legacy</string>
     <string name="lyrics_mode_enhanced">Ditingkatkan</string>
-    <string name="lyrics_animation_style_v2_only">Hanya tersedia dalam mode lirik V2</string>
     <string name="lyrics_line_spacing">Jarak baris lirik</string>
     <string name="content">Konten</string>
     <string name="action_logout">Metu</string>
@@ -597,12 +596,7 @@
     <string name="update_channel">Saluran Pembaruan</string>
     <string name="update_channel_desc">Pilih antara rilis teruji dan cuplikan pengembangan.</string>
     <string name="update_preferences">Preferensi nganyari</string>
-    <string name="recent_commits">Commit Terbaru</string>
-    <string name="updates_loading_commits">Ngisi commit terbaru</string>
-    <string name="updates_recent_commits_count">%1$d commit terbaru</string>
-    <string name="updates_no_commits">Ora ana commit terbaru yang ditemukan</string>
     <string name="changelog">Log Perubahan</string>
-    <string name="view_changelog">Lihat Log Perubahan</string>
     <string name="error_loading_changelog">Terjadi kesalahan saat memuat log perubahan</string>
     <string name="no_releases">Ora ana rilis yang ditemukan</string>
     <string name="update_notification_channel_name">Pembaruan Aplikasi</string>
@@ -741,7 +735,6 @@
     <string name="cast_sheet_subtitle">Pilih ing ngendi ArchiveTune muter</string>
     <string name="channel_artifact">Versiku</string>
     <string name="channel_official_version">Versi Resmi</string>
-    <string name="check_for_update">Priksa Nganyari</string>
     <string name="copy_log_entry">Salin entri log</string>
     <string name="crossfade_manual_selection_description">Gunakake crossfade nalika milih lagu liya kanthi manual.</string>
     <string name="crossfade_manual_selection_title">Crossfade nalika milih manual</string>
@@ -768,7 +761,6 @@
     <string name="discord_reauthorize_required_description">Rich Presence ora bisa dituduhake nganti panjenengan menehi wewenang Discord maneh.</string>
     <string name="discord_reauthorize_required_title">Sesi Discord wis kadaluwarsa</string>
     <string name="download_action_failed">Ora bisa anyari undhuhan</string>
-    <string name="download_complete">Undhuhan rampung</string>
     <string name="download_failed_state">Undhuhan gagal</string>
     <string name="download_in_progress">Lagi mlaku</string>
     <string name="download_progress_percent">%1$d%%</string>
@@ -1114,23 +1106,18 @@
     <string name="unsupported_language">Basa ora didhukung: %1$s</string>
     <string name="update_abi_best_device">Paling apik kanggo piranti panjenengan</string>
     <string name="update_abi_picker_title">Pilih build nganyari</string>
-    <string name="update_abi_size_unknown">ukuran ora dingerteni</string>
     <string name="update_abi_universal">Universal (kabeh piranti)</string>
     <string name="update_detail_best_device">Paling apik kanggo piranti panjenengan</string>
     <string name="update_detail_checking">Mriksa nganyari</string>
     <string name="update_detail_checking_hint">Iki bisa njupuk sawetara detik</string>
-    <string name="update_detail_current_version">Versi saiki</string>
     <string name="update_detail_download">Undhuh nganyari</string>
     <string name="update_detail_error">Ora bisa mriksa nganyari</string>
     <string name="update_detail_learn_more">Sinau sing anyar</string>
-    <string name="update_detail_new_version">Versi anyar</string>
     <string name="update_detail_retry">Coba maneh</string>
-    <string name="update_detail_size_unknown">ukuran ora dingerteni</string>
     <string name="update_detail_title">Nganyari piranti lunak</string>
     <string name="update_detail_universal">Universal (kabeh piranti)</string>
     <string name="update_detail_up_to_date">Panjenengan wis paling anyar</string>
     <string name="update_detail_update_available">Ana nganyari sing cumepak</string>
-    <string name="update_detail_updated_apps">Aplikasi sing dianyari</string>
     <string name="update_download_cancel">Batal</string>
     <string name="update_download_channel_desc">Undhuhan latar mburi nganyari aplikasi</string>
     <string name="update_download_channel_name">Undhuhan nganyari</string>
@@ -1144,15 +1131,10 @@
     <string name="update_found_no_notes">Bukak layar nganyari kanggo ndeleng apa sing owah.</string>
     <string name="update_found_title">Nganyari cumepak</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">Ngalih menyang saluran Artifact kanggo nampa build pangembangan.
-
-Build Artifact dijupuk langsung saka workflow GitHub Actions.
-Cathetan: ngundhuh langsung saka GitHub ngliwati pemeriksaan tambahan sing ditindakake dening toko asal panjenengan nginstal aplikasi.</string>
     <string name="updates_artifact_hosting_description">Build Artifact dijupuk langsung saka workflow GitHub Actions.</string>
     <string name="updates_auto_download_desc">Rilis anyar diundhuh ing latar mburi.</string>
     <string name="updates_auto_download_title">Undhuh nganyari kanthi otomatis</string>
     <string name="updates_auto_install_title">Instal kanthi otomatis ing pambuka sabanjure</string>
-    <string name="updates_cancel_download">Batal undhuhan</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Cathetan: ngundhuh langsung saka GitHub ngliwati pemeriksaan tambahan sing ditindakake dening toko asal panjenengan nginstal aplikasi.
 Kanthi nerusake, panjenengan ngakoni yen build Artifact bisa ora stabil lan nggunakake kanthi resiko dhewe.</string>
     <string name="updates_channel_warning_artifact_risk">Build Artifact bisa kalebu fitur eksperimen, owah-owahan sing durung rampung, utawa regresi sauntara.</string>
@@ -1164,11 +1146,9 @@ Stabilitas, kompatibilitas, lan fungsi ora dijamin.</string>
     <string name="updates_channel_warning_stable_source">Disebarake liwat GitHub Releases resmi.</string>
     <string name="updates_channel_warning_stable_title">Build stabil</string>
     <string name="updates_delete_download">Hapus nganyari sing diundhuh</string>
-    <string name="updates_download_in_background">Undhuh ing latar mburi</string>
     <string name="updates_download_started">Undhuhan diwiwiti</string>
     <string name="updates_download_state_title">Undhuhan latar mburi</string>
     <string name="updates_downloaded_version">Diundhuh: %1$s</string>
-    <string name="updates_downloading">Ngundhuh…</string>
     <string name="updates_install_now">Instal nganyari</string>
     <string name="updates_subtitle_artifact">Rilis saka repositori GitHub fork iki</string>
     <string name="updates_wifi_only_title">Mung Wi-Fi</string>

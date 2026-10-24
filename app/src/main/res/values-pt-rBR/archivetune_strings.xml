@@ -659,7 +659,6 @@
     <string name="arrange_playlist_tags_desc">Escolha a ordem em que os filtros de tags são exibidos na sua biblioteca</string>
     <string name="arrange_library_chips">Organizar fichas da biblioteca</string>
     <string name="arrange_library_chips_desc">Escolha a ordem em que as guias aparecem na sua biblioteca</string>
-    <string name="use_system_language">Usar o idioma do sistema</string>
     <string name="backup_category_downloads">Baixar novamente as músicas offline</string>
     <string name="backup_category_downloads_desc">Será baixado novamente durante a restauração</string>
     <string name="import_priority_setting_title">Prioridade da Fonte de Importação</string>

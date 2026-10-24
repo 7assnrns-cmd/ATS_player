@@ -653,7 +653,6 @@
     <string name="aod_customize_auto_start_screen_off_desc">Mostrar automáticamente la pantalla ambiental AOD cuando la pantalla se apaga durante la reproducción</string>
     <string name="aod_customize_screensaver_info_title">Protector de pantalla del sistema (Cargando AOD)</string>
     <string name="aod_customize_screensaver_info_desc">Para activar la pantalla siempre activa (AOD) automáticamente mientras se carga o está en la base de carga, ve a Ajustes de Android &gt; Pantalla &gt; Protector de pantalla y selecciona ArchiveTune.</string>
-    <string name="use_system_language">Utilizar el idioma del sistema</string>
     <string name="backup_category_downloads">Sincronizar canciones sin conexión</string>
     <string name="backup_category_downloads_desc">Volverán a descargarse tras la restauración</string>
     <string name="import_priority_setting_title">Importar prioridad de origen</string>

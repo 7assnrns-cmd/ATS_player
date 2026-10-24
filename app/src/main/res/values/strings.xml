@@ -518,7 +518,6 @@
     <string name="lyrics_mode">Lyrics mode</string>
     <string name="lyrics_mode_v2">V2 Legacy</string>
     <string name="lyrics_mode_enhanced">Enhanced</string>
-    <string name="lyrics_animation_style_v2_only">Available only in V2 lyrics mode</string>
     <string name="lyrics_line_spacing">Lyrics line spacing</string>
     <string name="content">Content</string>
     <string name="action_logout">Log out</string>
@@ -940,7 +939,6 @@
     <string name="update_channel_desc">Choose between tested releases and development snapshots.</string>
     <string name="update_preferences">Update preferences</string>
     <string name="channel_artifact">My Version</string>
-    <string name="recent_commits">Recent Commits</string>
     <string name="updates_artifact_hosting_description">Artifact builds are fetched directly from GitHub Actions workflow runs.</string>
     <string name="updates_channel_warning_intro">ArchiveTune provides two download channels for builds:</string>
     <string name="updates_channel_warning_stable_title">Stable builds</string>
@@ -950,13 +948,7 @@
     <string name="updates_channel_warning_artifact_risk">Artifact builds may include experimental features, unfinished changes, or temporary regressions.</string>
     <string name="updates_channel_warning_artifact_unstable">Artifact builds are provided for testing and early access only.\nStability, compatibility, and functionality are not guaranteed.</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Note: downloading directly from GitHub bypasses any additional screening performed by the store you might have originally installed the app from.\nBy continuing, you acknowledge that Artifact builds may be unstable and use them at your own risk.</string>
-    <string name="updates_artifact_channel_confirmation">Switch to the Artifact channel to receive development builds.\n\nArtifact builds are fetched directly from GitHub Actions workflow runs.\nNote: downloading directly from GitHub bypasses any additional screening performed by the store you might have originally installed the app from.</string>
-    <string name="updates_loading_commits">Loading recent commits</string>
-    <string name="updates_recent_commits_count">%1$d recent commits</string>
-    <string name="updates_no_commits">No recent commits found</string>
     <string name="changelog">Changelog</string>
-    <string name="view_changelog">View Changelog</string>
-    <string name="check_for_update">Check for Update</string>
     <string name="error_loading_changelog">Error loading changelog</string>
     <string name="no_releases">No releases found</string>
     <string name="update_notification_channel_name">App Updates</string>
@@ -964,7 +956,6 @@
     <string name="update_notification_title">Update Available</string>
     <string name="update_notification_text">ArchiveTune %s is now available</string>
     <string name="download">Download</string>
-    <string name="download_complete">Download complete</string>
     <string name="downloads">Downloads</string>
     <string name="download_in_progress">In progress</string>
     <string name="no_downloads">No downloaded music yet</string>
@@ -1179,9 +1170,6 @@
     <string name="updates_install_now">Install update</string>
     <string name="updates_delete_download">Delete downloaded update</string>
     <string name="updates_downloaded_version">Downloaded: %1$s</string>
-    <string name="updates_download_in_background">Download in background</string>
-    <string name="updates_cancel_download">Cancel download</string>
-    <string name="updates_downloading">Downloading…</string>
     <string name="updates_download_state_title">Background downloads</string>
     <string name="lyrics_translation_position_title">Translation position</string>
     <string name="lyrics_phonetic_position_title">Phonetic position</string>
@@ -1191,7 +1179,6 @@
     <string name="update_abi_picker_title">Choose the update build</string>
     <string name="update_abi_best_device">Best for your device</string>
     <string name="update_abi_universal">Universal (all devices)</string>
-    <string name="update_abi_size_unknown">size unknown</string>
     <string name="updates_download_started">Download started</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
     <string name="update_detail_title">Software update</string>
@@ -1203,10 +1190,6 @@
     <string name="update_detail_universal">Universal (all devices)</string>
     <string name="update_detail_learn_more">Learn what\'s new</string>
     <string name="update_detail_download">Download update</string>
-    <string name="update_detail_current_version">Current version</string>
-    <string name="update_detail_new_version">New version</string>
-    <string name="update_detail_size_unknown">size unknown</string>
-    <string name="update_detail_updated_apps">Updated apps</string>
     <string name="update_detail_retry">Retry</string>
     <string name="update_detail_error">Could not check for updates</string>
     <string name="miuix_theme">Miuix theme</string>

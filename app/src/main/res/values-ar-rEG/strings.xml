@@ -472,7 +472,6 @@
     <string name="lyrics_mode">وضع الكلمات</string>
     <string name="lyrics_mode_v2">القديم V2</string>
     <string name="lyrics_mode_enhanced">المحسن</string>
-    <string name="lyrics_animation_style_v2_only">متاح بس في وضع الكلمات V2</string>
     <string name="lyrics_line_spacing">تباعد أسطر الكلمات</string>
     <string name="content">المحتوى</string>
     <string name="action_logout">تسجيل الخروج</string>
@@ -780,17 +779,11 @@
     <string name="about">حول التطبيق</string>
     <string name="update_channel">قناة التحديثات</string>
     <string name="update_channel_desc">اختار بين النسخ المستقرة المتجربة أو النسخ التجريبية.</string>
-    <string name="recent_commits">التعديلات الأخيرة (Commits)</string>
     <string name="updates_channel_warning_intro">ArchiveTune بيوفر قناتين لتنزيل النسخ:</string>
     <string name="updates_channel_warning_stable_title">النسخ المستقرة</string>
     <string name="updates_channel_warning_stable_source">بتتوزع عبر صفحة إصدارات GitHub الرسمية.</string>
     <string name="updates_channel_warning_stable_desc">الإصدارات دي اتجربت وبننصح بيها لغالبية المستخدمين.</string>
-    <string name="updates_loading_commits">جاري تحميل التعديلات الأخيرة</string>
-    <string name="updates_recent_commits_count">%1$d تعديلات جديدة</string>
-    <string name="updates_no_commits">ملقناش أي تعديلات جديدة</string>
     <string name="changelog">سجل التغييرات</string>
-    <string name="view_changelog">عرض سجل التغييرات</string>
-    <string name="check_for_update">شوف في تحديثات ولا لأ</string>
     <string name="error_loading_changelog">خطأ في تحميل سجل التغييرات</string>
     <string name="no_releases">ملقناش أي إصدارات</string>
     <string name="update_notification_channel_name">تحديثات التطبيق</string>
@@ -798,7 +791,6 @@
     <string name="update_notification_title">في تحديث جديد نزل</string>
     <string name="update_notification_text">تحديث ArchiveTune %s بقى متاح دلوقتي</string>
     <string name="download">تنزيل</string>
-    <string name="download_complete">اكتمل التنزيل</string>
     <string name="permissions_title">خلي ArchiveTune يشتغل بأفضل أداء</string>
     <string name="permissions_subtitle">بنحتاج شوية صلاحيات عشان نشغل وننظم مزيكتك من غير مشاكل. تقدر تغيرهم في أي وقت من إعدادات النظام.</string>
     <string name="permission_storage_title">الوصول للمساحة</string>
@@ -1055,6 +1047,5 @@
     <string name="updates_channel_warning_artifact_risk">نسخ Canary ممكن يكون فيها ميزات تجريبية، تغييرات مش مكتملة، أو مشاكل مؤقتة.</string>
     <string name="updates_channel_warning_artifact_unstable">إصدارات Canary مخصصة للاختبار والوصول المبكر بس.\nالاستقرار والتوافق والوظائف مش مضمونين.</string>
     <string name="updates_channel_warning_artifact_acknowledgement">ملاحظة: التنزيل المباشر من GitHub بيتجاوز أي فحص إضافي للمتجر اللي انت ممكن تكون حملت منه التطبيق.\nبمتابعتك، انت معترف إن نسخ Canary ممكن تكون مش مستقرة وعلى مسئوليتك الكاملة.</string>
-    <string name="updates_artifact_channel_confirmation">حول لقناة Canary عشان تجيلك الإصدارات التطويرية.\n\nإصدارات Canary بتتنشر تلقائياً من أحدث فرع تطويري.\nملاحظة: التنزيل المباشر من GitHub بيتجاوز أي فحص إضافي للمتجر اللي انت ممكن تكون حملت منه التطبيق.</string>
     <string name="onboarding_permission_device_audio_capture_desc">بيتعرف على المزيكا اللي شغالة في التطبيقات التانية من غير ما يستخدم المايك. أندرويد هيطلب منك إذن الشاشة والصوت، بس ArchiveTune بياخد الصوت بس.</string>
 </resources>

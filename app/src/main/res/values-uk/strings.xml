@@ -535,9 +535,7 @@
     <string name="latest_version_format">Остання: %s</string>
     <string name="enable_update_notification">Увімкнути сповіщення про оновлення</string>
     <string name="update_channel">Канал оновлень</string>
-    <string name="recent_commits">Останні зміни</string>
     <string name="changelog">Історія змін</string>
-    <string name="view_changelog">Переглянути історію змін</string>
     <string name="error_loading_changelog">Помилка під час завантаження історії змін</string>
     <string name="no_releases">Жодних релізів не знайдено</string>
     <string name="update_notification_channel_name">Оновлення додатку</string>
@@ -642,9 +640,6 @@
     <string name="updates_status_current">Ви використовуєте останню доступну версію</string>
     <string name="update_channel_desc">Виберіть між перевіреними версіями та знімками з розробки.</string>
     <string name="update_preferences">Налаштування оновлення</string>
-    <string name="updates_loading_commits">Завантаження останніх комітів</string>
-    <string name="updates_recent_commits_count">%1$d останніх комітів</string>
-    <string name="updates_no_commits">Не знайдено останніх комітів</string>
     <string name="you_might_like_source">Вам може сподобатися джерело</string>
     <string name="playlist_suggestion_source_title">Назва плейлиста</string>
     <string name="playlist_suggestion_source_content">Вміст плейлиста</string>
@@ -710,7 +705,6 @@
     <string name="cast_sheet_subtitle">Оберіть, де відтворює ArchiveTune</string>
     <string name="channel_artifact">Моя версія</string>
     <string name="channel_official_version">Офіційна версія</string>
-    <string name="check_for_update">Перевірити оновлення</string>
     <string name="copy_log_entry">Скопіювати запис журналу</string>
     <string name="crossfade_manual_selection_description">Використовувати кросфейд при ручному виборі іншої пісні.</string>
     <string name="crossfade_manual_selection_title">Кросфейд при ручному виборі</string>
@@ -763,7 +757,6 @@
     <string name="discord_waiting_for_authorization">Очікування авторизації Discord...</string>
     <string name="display">Відображення</string>
     <string name="download_action_failed">Не вдалося оновити завантаження</string>
-    <string name="download_complete">Завантаження завершено</string>
     <string name="download_failed_state">Завантаження не вдалося</string>
     <string name="download_in_progress">У процесі</string>
     <string name="download_progress_percent">%1$d%%</string>
@@ -896,7 +889,6 @@
     <string name="longest_duration">Найдовша тривалість</string>
     <string name="low_data_mode_description">Зменшує використання мобільних даних, використовуючи потоки низької якості та вимикаючи кеш відтворення й полотно в мережах із лімітом</string>
     <string name="low_data_mode_title">Режим економії даних</string>
-    <string name="lyrics_animation_style_v2_only">Доступно лише в режимі текстів V2</string>
     <string name="lyrics_caption_position_above">Зверху</string>
     <string name="lyrics_caption_position_below">Знизу</string>
     <string name="lyrics_mode">Режим тексту</string>
@@ -1136,23 +1128,18 @@
     <string name="unsupported_language">Непідтримувана мова: %1$s</string>
     <string name="update_abi_best_device">Найкраще для вашого пристрою</string>
     <string name="update_abi_picker_title">Оберіть збірку оновлення</string>
-    <string name="update_abi_size_unknown">розмір невідомий</string>
     <string name="update_abi_universal">Універсальна (усі пристрої)</string>
     <string name="update_detail_best_device">Найкраще для вашого пристрою</string>
     <string name="update_detail_checking">Перевірка оновлень</string>
     <string name="update_detail_checking_hint">Це може зайняти кілька секунд</string>
-    <string name="update_detail_current_version">Поточна версія</string>
     <string name="update_detail_download">Завантажити оновлення</string>
     <string name="update_detail_error">Не вдалося перевірити оновлення</string>
     <string name="update_detail_learn_more">Дізнайтеся, що нового</string>
-    <string name="update_detail_new_version">Нова версія</string>
     <string name="update_detail_retry">Повторити</string>
-    <string name="update_detail_size_unknown">розмір невідомий</string>
     <string name="update_detail_title">Оновлення ПЗ</string>
     <string name="update_detail_universal">Універсальна (усі пристрої)</string>
     <string name="update_detail_up_to_date">У вас остання версія</string>
     <string name="update_detail_update_available">Доступне оновлення</string>
-    <string name="update_detail_updated_apps">Оновлені застосунки</string>
     <string name="update_download_cancel">Скасувати</string>
     <string name="update_download_channel_desc">Фонові завантаження оновлень застосунку</string>
     <string name="update_download_channel_name">Завантаження оновлень</string>
@@ -1166,15 +1153,10 @@
     <string name="update_found_no_notes">Відкрийте екран оновлень, щоб побачити, що змінилося.</string>
     <string name="update_found_title">Доступне оновлення</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">Переключіться на канал Artifact, щоб отримувати збірки для розробки.
-
-Збірки Artifact завантажуються безпосередньо з запусків workflow GitHub Actions.
-Примітка: пряме завантаження з GitHub обходить будь-які додаткові перевірки, які виконує магазин, з якого ви спочатку встановили застосунок.</string>
     <string name="updates_artifact_hosting_description">Збірки Artifact завантажуються безпосередньо з запусків workflow GitHub Actions.</string>
     <string name="updates_auto_download_desc">Нові версії завантажуються у фоні.</string>
     <string name="updates_auto_download_title">Автоматично завантажувати оновлення</string>
     <string name="updates_auto_install_title">Автоматично встановлювати при наступному запуску</string>
-    <string name="updates_cancel_download">Скасувати завантаження</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Примітка: пряме завантаження з GitHub обходить будь-які додаткові перевірки, які виконує магазин, з якого ви спочатку встановили застосунок.
 Продовжуючи, ви підтверджуєте, що збірки Artifact можуть бути нестабільними, і використовуєте їх на власний ризик.</string>
     <string name="updates_channel_warning_artifact_risk">Збірки Artifact можуть містити експериментальні функції, незавершені зміни або тимчасові регресії.</string>
@@ -1186,11 +1168,9 @@
     <string name="updates_channel_warning_stable_source">Розповсюджується через офіційні GitHub Releases.</string>
     <string name="updates_channel_warning_stable_title">Стабільні збірки</string>
     <string name="updates_delete_download">Видалити завантажене оновлення</string>
-    <string name="updates_download_in_background">Завантажувати у фоні</string>
     <string name="updates_download_started">Завантаження розпочато</string>
     <string name="updates_download_state_title">Фонові завантаження</string>
     <string name="updates_downloaded_version">Завантажено: %1$s</string>
-    <string name="updates_downloading">Завантаження…</string>
     <string name="updates_install_now">Встановити оновлення</string>
     <string name="updates_subtitle_artifact">Релізи з GitHub-репозиторію цього форку</string>
     <string name="updates_wifi_only_title">Лише Wi-Fi</string>

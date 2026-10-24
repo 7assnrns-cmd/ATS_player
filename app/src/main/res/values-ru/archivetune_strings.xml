@@ -488,7 +488,6 @@
     <string name="force_sync_on_switch_account">Принудительная синхронизация при смене аккаунта</string>
     <string name="arrange_library_chips">Упорядочить вкладки библиотеки</string>
     <string name="arrange_library_chips_desc">Выберите порядок вкладок, отображаемых в вашей библиотеке</string>
-    <string name="use_system_language">Использовать системный язык</string>
     <string name="storage_folder">Папка хранилища</string>
     <string name="storage_folder_pick">Выбрать папку</string>
     <string name="storage_location_sheet_title">Место хранения</string>

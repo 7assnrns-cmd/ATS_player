@@ -506,9 +506,7 @@
     <string name="latest_version_format">Последняя: %s</string>
     <string name="enable_update_notification">Включить уведомление об обновлении</string>
     <string name="update_channel">Канал обновлений</string>
-    <string name="recent_commits">Последние коммиты</string>
     <string name="changelog">Список изменений</string>
-    <string name="view_changelog">Посмотреть список изменений</string>
     <string name="error_loading_changelog">Ошибка при загрузке списка изменений</string>
     <string name="no_releases">Не найдено выпусков</string>
     <string name="update_notification_channel_name">Обновления приложения</string>
@@ -634,9 +632,6 @@
     <string name="updates_status_current">Вы на последней версии релиза</string>
     <string name="update_channel_desc">Выбирайте между тестированными релизами и снапшотами разработки.</string>
     <string name="update_preferences">Настройки обновления</string>
-    <string name="updates_loading_commits">Загрузка последних коммитов</string>
-    <string name="updates_recent_commits_count">%1$d последних коммитов</string>
-    <string name="updates_no_commits">Не найдено последних коммитов</string>
     <string name="you_might_like_source">Вам может понравиться источник</string>
     <string name="playlist_suggestion_source_title">Название плейлиста</string>
     <string name="playlist_suggestion_source_content">Контент плейлиста</string>
@@ -760,7 +755,6 @@
     <string name="cast_sheet_subtitle">Выберите, где воспроизводит ArchiveTune</string>
     <string name="channel_artifact">Моя версия</string>
     <string name="channel_official_version">Официальная версия</string>
-    <string name="check_for_update">Проверить обновления</string>
     <string name="clear_lyrics_cache">Очистить кэш текстов</string>
     <string name="clear_lyrics_cache_confirm">Вы уверены, что хотите очистить весь кэш текстов песен?</string>
     <string name="copy_log_entry">Скопировать запись журнала</string>
@@ -814,7 +808,6 @@
     <string name="discord_waiting_for_authorization">Ожидание авторизации Discord...</string>
     <string name="display">Отображение</string>
     <string name="download_action_failed">Не удалось обновить загрузку</string>
-    <string name="download_complete">Загрузка завершена</string>
     <string name="download_failed_state">Загрузка не удалась</string>
     <string name="download_in_progress">В процессе</string>
     <string name="download_progress_percent">%1$d%%</string>
@@ -930,7 +923,6 @@
     <string name="local_songs_metadata_unavailable">Импортировано %1$d песен. Онлайн-метаданные недоступны; теги файлов сохранены.</string>
     <string name="low_data_mode_description">Сокращает использование мобильных данных за счёт потоков низкого качества и отключения кэша воспроизведения и холста в сетях с лимитом</string>
     <string name="low_data_mode_title">Режим экономии данных</string>
-    <string name="lyrics_animation_style_v2_only">Доступно только в режиме текстов V2</string>
     <string name="lyrics_caption_position_above">Сверху</string>
     <string name="lyrics_caption_position_below">Снизу</string>
     <string name="lyrics_mode">Режим текста</string>
@@ -1139,23 +1131,18 @@
     <string name="unsupported_language">Неподдерживаемый язык: %1$s</string>
     <string name="update_abi_best_device">Лучшее для вашего устройства</string>
     <string name="update_abi_picker_title">Выберите сборку обновления</string>
-    <string name="update_abi_size_unknown">размер неизвестен</string>
     <string name="update_abi_universal">Универсальная (все устройства)</string>
     <string name="update_detail_best_device">Лучшее для вашего устройства</string>
     <string name="update_detail_checking">Проверка обновлений</string>
     <string name="update_detail_checking_hint">Это может занять несколько секунд</string>
-    <string name="update_detail_current_version">Текущая версия</string>
     <string name="update_detail_download">Скачать обновление</string>
     <string name="update_detail_error">Не удалось проверить обновления</string>
     <string name="update_detail_learn_more">Узнать, что нового</string>
-    <string name="update_detail_new_version">Новая версия</string>
     <string name="update_detail_retry">Повторить</string>
-    <string name="update_detail_size_unknown">размер неизвестен</string>
     <string name="update_detail_title">Обновление ПО</string>
     <string name="update_detail_universal">Универсальная (все устройства)</string>
     <string name="update_detail_up_to_date">У вас последняя версия</string>
     <string name="update_detail_update_available">Доступно обновление</string>
-    <string name="update_detail_updated_apps">Обновлённые приложения</string>
     <string name="update_download_cancel">Отмена</string>
     <string name="update_download_channel_desc">Фоновые загрузки обновлений приложения</string>
     <string name="update_download_channel_name">Загрузки обновлений</string>
@@ -1169,15 +1156,10 @@
     <string name="update_found_no_notes">Откройте экран обновлений, чтобы увидеть, что изменилось.</string>
     <string name="update_found_title">Доступно обновление</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">Переключитесь на канал Artifact, чтобы получать сборки для разработки.
-
-Сборки Artifact загружаются непосредственно из запусков workflow GitHub Actions.
-Примечание: прямая загрузка с GitHub обходит любые дополнительные проверки, выполняемые магазином, из которого вы изначально установили приложение.</string>
     <string name="updates_artifact_hosting_description">Сборки Artifact загружаются непосредственно из запусков workflow GitHub Actions.</string>
     <string name="updates_auto_download_desc">Новые версии скачиваются в фоне.</string>
     <string name="updates_auto_download_title">Автоматически скачивать обновления</string>
     <string name="updates_auto_install_title">Автоматически устанавливать при следующем запуске</string>
-    <string name="updates_cancel_download">Отменить загрузку</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Примечание: прямая загрузка с GitHub обходит любые дополнительные проверки, выполняемые магазином, из которого вы изначально установили приложение.
 Продолжая, вы подтверждаете, что сборки Artifact могут быть нестабильными и используются на ваш риск.</string>
     <string name="updates_channel_warning_artifact_risk">Сборки Artifact могут включать экспериментальные функции, незавершённые изменения или временные регрессии.</string>
@@ -1189,11 +1171,9 @@
     <string name="updates_channel_warning_stable_source">Распространяется через официальные GitHub Releases.</string>
     <string name="updates_channel_warning_stable_title">Стабильные сборки</string>
     <string name="updates_delete_download">Удалить загруженное обновление</string>
-    <string name="updates_download_in_background">Скачивать в фоне</string>
     <string name="updates_download_started">Загрузка начата</string>
     <string name="updates_download_state_title">Фоновые загрузки</string>
     <string name="updates_downloaded_version">Загружено: %1$s</string>
-    <string name="updates_downloading">Загрузка…</string>
     <string name="updates_install_now">Установить обновление</string>
     <string name="updates_subtitle_artifact">Релизы из GitHub-репозитория этого форка</string>
     <string name="updates_wifi_only_title">Только Wi-Fi</string>

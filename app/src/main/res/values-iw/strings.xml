@@ -227,7 +227,6 @@
     <string name="codecs">קודקים</string>
     <string name="together_participants">משתתפים</string>
     <string name="show_button2_description">הפעלת כפתור 2 ב- Discord Rich Presence</string>
-    <string name="lyrics_animation_style_v2_only">זמין רק בגרסה ״2 מדור קודם״ במצב מילות השיר</string>
     <string name="auto_start_on_bluetooth_desc">חידוש ההפעלה אוטומטית כאשר מכשיר שמע Bluetooth מתחבר</string>
     <string name="duplicates_description_multiple">%d שירים כבר נמצאים בפלייליסט שלך</string>
     <string name="add_to_playlist">הוספה לפלייליסט</string>
@@ -728,13 +727,7 @@
     <string name="update_channel">עדכון ערוץ</string>
     <string name="update_channel_desc">בחרו בין גרסאות שנבדקו לבין תמונות מצב של פיתוח.</string>
     <string name="update_preferences">העדפות עדכון</string>
-    <string name="recent_commits">שינויים אחרונים</string>
-    <string name="updates_loading_commits">טוען את השינויים האחרונים</string>
-    <string name="updates_recent_commits_count">%1$d שינויים אחרונים</string>
-    <string name="updates_no_commits">לא נמצאו שינויים אחרונים</string>
     <string name="changelog">יומן שינויים</string>
-    <string name="view_changelog">הצגת יומן שינויים</string>
-    <string name="check_for_update">בדוק אם יש עדכון</string>
     <string name="error_loading_changelog">שגיאה בטעינת יומן השינויים</string>
     <string name="no_releases">לא נמצאו הפצות</string>
     <string name="update_notification_channel_name">עדכוני אפליקציה</string>
@@ -864,7 +857,6 @@
     <string name="updates_channel_warning_stable_title">גרסאות הפצה יציבות</string>
     <string name="updates_channel_warning_stable_source">מופץ דרך גרסאות GitHub רשמיות.</string>
     <string name="updates_channel_warning_stable_desc">גרסאות אלו נבדקו ומומלצות עבור רוב המשתמשים.</string>
-    <string name="download_complete">ההורדה הושלמה</string>
     <string name="onboarding_welcome_title">ברוכים הבאים ל- ArchiveTune</string>
     <string name="onboarding_welcome_subtitle">הגדר השמעה, מוזיקה מקומית ועדכון הרשאות לפני שתתחיל להאזין.</string>
     <string name="onboarding_permissions_title">בדיקת הרשאות</string>
@@ -1156,23 +1148,18 @@
     <string name="together_room_closed_inactivity_notification">החדר נסגר כי אף אחד לא הצטרף במשך 10 דקות</string>
     <string name="update_abi_best_device">הטוב ביותר עבור המכשיר שלך</string>
     <string name="update_abi_picker_title">בחר גרסת עדכון</string>
-    <string name="update_abi_size_unknown">גודל לא ידוע</string>
     <string name="update_abi_universal">אוניברסלי (כל המכשירים)</string>
     <string name="update_detail_best_device">הטוב ביותר עבור המכשיר שלך</string>
     <string name="update_detail_checking">בודק עדכונים</string>
     <string name="update_detail_checking_hint">זה עשוי לקחת מספר שניות</string>
-    <string name="update_detail_current_version">גרסה נוכחית</string>
     <string name="update_detail_download">הורד עדכון</string>
     <string name="update_detail_error">לא ניתן היה לבדוק עדכונים</string>
     <string name="update_detail_learn_more">למד מה חדש</string>
-    <string name="update_detail_new_version">גרסה חדשה</string>
     <string name="update_detail_retry">נסה שוב</string>
-    <string name="update_detail_size_unknown">גודל לא ידוע</string>
     <string name="update_detail_title">עדכון תוכנה</string>
     <string name="update_detail_universal">אוניברסלי (כל המכשירים)</string>
     <string name="update_detail_up_to_date">אתה מעודכן</string>
     <string name="update_detail_update_available">עדכון זמין</string>
-    <string name="update_detail_updated_apps">אפליקציות מעודכנות</string>
     <string name="update_download_cancel">בטל</string>
     <string name="update_download_channel_desc">הורדות רקע של עדכוני אפליקציה</string>
     <string name="update_download_channel_name">הורדות עדכון</string>
@@ -1186,15 +1173,10 @@
     <string name="update_found_no_notes">פתח את מסך העדכונים כדי לראות מה השתנה.</string>
     <string name="update_found_title">עדכון זמין</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">עבור לערוץ Artifact כדי לקבל גרסאות פיתוח.
-
-גרסאות Artifact נשלפות ישירות מהרצות workflow של GitHub Actions.
-הערה: הורדה ישירה מ-GitHub עוקפת כל בדיקה נוספת שמבצעת החנות שממנה התקנת את האפליקציה במקור.</string>
     <string name="updates_artifact_hosting_description">גרסאות Artifact נשלפות ישירות מהרצות workflow של GitHub Actions.</string>
     <string name="updates_auto_download_desc">מהדורות חדשות מורדות ברקע.</string>
     <string name="updates_auto_download_title">הורד עדכונים אוטומטית</string>
     <string name="updates_auto_install_title">התקן אוטומטית בהפעלה הבאה</string>
-    <string name="updates_cancel_download">בטל הורדה</string>
     <string name="updates_channel_warning_artifact_acknowledgement">הערה: הורדה ישירה מ-GitHub עוקפת כל בדיקה נוספת שמבצעת החנות שממנה התקנת את האפליקציה במקור.
 בהמשך, אתה מאשר שגרסאות Artifact עשויות להיות לא יציבות ואתה משתמש בהן על אחריותך.</string>
     <string name="updates_channel_warning_artifact_risk">גרסאות Artifact עשויות לכלול תכונות ניסיוניות, שינויים לא גמורים או רגרסיות זמניות.</string>
@@ -1202,11 +1184,9 @@
     <string name="updates_channel_warning_artifact_unstable">גרסאות Artifact מסופקות לבדיקה ולגישה מוקדמת בלבד.
 יציבות, תאימות ותפקוד אינן מובטחות.</string>
     <string name="updates_delete_download">מחק עדכון שהורד</string>
-    <string name="updates_download_in_background">הורד ברקע</string>
     <string name="updates_download_started">ההורדה החלה</string>
     <string name="updates_download_state_title">הורדות רקע</string>
     <string name="updates_downloaded_version">הורד: %1$s</string>
-    <string name="updates_downloading">מוריד…</string>
     <string name="updates_install_now">התקן עדכון</string>
     <string name="updates_subtitle_artifact">מהדורות ממאגר ה-GitHub של הפורק הזה</string>
     <string name="updates_wifi_only_title">Wi-Fi בלבד</string>

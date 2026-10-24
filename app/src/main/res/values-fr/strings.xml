@@ -425,7 +425,6 @@
     <string name="latest_version_format">Dernière mise à jour : %s</string>
     <string name="enable_update_notification">Activer les notifications de mise à jour</string>
     <string name="update_channel">Chaîne de mise à jour</string>
-    <string name="recent_commits">Engagements récents</string>
     <string name="update_notification_channel_name">Mises à jour de l\'application</string>
     <string name="update_notification_channel_desc">Notifications pour les nouvelles mises à jour de l\'application</string>
     <string name="update_notification_title">Mise à jour disponible</string>
@@ -511,7 +510,6 @@
     <string name="audio_offload">Déchargement audio</string>
     <string name="audio_offload_desc">Permettre aux appareils pris en charge de lire des fichiers audio à l\'aide d\'un décodage matériel à faible consommation d\'énergie. Certaines fonctionnalités de traitement audio sont désactivées.</string>
     <string name="changelog">Journal des modifications</string>
-    <string name="view_changelog">Afficher le journal des modifications</string>
     <string name="error_loading_changelog">Erreur lors du chargement du journal des modifications</string>
     <string name="no_releases">Aucune version disponible</string>
     <string name="you_might_like">Vous pourriez aimer</string>
@@ -605,9 +603,6 @@
     <string name="updates_status_current">Vous utilisez la dernière version disponible</string>
     <string name="update_channel_desc">Choisissez entre les versions testées et les versions de développement.</string>
     <string name="update_preferences">Préférences de mise à jour</string>
-    <string name="updates_loading_commits">Chargement des modifications récentes</string>
-    <string name="updates_recent_commits_count">%1$d modifications récentes</string>
-    <string name="updates_no_commits">Aucune modification récente n\'a été trouvée</string>
     <string name="you_might_like_source">Source des recommandations de playlists</string>
     <string name="playlist_suggestion_source_title">Titre de la playlist</string>
     <string name="playlist_suggestion_source_content">Contenu de la playlist</string>
@@ -671,7 +666,6 @@
     <string name="visit_website">Visitez le site web</string>
     <string name="discord_activity_content">Contenu de l\'activité</string>
     <string name="save_current_account">Enregistrer le compte courant</string>
-    <string name="check_for_update">Rechercher les mises à jour</string>
     <string name="shortest_duration">Durée la plus courte</string>
     <string name="discord_activity_type_listening_label">Écouter</string>
     <string name="year_sort">Année</string>
@@ -703,7 +697,6 @@
     <string name="your_collection">Votre Collection</string>
     <string name="discord_login_description">Connectez votre compte Discord via OAuth afin qu\'ArchiveTune puisse publier des informations de présence enrichies.</string>
     <string name="personal_label">Personnel</string>
-    <string name="lyrics_animation_style_v2_only">Disponible uniquement en mode paroles V2</string>
     <string name="font_preference_custom">Personnalisé</string>
     <string name="custom_font_invalid">Choisissez un fichier de police au format .ttf</string>
     <string name="romanization">Romanisation</string>
@@ -888,7 +881,6 @@
     <string name="together_activity_join_requested">%1$s a demandé à rejoindre le groupe</string>
     <string name="together_activity_host_transferred">L\'hôte a été transféré vers %1$s</string>
     <string name="unhide">Afficher</string>
-    <string name="download_complete">Téléchargement complet</string>
     <string name="onboarding_welcome_title">Bienvenue sur ArchiveTune</string>
     <string name="onboarding_welcome_subtitle">Configurez la lecture, la musique locale et les autorisations de mise à jour avant de commencer à écouter.</string>
     <string name="onboarding_permissions_title">Vérifier les autorisations</string>
@@ -967,7 +959,6 @@
     <string name="updates_channel_warning_artifact_risk">Les versions « Canary » peuvent inclure des fonctionnalités expérimentales, des modifications non finalisées ou des régressions temporaires.</string>
     <string name="updates_channel_warning_artifact_unstable">Les versions « Canary » sont fournies uniquement à des fins de test et d\'accès anticipé.\nLa stabilité, la compatibilité et les fonctionnalités ne sont pas garanties.</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Remarque : le téléchargement direct depuis GitHub contourne tout contrôle supplémentaire effectué par la boutique à partir de laquelle vous avez initialement installé l\'application.\nEn poursuivant, vous reconnaissez que les versions Canary peuvent être instables et que vous les utilisez à vos propres risques.</string>
-    <string name="updates_artifact_channel_confirmation">Passez sur le canal Canary pour recevoir les versions de développement.\n\nLes versions Canary sont publiées automatiquement à partir de la dernière branche de développement.\nRemarque : le téléchargement direct depuis GitHub contourne tout contrôle supplémentaire effectué par la boutique à partir de laquelle vous avez initialement installé l\'application.</string>
     <string name="onboarding_permission_device_audio_capture_title">Reconnaissance audio intégrée à l\'appareil</string>
     <string name="onboarding_permission_device_audio_capture_desc">Identifiez la musique diffusée dans d\'autres applications sans utiliser le microphone. Android vous demande à chaque fois l\'autorisation de capturer l\'écran et le son, tandis qu\'ArchiveTune traite uniquement le son.</string>
     <string name="remove_playlist_cover">Retirer la pochette personnalisée</string>
@@ -1168,23 +1159,18 @@
     <string name="sponsor_block_use">Utiliser SponsorBlock</string>
     <string name="update_abi_best_device">Idéal pour votre appareil</string>
     <string name="update_abi_picker_title">Choisir la version de mise à jour</string>
-    <string name="update_abi_size_unknown">taille inconnue</string>
     <string name="update_abi_universal">Universel (tous appareils)</string>
     <string name="update_detail_best_device">Idéal pour votre appareil</string>
     <string name="update_detail_checking">Recherche de mises à jour</string>
     <string name="update_detail_checking_hint">Cela peut prendre quelques secondes</string>
-    <string name="update_detail_current_version">Version actuelle</string>
     <string name="update_detail_download">Télécharger la mise à jour</string>
     <string name="update_detail_error">Impossible de vérifier les mises à jour</string>
     <string name="update_detail_learn_more">Voir les nouveautés</string>
-    <string name="update_detail_new_version">Nouvelle version</string>
     <string name="update_detail_retry">Réessayer</string>
-    <string name="update_detail_size_unknown">taille inconnue</string>
     <string name="update_detail_title">Mise à jour logicielle</string>
     <string name="update_detail_universal">Universel (tous appareils)</string>
     <string name="update_detail_up_to_date">Vous êtes à jour</string>
     <string name="update_detail_update_available">Une mise à jour est disponible</string>
-    <string name="update_detail_updated_apps">Applications mises à jour</string>
     <string name="update_download_cancel">Annuler</string>
     <string name="update_download_channel_desc">Téléchargements en arrière-plan des mises à jour</string>
     <string name="update_download_channel_name">Téléchargements de mises à jour</string>
@@ -1201,13 +1187,10 @@
     <string name="updates_auto_download_desc">Les nouvelles versions sont téléchargées en arrière-plan.</string>
     <string name="updates_auto_download_title">Télécharger automatiquement les mises à jour</string>
     <string name="updates_auto_install_title">Installer automatiquement au prochain lancement</string>
-    <string name="updates_cancel_download">Annuler le téléchargement</string>
     <string name="updates_delete_download">Supprimer la mise à jour téléchargée</string>
-    <string name="updates_download_in_background">Télécharger en arrière-plan</string>
     <string name="updates_download_started">Téléchargement démarré</string>
     <string name="updates_download_state_title">Téléchargements en arrière-plan</string>
     <string name="updates_downloaded_version">Téléchargé : %1$s</string>
-    <string name="updates_downloading">Téléchargement…</string>
     <string name="updates_install_now">Installer la mise à jour</string>
     <string name="updates_wifi_only_title">Wi-Fi uniquement</string>
     <string name="wallpaper_permission">Autorisation de couleur du fond d\'écran</string>

@@ -477,7 +477,6 @@
     <string name="lyrics_mode">Mode lirik</string>
     <string name="lyrics_mode_v2">V2 Legacy</string>
     <string name="lyrics_mode_enhanced">Ditingkatkan</string>
-    <string name="lyrics_animation_style_v2_only">Hanya tersedia dalam mode lirik V2</string>
     <string name="lyrics_line_spacing">Jarak baris lirik</string>
     <string name="content">Konten</string>
     <string name="action_logout">Keluar</string>
@@ -876,7 +875,6 @@
     <string name="update_channel">Saluran Pembaruan</string>
     <string name="update_channel_desc">Pilih antara rilis teruji dan cuplikan pengembangan.</string>
     <string name="channel_artifact">Artefak</string>
-    <string name="recent_commits">Commit Terbaru</string>
     <string name="updates_artifact_hosting_description">Artefak build yang diambil langsung dari eksekusi workflow GitHub Actions.</string>
     <string name="updates_channel_warning_intro">ArchiveTune menyediakan dua saluran unduhan untuk build:</string>
     <string name="updates_channel_warning_stable_title">Build Stabil</string>
@@ -886,13 +884,7 @@
     <string name="updates_channel_warning_artifact_risk">Build artefak mungkin menyertakan fitur eksperimental, perubahan yang belum selesai, atau regresi sementara.</string>
     <string name="updates_channel_warning_artifact_unstable">Build artefak disediakan untuk pengujian dan akses awal saja.\nStabilitas, kompatibilitas, dan fungsionalitas tidak dijamin.</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Catatan: mengunduh langsung dari GitHub melewati pemeriksaan tambahan apa pun yang dilakukan oleh toko tempat Anda mungkin pertama kali menginstal aplikasi.\nDengan melanjutkan, Anda mengakui bahwa Build artefak mungkin tidak stabil dan menggunakannya dengan risiko Anda sendiri.</string>
-    <string name="updates_artifact_channel_confirmation">Beralih ke saluran Artefak untuk menerima rilis pengembangan.\n\nBuild artefak dipublikasikan secara otomatis dari cabang pengembangan terbaru.\nCatatan: mengunduh langsung dari GitHub melewati pemeriksaan tambahan yang dilakukan oleh toko tempat Anda menginstal aplikasi.</string>
-    <string name="updates_loading_commits">Memuat commit terbaru</string>
-    <string name="updates_recent_commits_count">%1$d commit terbaru</string>
-    <string name="updates_no_commits">Tidak ada commit terbaru yang ditemukan</string>
     <string name="changelog">Log Perubahan</string>
-    <string name="view_changelog">Lihat Log Perubahan</string>
-    <string name="check_for_update">Periksa Pembaruan</string>
     <string name="error_loading_changelog">Terjadi kesalahan saat memuat log perubahan</string>
     <string name="no_releases">Tidak ada rilis yang ditemukan</string>
     <string name="update_notification_channel_name">Pembaruan Aplikasi</string>
@@ -900,7 +892,6 @@
     <string name="update_notification_title">Pembaruan Tersedia</string>
     <string name="update_notification_text">ArchiveTune %s kini tersedia</string>
     <string name="download">Unduh</string>
-    <string name="download_complete">Pengunduhan selesai</string>
     <string name="downloads">Unduhan</string>
     <string name="download_in_progress">Sedang berlangsung</string>
     <string name="no_downloads">Belum ada musik yang diunduh</string>

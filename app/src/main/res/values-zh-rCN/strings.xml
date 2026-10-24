@@ -274,7 +274,6 @@
     <string name="current_version">当前版本</string>
     <string name="latest_version_format">最新消息：%s</string>
     <string name="enable_update_notification">启用更新通知</string>
-    <string name="recent_commits">近期提交</string>
     <string name="update_notification_text">ArchiveTune%s现已发布</string>
     <string name="permission_status_allowed">允许</string>
     <string name="next">下一个</string>
@@ -506,7 +505,6 @@
     <string name="auto_start_on_bluetooth">连接蓝牙时自动播放</string>
     <string name="auto_start_on_bluetooth_desc">连接蓝牙音频设备时自动恢复播放</string>
     <string name="changelog">更新日志</string>
-    <string name="view_changelog">查看更新日志</string>
     <string name="error_loading_changelog">错误加载更新日志</string>
     <string name="no_releases">未发现任何发布</string>
     <string name="you_might_like">猜你喜欢</string>
@@ -744,7 +742,6 @@
     <string name="lyrics_mode">歌词模式</string>
     <string name="lyrics_mode_v2">V2 经典模式</string>
     <string name="lyrics_mode_enhanced">增强模式</string>
-    <string name="lyrics_animation_style_v2_only">仅在 V2 歌词模式下可用</string>
     <string name="internet">网络</string>
     <string name="internet_warning_title">安全与使用警告</string>
     <string name="internet_warning_doh">DoH（基于 HTTPS 的 DNS）仅适用于你所在国家/地区封锁 YouTube 的情况。如果是 YouTube 主动限制了你所在区域，请考虑使用代理或 VPN</string>
@@ -920,12 +917,6 @@
     <string name="updates_channel_warning_artifact_risk">Canary 版本可能包含实验性功能、未完成的修改或暂时的性能退化/Bug</string>
     <string name="updates_channel_warning_artifact_unstable">Canary 版本仅供测试和尝鲜使用，概不保证稳定性、兼容性与功能完整性</string>
     <string name="updates_channel_warning_artifact_acknowledgement">注意：直接从 GitHub 下载将绕过你原安装应用商店的所有额外安全审查。\n继续操作即表示你已知晓 Canary 版本可能存在不稳定风险，并自愿承担相关风险</string>
-    <string name="updates_artifact_channel_confirmation">切换到 Canary 通道以接收开发版更新。\nCanary 版本基于最新的开发分支自动发布。\n注意：直接从 GitHub 下载将绕过你原安装应用商店的所有额外安全审查</string>
-    <string name="updates_loading_commits">正在加载近期提交记录</string>
-    <string name="updates_recent_commits_count">近期 %1$d 次提交</string>
-    <string name="updates_no_commits">未找到近期提交记录</string>
-    <string name="check_for_update">检查更新</string>
-    <string name="download_complete">下载完成</string>
     <string name="downloads">已下载</string>
     <string name="download_in_progress">下载中</string>
     <string name="no_downloads">暂无已下载的音乐</string>

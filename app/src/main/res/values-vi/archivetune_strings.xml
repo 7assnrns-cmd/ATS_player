@@ -636,7 +636,6 @@
     <string name="lyrics_background_default">Mặc định</string>
     <string name="arrange_library_chips">Sắp xếp chip thư viện</string>
     <string name="arrange_library_chips_desc">Chọn thứ tự hiển thị các tab trong thư viện</string>
-    <string name="use_system_language">Sử dụng ngôn ngữ hệ thống</string>
     <string name="latest_release">Phát hành mới nhất</string>
     <string name="release_type_album">Album</string>
     <string name="release_type_single">Đĩa đơn</string>

@@ -531,10 +531,7 @@
     <string name="latest_version_format">Mới nhất: %s</string>
     <string name="enable_update_notification">Bật Thông báo Cập nhật</string>
     <string name="update_channel">Kênh Cập nhật</string>
-    <string name="recent_commits">Commit gần đây</string>
     <string name="changelog">Nhật ký thay đổi</string>
-    <string name="view_changelog">Xem nhật ký thay đổi</string>
-    <string name="check_for_update">Kiểm tra bản cập nhật</string>
     <string name="error_loading_changelog">Lỗi khi tải nhật ký thay đổi</string>
     <string name="no_releases">Không tìm thấy phiên bản nào</string>
     <string name="update_notification_channel_name">Cập nhật Ứng dụng</string>
@@ -542,7 +539,6 @@
     <string name="update_notification_title">Cập nhật Có sẵn</string>
     <string name="update_notification_text">ArchiveTune %s hiện đã có sẵn</string>
     <string name="download">Tải xuống</string>
-    <string name="download_complete">Tải xuống hoàn tất</string>
     <string name="permissions_title">Cho phép ArchiveTune hoạt động tốt nhất</string>
     <string name="permissions_subtitle">Chúng tôi sử dụng một số quyền để phát và quản lý nhạc của bạn một cách đáng tin cậy. Bạn có thể thay đổi những quyền này bất cứ lúc nào trong cài đặt hệ thống.</string>
     <string name="permission_storage_title">Truy cập lưu trữ</string>
@@ -671,9 +667,6 @@
     <string name="updates_status_current">Bạn đang ở trên phiên bản mới nhất có sẵn</string>
     <string name="update_channel_desc">Chọn giữa các bản phát hành đã thử nghiệm và các snapshot phát triển.</string>
     <string name="update_preferences">Tùy chọn cập nhật</string>
-    <string name="updates_loading_commits">Đang tải các commit gần nhất</string>
-    <string name="updates_recent_commits_count">%1$d commit mới nhất</string>
-    <string name="updates_no_commits">Không có commit mới gần đây</string>
     <string name="you_might_like_source">Bạn có thể thích nguồn</string>
     <string name="playlist_suggestion_source_title">Danh sách nhạc tiêu đề</string>
     <string name="playlist_suggestion_source_content">Nội dung danh sách nhạc</string>
@@ -718,7 +711,6 @@
     <string name="haptics_desc">Bật phản hồi rung trên các thành phần tương tác</string>
     <string name="low_data_mode_description">Giảm sử dụng dữ liệu di động bằng cách sử dụng luồng chất lượng thấp và tắt bộ nhớ đệm phát lại cùng canvas trên mạng có đồng hồ</string>
     <string name="low_data_mode_title">Chế độ dữ liệu thấp</string>
-    <string name="lyrics_animation_style_v2_only">Chỉ khả dụng trong chế độ lời bài hát V2</string>
     <string name="lyrics_mode">Chế độ lời bài hát</string>
     <string name="lyrics_mode_enhanced">Nâng cao</string>
     <string name="lyrics_mode_v2">V2 kế thừa</string>
@@ -1146,23 +1138,18 @@
     <string name="sponsor_block_use">Dùng SponsorBlock</string>
     <string name="update_abi_best_device">Tốt nhất cho thiết bị của bạn</string>
     <string name="update_abi_picker_title">Chọn bản dựng cập nhật</string>
-    <string name="update_abi_size_unknown">không rõ kích thước</string>
     <string name="update_abi_universal">Phổ quát (mọi thiết bị)</string>
     <string name="update_detail_best_device">Tốt nhất cho thiết bị của bạn</string>
     <string name="update_detail_checking">Đang kiểm tra cập nhật</string>
     <string name="update_detail_checking_hint">Có thể mất vài giây</string>
-    <string name="update_detail_current_version">Phiên bản hiện tại</string>
     <string name="update_detail_download">Tải cập nhật</string>
     <string name="update_detail_error">Không thể kiểm tra cập nhật</string>
     <string name="update_detail_learn_more">Xem có gì mới</string>
-    <string name="update_detail_new_version">Phiên bản mới</string>
     <string name="update_detail_retry">Thử lại</string>
-    <string name="update_detail_size_unknown">không rõ kích thước</string>
     <string name="update_detail_title">Cập nhật phần mềm</string>
     <string name="update_detail_universal">Phổ quát (mọi thiết bị)</string>
     <string name="update_detail_up_to_date">Bạn đã cập nhật</string>
     <string name="update_detail_update_available">Có bản cập nhật</string>
-    <string name="update_detail_updated_apps">Ứng dụng đã cập nhật</string>
     <string name="update_download_cancel">Hủy</string>
     <string name="update_download_channel_desc">Tải xuống nền các bản cập nhật ứng dụng</string>
     <string name="update_download_channel_name">Bản tải cập nhật</string>
@@ -1176,15 +1163,10 @@
     <string name="update_found_no_notes">Mở màn hình cập nhật để xem có gì thay đổi.</string>
     <string name="update_found_title">Có bản cập nhật</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">Chuyển sang kênh Artifact để nhận bản dựng phát triển.
-
-Bản dựng Artifact được tải trực tiếp từ các lần chạy workflow GitHub Actions.
-Lưu ý: tải trực tiếp từ GitHub bỏ qua mọi sàng lọc bổ sung do cửa hàng nơi bạn có thể đã cài ứng dụng thực hiện.</string>
     <string name="updates_artifact_hosting_description">Bản dựng Artifact được tải trực tiếp từ các lần chạy workflow GitHub Actions.</string>
     <string name="updates_auto_download_desc">Bản phát hành mới được tải xuống trong nền.</string>
     <string name="updates_auto_download_title">Tự động tải cập nhật</string>
     <string name="updates_auto_install_title">Tự động cài đặt khi khởi động lần sau</string>
-    <string name="updates_cancel_download">Hủy tải xuống</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Lưu ý: tải trực tiếp từ GitHub bỏ qua mọi sàng lọc bổ sung do cửa hàng nơi bạn có thể đã cài ứng dụng thực hiện.
 Bằng cách tiếp tục, bạn xác nhận rằng bản dựng Artifact có thể không ổn định và sử dụng chúng với rủi ro của riêng bạn.</string>
     <string name="updates_channel_warning_artifact_risk">Bản dựng Artifact có thể bao gồm các tính năng thử nghiệm, thay đổi chưa hoàn thiện hoặc hồi quy tạm thời.</string>
@@ -1192,11 +1174,9 @@ Bằng cách tiếp tục, bạn xác nhận rằng bản dựng Artifact có th
     <string name="updates_channel_warning_artifact_unstable">Bản dựng Artifact chỉ dành cho thử nghiệm và truy cập sớm.
 Không đảm bảo tính ổn định, tương thích và chức năng.</string>
     <string name="updates_delete_download">Xóa cập nhật đã tải</string>
-    <string name="updates_download_in_background">Tải trong nền</string>
     <string name="updates_download_started">Đã bắt đầu tải</string>
     <string name="updates_download_state_title">Tải xuống nền</string>
     <string name="updates_downloaded_version">Đã tải: %1$s</string>
-    <string name="updates_downloading">Đang tải…</string>
     <string name="updates_install_now">Cài đặt cập nhật</string>
     <string name="updates_subtitle_artifact">Bản phát hành từ kho GitHub của fork này</string>
     <string name="updates_wifi_only_title">Chỉ Wi-Fi</string>

@@ -449,7 +449,6 @@
     <string name="arrange_library_chips">Kütüphane kategorilerini düzenleyin</string>
     <string name="arrange_library_chips_desc">Kütüphanenizde gösterilen sekmelerin sırasını ayarlayın</string>
     <string name="dont_show">Gösterme</string>
-    <string name="use_system_language">Sistem dilini kullan</string>
     <string name="storage_folder">Depolama klasörü</string>
     <string name="storage_folder_pick">Klasör seç</string>
     <string name="storage_location_sheet_title">Depolama konumu</string>

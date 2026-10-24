@@ -443,7 +443,6 @@
     <string name="latest_version_format">En son: %s</string>
     <string name="enable_update_notification">Güncelleme Bildirimini Etkinleştir</string>
     <string name="update_channel">Kanalı Güncelle</string>
-    <string name="recent_commits">Son Taahhütler</string>
     <string name="update_notification_channel_name">Uygulama Güncellemeleri</string>
     <string name="update_notification_channel_desc">Yeni uygulama güncellemeleri için bildirimler</string>
     <string name="update_notification_title">Güncelleme Mevcut</string>
@@ -457,7 +456,6 @@
     <string name="next">Sonraki</string>
     <string name="allow">İzin ver</string>
     <string name="speed_dial">Hızlı Seçimler</string>
-    <string name="view_changelog">Değişiklik Günlüğünü Görüntüle</string>
     <string name="disable_animations">Animasyonları devre dışı bırak</string>
     <string name="disable_animations_desc">Çoğu uygulama animasyonunu devre dışı bırakın. Düşük özellikli cihazlar için önerilir</string>
     <string name="music_recognition">Müzik Tanıma</string>
@@ -636,7 +634,6 @@
     <string name="browse_load_failed">Bu sayfa yüklenemedi</string>
     <string name="channel_artifact">Sürümüm</string>
     <string name="channel_official_version">Resmi Sürüm</string>
-    <string name="check_for_update">Güncelleme Ara</string>
     <string name="copy_log_entry">Günlük girişini kopyala</string>
     <string name="crossfade_manual_selection_description">Başka bir şarkıyı elle seçerken çapraz geçiş kullan.</string>
     <string name="crossfade_manual_selection_title">Elle seçimde çapraz geçiş</string>
@@ -688,7 +685,6 @@
     <string name="discord_waiting_for_authorization">Discord yetkilendirmesi bekleniyor...</string>
     <string name="display">Görünüm</string>
     <string name="download_action_failed">İndirme güncellenemedi</string>
-    <string name="download_complete">İndirme tamamlandı</string>
     <string name="download_failed_state">İndirme başarısız</string>
     <string name="download_in_progress">Devam ediyor</string>
     <string name="download_progress_summary">%1$d%% · %2$s/sn</string>
@@ -801,7 +797,6 @@
     <string name="local_songs_metadata_unavailable">%1$d şarkı içe aktarıldı. Çevrimiçi meta veriler kullanılamıyor; dosya etiketleri korundu.</string>
     <string name="low_data_mode_description">Sınırlı ağlarda düşük kaliteli akışlar kullanarak ve oynatma önbelleği ile tuvali devre dışı bırakarak mobil veri kullanımını azaltır</string>
     <string name="low_data_mode_title">Düşük Veri Modu</string>
-    <string name="lyrics_animation_style_v2_only">Yalnızca V2 şarkı sözleri modunda kullanılabilir</string>
     <string name="lyrics_caption_position_above">Üstte</string>
     <string name="lyrics_caption_position_below">Altta</string>
     <string name="lyrics_mode">Şarkı sözü modu</string>
@@ -994,23 +989,18 @@
     <string name="unsupported_language">Desteklenmeyen dil: %1$s</string>
     <string name="update_abi_best_device">Cihazınız için en iyisi</string>
     <string name="update_abi_picker_title">Güncelleme sürümünü seç</string>
-    <string name="update_abi_size_unknown">boyut bilinmiyor</string>
     <string name="update_abi_universal">Evrensel (tüm cihazlar)</string>
     <string name="update_detail_best_device">Cihazınız için en iyisi</string>
     <string name="update_detail_checking">Güncellemeler kontrol ediliyor</string>
     <string name="update_detail_checking_hint">Bu birkaç saniye sürebilir</string>
-    <string name="update_detail_current_version">Geçerli sürüm</string>
     <string name="update_detail_download">Güncellemeyi indir</string>
     <string name="update_detail_error">Güncellemeler kontrol edilemedi</string>
     <string name="update_detail_learn_more">Neler yeni öğrenin</string>
-    <string name="update_detail_new_version">Yeni sürüm</string>
     <string name="update_detail_retry">Yeniden dene</string>
-    <string name="update_detail_size_unknown">boyut bilinmiyor</string>
     <string name="update_detail_title">Yazılım güncellemesi</string>
     <string name="update_detail_universal">Evrensel (tüm cihazlar)</string>
     <string name="update_detail_up_to_date">Güncelsiniz</string>
     <string name="update_detail_update_available">Bir güncelleme mevcut</string>
-    <string name="update_detail_updated_apps">Güncellenen uygulamalar</string>
     <string name="update_download_cancel">İptal</string>
     <string name="update_download_channel_desc">Uygulama güncellemelerinin arka plan indirmeleri</string>
     <string name="update_download_channel_name">Güncelleme indirmeleri</string>
@@ -1024,15 +1014,10 @@
     <string name="update_found_no_notes">Ne değiştiğini görmek için güncellemeler ekranını açın.</string>
     <string name="update_found_title">Güncelleme mevcut</string>
     <string name="updates_app_display_name">ArchiveTune S</string>
-    <string name="updates_artifact_channel_confirmation">Geliştirme sürümlerini almak için Artifact kanalına geçin.
-
-Artifact sürümleri doğrudan GitHub Actions iş akışı çalıştırmalarından alınır.
-Not: doğrudan GitHub\'dan indirmek, uygulamayı ilk yüklediğiniz mağazanın yaptığı ek taramaları atlar.</string>
     <string name="updates_artifact_hosting_description">Artifact sürümleri doğrudan GitHub Actions iş akışı çalıştırmalarından alınır.</string>
     <string name="updates_auto_download_desc">Yeni sürümler arka planda indirilir.</string>
     <string name="updates_auto_download_title">Güncellemeleri otomatik indir</string>
     <string name="updates_auto_install_title">Sonraki başlatmada otomatik yükle</string>
-    <string name="updates_cancel_download">İndirmeyi iptal et</string>
     <string name="updates_channel_warning_artifact_acknowledgement">Not: doğrudan GitHub\'dan indirmek, uygulamayı ilk yüklediğiniz mağazanın yaptığı ek taramaları atlar.
 Devam ederek Artifact sürümlerinin kararsız olabileceğini ve riski size ait olmak üzere kullandığınızı kabul edersiniz.</string>
     <string name="updates_channel_warning_artifact_risk">Artifact sürümleri deneysel özellikler, tamamlanmamış değişiklikler veya geçici gerilemeler içerebilir.</string>
@@ -1044,11 +1029,9 @@ Kararlılık, uyumluluk ve işlevsellik garanti edilmez.</string>
     <string name="updates_channel_warning_stable_source">Resmi GitHub Releases aracılığıyla dağıtılır.</string>
     <string name="updates_channel_warning_stable_title">Kararlı sürümler</string>
     <string name="updates_delete_download">İndirilen güncellemeyi sil</string>
-    <string name="updates_download_in_background">Arka planda indir</string>
     <string name="updates_download_started">İndirme başladı</string>
     <string name="updates_download_state_title">Arka plan indirmeleri</string>
     <string name="updates_downloaded_version">İndirildi: %1$s</string>
-    <string name="updates_downloading">İndiriliyor…</string>
     <string name="updates_install_now">Güncellemeyi yükle</string>
     <string name="updates_subtitle_artifact">Bu çatalın GitHub deposundan sürümler</string>
     <string name="updates_wifi_only_title">Yalnızca Wi-Fi</string>
@@ -1160,9 +1143,6 @@ Kararlılık, uyumluluk ve işlevsellik garanti edilmez.</string>
     <string name="updates_status_current">En son kullanılabilir sürümdesiniz</string>
     <string name="update_channel_desc">Test edilmiş sürümler ile geliştirme anlık görüntüleri arasında seçim yapın.</string>
     <string name="update_preferences">Güncelleme tercihleri</string>
-    <string name="updates_loading_commits">Son commit\'ler yükleniyor</string>
-    <string name="updates_recent_commits_count">%1$d son commit</string>
-    <string name="updates_no_commits">Son commit bulunamadı</string>
     <string name="changelog">Değişiklik Günlüğü</string>
     <string name="error_loading_changelog">Değişiklik günlüğü yüklenirken hata</string>
     <string name="no_releases">Sürüm bulunamadı</string>
