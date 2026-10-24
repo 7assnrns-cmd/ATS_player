@@ -137,6 +137,13 @@ import moe.rukamori.archivetune.utils.rememberPreference
 import moe.rukamori.archivetune.viewmodels.LyricsRenderScreenState
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
+import androidx.compose.runtime.produceState
+import androidx.media3.common.C
+import dagger.hilt.android.EntryPointAccessors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import moe.rukamori.archivetune.di.LyricsHelperEntryPoint
+import moe.rukamori.archivetune.models.MediaMetadata
 
 private const val LRC_LEAD_MS = 300L
 private const val WORD_SYNC_LEAD_MS = 0L
@@ -590,7 +597,12 @@ fun LyricsEnhanced(
                     val karaokeListState = key(lyricsSessionKey) { rememberLyricsLazyListState() }
 
                     CompositionLocalProvider(LocalLayoutDirection provides lyricsLayoutDirection) {
-                        key(lyricsSessionKey, syncedLyrics) {
+                        val composedSyncedLyrics =
+                            rememberNextSongCompositeLyrics(
+                                currentLyrics = syncedLyrics,
+                                currentPositionMs = playbackSyncPosition(),
+                            )
+                        key(lyricsSessionKey, composedSyncedLyrics) {
                             // Offscreen layer so lyricsEdgeFade's DstIn masks stay
                             // scoped to the lyrics instead of punching through to the
                             // parent composition (which painted the dark rectangle).
@@ -601,7 +613,7 @@ fun LyricsEnhanced(
                             ) {
                             KaraokeLyricsView(
                                 listState = karaokeListState,
-                                lyrics = syncedLyrics,
+                                lyrics = composedSyncedLyrics,
                                 currentPosition = playbackSyncPosition,
                                 onLineClicked = { line ->
                                     if (isSelectionModeActive) {
@@ -1043,6 +1055,144 @@ private fun List<WordTimestamp>.toKaraokeSyllables(phonetics: List<String?>): Li
     }
 
 private fun Double.toMilliseconds(): Int = (this * 1000.0).roundToInt().coerceAtLeast(0)
+
+private const val NEXT_SONG_ANNOUNCEMENT_GAP_MS = 2000L
+private const val NEXT_SONG_ANNOUNCEMENT_DURATION_MS = 5000L
+private const val NEXT_SONG_START_GAP_MS = 3000L
+private const val OLD_LYRICS_CLEAR_AFTER_MS = 30_000L
+
+@Composable
+private fun rememberNextSongCompositeLyrics(
+    currentLyrics: SyncedLyrics,
+    currentPositionMs: Int,
+): SyncedLyrics {
+    val playerConnection = LocalPlayerConnection.current ?: return currentLyrics
+    val context = LocalContext.current
+
+    val lyricsHelper =
+        remember(context) {
+            EntryPointAccessors
+                .fromApplication(
+                    context.applicationContext,
+                    LyricsHelperEntryPoint::class.java,
+                ).lyricsHelper()
+        }
+
+    val nextMetadata by
+        produceState<MediaMetadata?>(initialValue = null, currentLyrics.id) {
+            withContext(Dispatchers.IO) {
+                val player = playerConnection.player
+                val nextIdx = player.nextMediaItemIndex
+                if (nextIdx == C.INDEX_UNSET || nextIdx !in 0 until player.mediaItemCount) {
+                    value = null
+                    return@withContext
+                }
+                val item = player.getMediaItemAt(nextIdx)
+                val tag = item.localConfiguration?.tag
+                value = tag as? MediaMetadata
+            }
+        }
+
+    val nextLyrics by
+        produceState<SyncedLyrics?>(initialValue = null, nextMetadata?.id) {
+            val metadata = nextMetadata ?: return@produceState
+            withContext(Dispatchers.IO) {
+                val entries = runCatching { lyricsHelper.getLyrics(metadata) }.getOrNull()
+                value =
+                    entries?.takeIf { it.isNotEmpty() }?.let { list ->
+                        val isWordSynced = list.any { it.words != null }
+                        runCatching { buildSyncedLyrics(list, isWordSynced, emptyMap()) }.getOrNull()
+                    }
+            }
+        }
+
+    val lastOldEnd = remember(currentLyrics) { currentLyrics.lines.maxOfOrNull { it.end } ?: 0 }
+    val transitionComplete = lastOldEnd > 0 && currentPositionMs > lastOldEnd + OLD_LYRICS_CLEAR_AFTER_MS
+
+    return remember(currentLyrics, nextLyrics, nextMetadata, transitionComplete) {
+        val currentNextLyrics = nextLyrics
+        val currentNextMetadata = nextMetadata
+
+        when {
+            currentNextLyrics == null || currentNextMetadata == null -> currentLyrics
+            transitionComplete -> currentNextLyrics
+            lastOldEnd <= 0 -> currentLyrics
+            else -> {
+                val announcementStart = lastOldEnd + NEXT_SONG_ANNOUNCEMENT_GAP_MS.toInt()
+                val announcementEnd = announcementStart + NEXT_SONG_ANNOUNCEMENT_DURATION_MS.toInt()
+                val nextStart = announcementEnd + NEXT_SONG_START_GAP_MS.toInt()
+
+                val artistName =
+                    currentNextMetadata.artists.firstOrNull()?.name?.takeIf { it.isNotBlank() }
+                        ?: "Unknown artist"
+                val songName = currentNextMetadata.title.takeIf { it.isNotBlank() } ?: "Unknown song"
+                val announcementText = "\u266A Next: \u00AB$songName\u00BB \u2014 $artistName"
+
+                val announcementLine =
+                    KaraokeLine.MainKaraokeLine(
+                        syllables =
+                            listOf(
+                                KaraokeSyllable(
+                                    content = announcementText,
+                                    start = announcementStart,
+                                    end = announcementEnd,
+                                ),
+                            ),
+                        translation = null,
+                        alignment = KaraokeAlignment.Unspecified,
+                        start = announcementStart,
+                        end = announcementEnd,
+                        phonetic = null,
+                        accompanimentLines = null,
+                    )
+
+                val firstNextStart = currentNextLyrics.lines.minOfOrNull { it.start } ?: 0
+                val timeOffset = nextStart - firstNextStart
+
+                SyncedLyrics(
+                    lines =
+                        currentLyrics.lines +
+                            announcementLine +
+                            currentNextLyrics.lines.map { shiftLyricsLineTime(it, timeOffset) },
+                    title = currentLyrics.title,
+                    id = currentLyrics.id,
+                    artists = currentLyrics.artists,
+                )
+            }
+        }
+    }
+}
+
+private fun shiftLyricsLineTime(
+    line: ISyncedLine,
+    offset: Int,
+): ISyncedLine =
+    when (line) {
+        is KaraokeLine.MainKaraokeLine ->
+            line.copy(
+                start = line.start + offset,
+                end = line.end + offset,
+                syllables = line.syllables.map { it.copy(start = it.start + offset, end = it.end + offset) },
+                accompanimentLines =
+                    line.accompanimentLines?.map { bg ->
+                        bg.copy(
+                            start = bg.start + offset,
+                            end = bg.end + offset,
+                            syllables = bg.syllables.map { it.copy(start = it.start + offset, end = it.end + offset) },
+                        )
+                    },
+            )
+
+        is KaraokeLine.AccompanimentKaraokeLine ->
+            line.copy(
+                start = line.start + offset,
+                end = line.end + offset,
+                syllables = line.syllables.map { it.copy(start = it.start + offset, end = it.end + offset) },
+            )
+
+        is SyncedLine -> line.copy(start = line.start + offset, end = line.end + offset)
+        else -> line
+    }
 
 private fun buildSyncedLyrics(
     entries: List<LyricsEntry>,
