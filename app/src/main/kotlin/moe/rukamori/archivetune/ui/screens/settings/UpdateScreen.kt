@@ -688,28 +688,29 @@ fun UpdateScreen(
             }
         isLoadingCommits = false
     }
-        // Preload all cached translations for the current language — runs once.
-        LaunchedEffect(Unit) {
-            val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
-            val cached = TranslationCache.getAll(context, lang)
-            if (cached.isNotEmpty()) {
-                translatedCommits = translatedCommits + cached
-            }
-        }
 
-        // Translate missing entries in the background. Cached entries are skipped,
-        // so an already-translated changelog never re-translates.
-        LaunchedEffect(commits) {
-            val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
-            if (commits.isEmpty()) return@LaunchedEffect
-            for (commit in commits) {
-                val key = commit.sha.ifBlank { commit.url }
-                if (key in translatedCommits) continue
-                val translated = TranslationService.translate(commit.message, lang) ?: continue
-                TranslationCache.put(context, lang, key, translated)
-                translatedCommits = translatedCommits + (key to translated)
-            }
+    // Preload all cached translations for the current language — runs once.
+    LaunchedEffect(Unit) {
+        val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
+        val cached = TranslationCache.getAll(context, lang)
+        if (cached.isNotEmpty()) {
+            translatedCommits = translatedCommits + cached
         }
+    }
+
+    // Translate missing entries in the background. Cached entries are skipped,
+    // so an already-translated changelog never re-translates.
+    LaunchedEffect(commits) {
+        val lang = TranslationService.currentTargetLanguage() ?: return@LaunchedEffect
+        if (commits.isEmpty()) return@LaunchedEffect
+        for (commit in commits) {
+            val key = commit.sha.ifBlank { commit.url }
+            if (key in translatedCommits) continue
+            val translated = TranslationService.translate(commit.message, lang) ?: continue
+            TranslationCache.put(context, lang, key, translated)
+            translatedCommits = translatedCommits + (key to translated)
+        }
+    }
 
 
     val rotationAngle by animateFloatAsState(
@@ -1401,7 +1402,7 @@ private fun UpdateCommitCard(
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .heightIn(min = 96.dp)
+                .height(140.dp)
                 .graphicsLayer {
                     rotationY = rotation
                     cameraDistance = 12f * density.density
@@ -1410,7 +1411,7 @@ private fun UpdateCommitCard(
         ) {
             if (rotation <= 90f) {
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxSize(),
                     shape = shape,
                     colors = CardDefaults.cardColors(
                         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -1444,12 +1445,14 @@ private fun UpdateCommitCard(
                 }
             } else {
                 Box(
-                    modifier = Modifier.graphicsLayer {
-                        rotationY = 180f
-                    },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            rotationY = 180f
+                        },
                 ) {
                     Card(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxSize(),
                         shape = shape,
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceContainerHighest,
